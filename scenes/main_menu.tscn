@@ -1,0 +1,256 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://assets/ui/qbert.png" id="2_icon"]
+
+[sub_resource type="StyleBoxFlat" id="Style_normal"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.13, 0.38, 0.43, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_left = 0
+corner_radius_bottom_right = 0
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Style_hover"]
+bg_color = Color(0.08, 0.25, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.31, 0.8, 0.76, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_left = 0
+corner_radius_bottom_right = 0
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="Style_focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.97, 0.78, 0.4, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_left = 0
+corner_radius_bottom_right = 0
+
+[sub_resource type="Theme" id="Theme_menu"]
+default_font_size = 20
+Button/colors/font_color = Color(0.93, 0.96, 0.98, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.94, 0.8, 1)
+Button/styles/normal = SubResource("Style_normal")
+Button/styles/hover = SubResource("Style_hover")
+Button/styles/pressed = SubResource("Style_hover")
+Button/styles/focus = SubResource("Style_focus")
+Label/colors/font_color = Color(0.78, 0.85, 0.91, 1)
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_menu")
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Accent" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 6.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.19, 0.67, 0.66, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 28
+
+[node name="Content" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Brand" type="HBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Margin/Content/Brand"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Margin/Content/Brand"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.97, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 48
+text = "Q*BERT PYRAMID"
+vertical_alignment = 1
+
+[node name="PhaseLabel" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36, 0.82, 0.79, 1)
+theme_override_font_sizes/font_size = 18
+text = "FASE 5 · PACCHETTO WINDOWS"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="IntroLabel" type="Label" parent="Margin/Content"]
+layout_mode = 2
+text = "Colora 28 celle, evita gli avversari e supera i round.\nSolo effetti di gioco · Record e comandi persistenti."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="Margin/Content"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Margin/Content"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 6
+
+[node name="GameButton" type="Button" parent="Margin/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../LabButton")
+focus_next = NodePath("../LabButton")
+focus_previous = NodePath("../ExitButton")
+text = "Nuova partita"
+
+[node name="LabButton" type="Button" parent="Margin/Content/Buttons"]
+visible = false
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../GameButton")
+focus_neighbor_bottom = NodePath("../InstructionsButton")
+focus_next = NodePath("../InstructionsButton")
+focus_previous = NodePath("../GameButton")
+text = "Laboratorio regole"
+
+[node name="InstructionsButton" type="Button" parent="Margin/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../LabButton")
+focus_neighbor_bottom = NodePath("../UtilityRow/StatusButton")
+focus_next = NodePath("../UtilityRow/StatusButton")
+focus_previous = NodePath("../LabButton")
+text = "Informazioni sul gioco"
+
+[node name="UtilityRow" type="HBoxContainer" parent="Margin/Content/Buttons"]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="Margin/Content/Buttons/UtilityRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Impostazioni"
+
+[node name="StatusButton" type="Button" parent="Margin/Content/Buttons/UtilityRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../InstructionsButton")
+focus_neighbor_bottom = NodePath("../../ExitButton")
+focus_next = NodePath("../../ExitButton")
+focus_previous = NodePath("../SettingsButton")
+text = "Classifica"
+
+[node name="IntroButton" type="Button" parent="Margin/Content/Buttons/UtilityRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Presentazione"
+
+[node name="ExitButton" type="Button" parent="Margin/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../UtilityRow/StatusButton")
+focus_neighbor_bottom = NodePath("../GameButton")
+focus_next = NodePath("../GameButton")
+focus_previous = NodePath("../UtilityRow/StatusButton")
+text = "Esci"
+
+[node name="FocusLabel" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.97, 0.78, 0.4, 1)
+text = "Finestra inattiva · interazione sospesa"
+horizontal_alignment = 1
+
+[node name="HelpLabel" type="Label" parent="Margin/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "↑ ↓ o Tab: seleziona   ·   Invio: conferma   ·   F11: schermo intero   ·   Esc: chiudi dialogo"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="InstructionsDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Informazioni sul gioco"
+initial_position = 2
+size = Vector2i(720, 300)
+min_size = Vector2i(600, 260)
+unresizable = true
+ok_button_text = "Chiudi"
+dialog_text = "QBERT Rev. 1.0 · Prima release del gioco\nAutore: Eugenio Ruggieri\nLicenza del gioco: GNU GPL v3.0 (GPL-3.0-only)\nTesto integrale: LICENSE nella cartella del gioco.\n\nCOME SI GIOCA\nColora 28 celle come il cubo obiettivo. Tre vite iniziali.\nEvita sfere rosse, serpente e ragnetti viola.\nRaccogli il sabotatore verde con piedi: 300 punti.\nLa sfera verde ferma i nemici e protegge i contatti per 5 s.\nLe cadute restano letali. Dischi: sinistra fila 4, destra fila 6.\nQ/Sinistra: alto-sinistra · E/Su: alto-destra\nZ/Giù: basso-sinistra · C/Destra: basso-destra · KP 7/9/1/3\nP: pausa/riprendi · Esc: menu · F11: schermo intero\nIn pausa: frecce/Tab e Invio per la GUI; nuova partita disponibile.\nExtra a 8.000 punti, poi ogni 14.000. Record e tasti persistenti.\nLaboratorio: R reset; selettore Regola mette in pausa e reimposta.\nSolo effetti di gioco. Volume, mute e tasti nelle Impostazioni.\n(c) Eugenio Ruggieri 2026 GNU GPL v3.0"
+dialog_autowrap = true
+
+[node name="StatusDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Stato del progetto"
+initial_position = 2
+size = Vector2i(720, 300)
+min_size = Vector2i(600, 260)
+unresizable = true
+ok_button_text = "Chiudi"
+dialog_text = "Fase 3: avversari, dischi di salvataggio, Stasi protettiva e progressione continua.\n\nSono disponibili laboratorio e controlli lettere/frecce/tastierino.\nDopo il round 12 la partita continua dal livello 4.\n\nAudio, record e salvataggi sono della fase 4."
+dialog_autowrap = true

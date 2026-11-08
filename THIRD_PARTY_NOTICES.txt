@@ -1,0 +1,7 @@
+Q*Bert Pyramid — third-party notices entry point
+
+The complete, preserved dependency license texts and attribution snapshot
+are in docs/THIRD_PARTY_NOTICES.txt. Keep that file with this entry point
+and with the executable/source distribution. This pointer avoids duplicating
+or shortening the full legal notices. Current license scope and asset
+exceptions are described in docs/LICENSING.md. Project code: GPL-3.0-only.

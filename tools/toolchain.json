@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "phase": 6,
+  "host": {
+    "distribution": "Ubuntu 22.04",
+    "environment": "WSL2",
+    "architecture": "x86_64"
+  },
+  "engine": {
+    "name": "Godot",
+    "version": "4.7.2",
+    "channel": "stable",
+    "edition": "standard",
+    "version_string": "4.7.2.stable.official.ed1daf0bf",
+    "linux_x86_64_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e"
+  },
+  "export_templates": {
+    "version": "4.7.2.stable",
+    "windows_release_x86_64.exe": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+    "windows_debug_x86_64.exe": "51498b72b3a237f882ebd7d1787f06a4bc1eaf0572daab93837adcfd3cfdc107"
+  },
+  "target": {
+    "os": "Windows 11",
+    "architecture": "x86_64",
+    "renderer": "gl_compatibility",
+    "export_preset": "Windows Desktop",
+    "packaging": "ZIP with separate EXE and PCK"
+  },
+  "prerequisites": {
+    "bash": ">= 5.1",
+    "python3": ">= 3.10 (standard library only)",
+    "git": ">= 2.34",
+    "zip": ">= 3.0",
+    "unzip": ">= 6.0",
+    "coreutils": "timeout, sha256sum, mktemp, realpath, cp, mv, mkdir",
+    "visual_studio_code": "optional for terminal builds; Remote WSL and godot-tools recommended for editing"
+  },
+  "verified_versions": {
+    "bash": "5.1.16",
+    "python3": "3.12.12",
+    "git": "2.34.1",
+    "zip": "3.0",
+    "unzip": "6.00"
+  },
+  "environment_overrides": {
+    "GODOT_BIN": "explicit executable path or command; otherwise PATH godot then ~/.local/bin/godot",
+    "GODOT_TEMPLATE_DIR": "directory containing version.txt and Windows x86_64 templates",
+    "GODOT_TIMEOUT_SECONDS": "positive integer; import/test default 120 seconds, export default 180 seconds"
+  },
+  "test_runner": {
+    "script": "res://tests/run_tests.gd",
+    "protocol": "qbert-pyramid-tests-v1",
+    "empty_suite_is_failure": true,
+    "state_directory": ".local-state/",
+    "uses_godot_builtin_test_option": false
+  },
+  "project_version": "1.0.0",
+  "audio_assets": {
+    "generator": "tools/generate_audio.py",
+    "sample_rate": 22050,
+    "source_format": "mono PCM 16-bit WAV",
+    "effects": 14,
+    "music_loops": 0
+  },
+  "art_assets": {
+    "generator": "tools/generate_arcade_art.py",
+    "method": "original procedural pixel atlas and bitmap alphabet",
+    "reference_images_included": false
+  }
+}

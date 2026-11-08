@@ -1,0 +1,169 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/presentation/game_screen.gd" id="1_lab"]
+[ext_resource type="Script" path="res://scripts/presentation/pyramid_view.gd" id="2_view"]
+
+[ext_resource type="FontFile" path="res://assets/arcade/arcade_font.fnt" id="3_font"]
+
+[sub_resource type="StyleBoxFlat" id="Style_button"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.35, 0.38, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_left = 0
+corner_radius_bottom_right = 0
+content_margin_left = 16.0
+content_margin_top = 5.0
+content_margin_right = 16.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="Style_focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.97, 0.78, 0.4, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_left = 0
+corner_radius_bottom_right = 0
+
+[sub_resource type="Theme" id="Theme_lab"]
+default_font_size = 14
+Button/styles/normal = SubResource("Style_button")
+Button/styles/hover = SubResource("Style_button")
+Button/styles/pressed = SubResource("Style_button")
+Button/styles/focus = SubResource("Style_focus")
+OptionButton/styles/normal = SubResource("Style_button")
+OptionButton/styles/hover = SubResource("Style_button")
+OptionButton/styles/pressed = SubResource("Style_button")
+OptionButton/styles/focus = SubResource("Style_focus")
+Label/colors/font_color = Color(0.78, 0.85, 0.91, 1)
+
+[node name="GameScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_lab")
+script = ExtResource("1_lab")
+texture_filter = 1
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Header" type="HBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+
+[node name="HudLabel" type="Label" parent="Margin/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.52, 0.08, 1)
+text = "Punti 0\nRecord 0"
+
+[node name="GameTitleLabel" type="Label" parent="Margin/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+text = "Q*BERT PYRAMID"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Margin/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.96, 0.3, 0.65, 1)
+text = "Livello 1\nRound 1"
+horizontal_alignment = 2
+
+[node name="ProgressLabel" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 0.4, 1)
+text = "Celle: 0/28"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PyramidView" type="Control" parent="Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("2_view")
+
+[node name="StateLabel" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.97, 0.78, 0.4, 1)
+text = "Colora tutte le celle"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Controls" type="HBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="NewGameButton" type="Button" parent="Margin/Content/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nuova partita"
+
+[node name="PauseButton" type="Button" parent="Margin/Content/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pausa · P"
+
+[node name="BackButton" type="Button" parent="Margin/Content/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menu · Esc"
+
+[node name="SettingsButton" type="Button" parent="Margin/Content/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Impostazioni"
+
+[node name="InputLegendLabel" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Q/← ↖   E/↑ ↗   Z/↓ ↙   C/→ ↘   ·   Tastierino 7/9/1/3   ·   F11 schermo intero   ·   In pausa: frecce per la UI"
+horizontal_alignment = 1
+autowrap_mode = 3

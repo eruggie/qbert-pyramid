@@ -1,0 +1,15 @@
+{
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.godot": true,
+    "**/.local-state": true
+  },
+  "[gdscript]": {
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false
+  },
+  "godotTools.editorPath.godot4": "godot",
+  "godotTools.lsp.serverHost": "127.0.0.1",
+  "godotTools.lsp.serverPort": 6005
+}

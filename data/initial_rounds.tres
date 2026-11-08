@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="RoundConfiguration" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/round_configuration.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+color_modes = Array[int]([0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2])
+continuous_modes = Array[int]([0, 1, 2])
+spawn_start_seconds = 2.0
+minimum_spawn_seconds = 1.2
+spawn_reduction_per_level = 0.1
+spawn_reduction_per_round = 0.1
+initial_enemy_cap = 6
+maximum_enemies = 8
+cap_growth_levels = 2
+minimum_speed_factor = 0.6
+speed_reduction_per_level = 0.02

@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "Please prominently cite this project when reusing its source code. GPL-3.0-only terms are unchanged."
+type: software
+title: "Q*Bert Pyramid"
+authors:
+  - family-names: Ruggieri
+    given-names: Eugenio
+license: GPL-3.0-only
+abstract: "Independent isometric arcade game implemented in Godot and GDScript. First public release."
+version: 1.0.0
+date-released: "2026-11-08"
+repository-code: "https://github.com/eruggie/qbert-pyramid"
+url: "https://github.com/eruggie/qbert-pyramid/releases/tag/v1.0.0"

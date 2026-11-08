@@ -1,0 +1,27 @@
+.godot/
+.local-state/
+builds/
+.env
+.env.*
+!.env.example
+export_credentials.cfg
+*.keystore
+*.jks
+
+# Materiali locali di consultazione, non asset distribuibili
+/*.mp4
+/Agents.docx
+/Q-Bert_Instruction_Manual_11-82.pdf
+
+# Cache degli strumenti Python, ricreabile localmente
+__pycache__/
+*.pyc
+
+# Private consultation images and unpublished packaging state
+/docs/image.png
+/docs/image.png.import
+*.swf
+*.rom
+
+# Documentation screenshots are not runtime resources.
+/docs/screenshots/*.import
