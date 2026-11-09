@@ -3,6 +3,7 @@ extends Control
 ## Original pixel presentation. Geometry and animation never change game rules.
 const Palette = preload("res://scripts/presentation/arcade_palette.gd")
 var actor_sheet: Texture2D
+var coil_death_texture: Texture2D
 var arcade_font: Font
 
 const SimulationScript = preload("res://scripts/core/pyramid_simulation.gd")
@@ -16,6 +17,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	actor_sheet = load("res://assets/arcade/actors.png") as Texture2D
+	coil_death_texture = load("res://assets/arcade/qbert_trivia.png") as Texture2D
 	arcade_font = load("res://assets/arcade/arcade_font.fnt") as Font
 	resized.connect(queue_redraw)
 
@@ -136,7 +138,9 @@ func _draw() -> void:
 			draw_rect(Rect2(point + Vector2(-width * 0.10, -width * 0.10), Vector2(width * 0.20, width * 0.04)), Color("f4df53"))
 		if game.rescue_remaining > 0 and game.rescue_remaining <= 54:
 			_draw_platform(rescue_disk_position())
-	if not simulation.fallen:
+	if shows_coil_death():
+		draw_texture_rect(coil_death_texture, coil_death_rect(), false)
+	elif not simulation.fallen:
 		objects.append({"feet": actor_canvas_position(), "floor": actor_shadow_position(), "kind": 0,
 			"direction": facing_direction(simulation.jump_from, simulation.jump_to),
 			"pose": 1 if simulation.is_airborne else 2 if simulation.state == &"recovering" else 0})
@@ -174,8 +178,16 @@ static func facing_direction(from: Vector2i, to: Vector2i) -> int:
 
 func _draw_sprite(kind: int, direction: int, pose: int, feet: Vector2, unit: float, tint: Color = Color.WHITE) -> void:
 	var source: Rect2 = Rect2(Vector2((direction * 3 + pose) * 40, kind * 48), Vector2(40, 48))
-	var destination: Rect2 = Rect2((feet - Vector2(20, 44) * unit).round(), Vector2(40, 48) * unit)
+	var destination: Rect2 = _actor_sprite_rect(feet, unit)
 	draw_texture_rect_region(actor_sheet, destination, source, tint)
+
+
+func player_sprite_rect() -> Rect2:
+	return _actor_sprite_rect(actor_canvas_position(), _tile_width() / 40.0)
+
+
+func _actor_sprite_rect(feet: Vector2, unit: float) -> Rect2:
+	return Rect2((feet - Vector2(20, 44) * unit).round(), Vector2(40, 48) * unit)
 
 
 func _draw_cell(cell: Vector2i) -> void:
@@ -260,3 +272,12 @@ func _draw_round_card() -> void:
 
 func _tile_width() -> float:
 	return maxf(20.0, minf(160.0, minf(size.x / 9.0, size.y / 6.45)))
+
+
+func shows_coil_death() -> bool:
+	return game != null and game.is_coil_death()
+
+
+func coil_death_rect() -> Rect2:
+	# Match the regular Q*BERT's 40x48 atlas frame and exact feet anchor.
+	return player_sprite_rect()

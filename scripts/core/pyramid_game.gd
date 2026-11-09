@@ -22,6 +22,7 @@ var platforms: Array[bool] = [true, true]
 var rescue_remaining: int = 0
 var last_platform_bonus: int = 0
 var state: State = State.PLAYING
+var death_context: Dictionary = {}
 var paused: bool = false
 var round_index: int = 0
 var active_ticks: int = 0
@@ -81,6 +82,7 @@ func step(input_events: Array[Dictionary] = []) -> Array[Dictionary]:
 		remaining_ticks -= 1
 		if remaining_ticks == 0:
 			if state == State.DYING:
+				death_context.clear()
 				if score.lives == 0:
 					state = State.GAME_OVER
 					events.append({"type": "game_over"})
@@ -135,7 +137,7 @@ func step(input_events: Array[Dictionary] = []) -> Array[Dictionary]:
 				simulation.jump_start_tick = before["jump_start_tick"]
 				simulation.jump_end_tick = before["jump_end_tick"]
 				events.erase(event)
-		request_death(&"contact")
+		request_death(&"contact", resolved["killer"])
 		return events
 	for actor_id: int in resolved["collected"]:
 		score.credit("round:%d:actor:%d" % [round_index, actor_id], 300)
@@ -185,12 +187,14 @@ func step(input_events: Array[Dictionary] = []) -> Array[Dictionary]:
 	return events
 
 
-func request_death(cause: StringName) -> bool:
+func request_death(cause: StringName, killer: Dictionary = {}) -> bool:
 	# Stasis protects contacts only; falls remain lethal.
 	if not accepts_movement or cause not in [&"fall", &"contact"]:
 		return false
 	if cause == &"contact" and (protection_ticks > 0 or world.stasis_remaining > 0):
 		return false
+	# Capture identity before after_death clears the world. Rejected contacts never set it.
+	death_context = {"cause": cause, "killer": killer.duplicate(true)}
 	score.lives -= 1
 	protection_ticks = 0
 	remaining_ticks = DEATH_TICKS
@@ -202,7 +206,7 @@ func request_death(cause: StringName) -> bool:
 
 
 func snapshot() -> Dictionary:
-	return {"state": state, "paused": paused, "round_index": round_index,
+	return {"state": state, "death_context": death_context.duplicate(true), "paused": paused, "round_index": round_index,
 		"active_ticks": active_ticks, "remaining_ticks": remaining_ticks,
 		"protection_ticks": protection_ticks, "last_bonus": last_bonus,
 		"score": score.snapshot(), "simulation": simulation.get_snapshot(),
@@ -213,6 +217,7 @@ func snapshot() -> Dictionary:
 
 
 func _begin_round() -> void:
+	death_context.clear()
 	state = State.PLAYING
 	remaining_ticks = 0
 	protection_ticks = 0
@@ -242,3 +247,7 @@ func _platform_for(from_cell: Vector2i, to_cell: Vector2i) -> int:
 	if from_cell == Vector2i(5, 5) and to_cell == Vector2i(4, 5):
 		return 1
 	return -1
+
+
+func is_coil_death() -> bool:
+	return state == State.DYING and death_context.get("cause", &"") == &"contact" and death_context.get("killer", {}).get("kind", -1) == World.COIL_KIND

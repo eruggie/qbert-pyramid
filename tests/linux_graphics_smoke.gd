@@ -245,6 +245,7 @@ func _capture_game() -> void:
 	await _capture_arcade_review(screen)
 	await _capture_corrective_review(screen)
 	await _capture_revision_054(screen)
+	await _capture_coil_death(screen)
 	screen.queue_free()
 	await process_frame
 
@@ -576,3 +577,21 @@ func _capture_revision_054(screen: GameScreen) -> void:
 	app.data = original
 	app.apply_preferences()
 	app.flush()
+
+
+func _capture_coil_death(screen: GameScreen) -> void:
+	for dimensions: Vector2i in [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1920, 1080)]:
+		root.size = dimensions
+		for cell: Vector2i in [Vector2i.ZERO, Vector2i(3, 1), Vector2i(6, 0), Vector2i(6, 6)]:
+			screen.start_new_game()
+			screen.game.world.spawning_enabled = false
+			screen.game.world.stasis_enabled = false
+			screen.game.simulation.reset(0, cell)
+			screen.game.score.lives = 1
+			screen.game.world.actors.append({"id": 731, "kind": 1, "cell": cell, "from": cell, "to": cell, "moving": false, "start": 0, "end": 0, "next": 99999})
+			_game_ticks(screen, 1)
+			if not screen.view.shows_coil_death(): _failures += 1
+			await _capture("coil_%d_%d_%dx%d.png" % [cell.x, cell.y, dimensions.x, dimensions.y])
+			_game_ticks(screen, 90)
+			if screen.view.shows_coil_death(): _failures += 1
+			await _capture("coil_gameover_%d_%d_%dx%d.png" % [cell.x, cell.y, dimensions.x, dimensions.y])

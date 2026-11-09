@@ -56,7 +56,7 @@ class ReleaseTests(unittest.TestCase):
                 output.writestr(n, value)
         return target.getvalue()
 
-    def test_working_tree_and_git_base_reconstruct(self):
+    def test_standalone_working_tree_reconstruct(self):
         (self.root / 'project.godot').write_text('modified\n')
         (self.root / 'scripts/new.gd').write_text('new uncommitted\n')
         (self.root / 'scripts/deleted.gd').unlink()
@@ -66,12 +66,10 @@ class ReleaseTests(unittest.TestCase):
         unpacked = self.base / 'unpacked'
         with zipfile.ZipFile(io.BytesIO(content)) as archive:
             archive.extractall(unpacked)
-        work = self.base / 'rebuilt'
-        subprocess.run(['git', 'clone', '-q', str(unpacked / 'BASE.bundle'), str(work)], check=True, capture_output=True)
-        shutil.copytree(unpacked / 'source', work, dirs_exist_ok=True)
-        for name in json.loads((unpacked / 'PROVENANCE.json').read_text())['deleted_tracked_files']:
-            (work / name).unlink(missing_ok=True)
-        self.assertEqual(release.snapshot(work), (manifest, identity))
+        work = unpacked / 'source'
+        self.assertFalse((unpacked / 'BASE.bundle').exists())
+        self.assertEqual((work / 'project.godot').read_text(), 'modified\n')
+        self.assertFalse((work / 'scripts/deleted.gd').exists())
         self.assertEqual((work / 'scripts/new.gd').read_text(), 'new uncommitted\n')
 
     def test_current_acceptance_report_in_source_overlay(self):
@@ -139,7 +137,7 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             release.verify(target.getvalue())
 
-    def test_wrong_commit_manifest_and_bundle_refused(self):
+    def test_wrong_commit_manifest_and_history_refused(self):
         content = self.archive()
         with self.assertRaises(ValueError):
             release.verify(content, expected_commit='0' * 40)
@@ -177,7 +175,7 @@ class ReleaseTests(unittest.TestCase):
         (self.package / 'BUILD_INFO.json').write_text(json.dumps({'git': {
             'commit': self.git('rev-parse', 'HEAD').decode().strip(),
             'source_identity_sha256': identity}}))
-        names = ['README.md', 'SPEC.md', 'PLAN.md', 'TEST.md', 'LICENSE', 'docs/ACCEPTANCE_PHASE6.md', 'docs/ASSET_LICENSES.md',
+        names = ['SOURCE_NOTICE.txt', 'THIRD_PARTY_NOTICES.txt', 'docs/INSTALL_WINDOWS.md', 'docs/LICENSING.md', 'README.md', 'SPEC.md', 'PLAN.md', 'TEST.md', 'LICENSE', 'docs/ACCEPTANCE_PHASE6.md', 'docs/ASSET_LICENSES.md',
                  'docs/ASSET_CATALOG.md', 'docs/TESTING.md', 'docs/PLAYER_GUIDE.md',
                  'docs/REFERENCE.md', 'docs/THIRD_PARTY_NOTICES.txt', 'docs/REBUILD.md']
         for name in names:
@@ -191,6 +189,9 @@ class ReleaseTests(unittest.TestCase):
         struct.pack_into('<H', pe, 132, 0x8664)
         (self.package / 'QBertPyramid.exe').write_bytes(pe)
         (self.package / 'QBertPyramid.pck').write_bytes(b'fixture pack')
+        (self.package / 'SOURCE_NOTICE.txt').write_text('Sources are a separate download')
+        shutil.copy2(self.package / 'QBertPyramid-source.zip', self.base / 'QBertPyramid-source.zip')
+        (self.package / 'QBertPyramid-source.zip').unlink()
         results.package_checksums(self.package)
         target = self.base / 'release.zip'
         with zipfile.ZipFile(target, 'w') as archive:
@@ -204,9 +205,9 @@ class ReleaseTests(unittest.TestCase):
         results.check_zip(target)
         for change in [lambda f: f.update({'README.md': b'tampered'}),
                        lambda f: f.pop('docs/PLAYER_GUIDE.md'),
-                       lambda f: f.pop('TEST.md'),
+                       lambda f: f.pop('SOURCE_NOTICE.txt'),
                        lambda f: f.pop('LICENSE'),
-                       lambda f: f.pop('docs/ACCEPTANCE_PHASE6.md'),
+                       lambda f: f.pop('docs/THIRD_PARTY_NOTICES.txt'),
                        lambda f: f.update({'../escape': b'unsafe'})]:
             broken = self.base / 'broken.zip'
             broken.write_bytes(self.mutate(target.read_bytes(), change))

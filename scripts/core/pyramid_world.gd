@@ -18,6 +18,7 @@ const ROUND_ROSTERS: Array[int] = [
 	27, 30, 31, 31,
 	27, 31, 31, 31,
 ]
+const COIL_KIND: int = 1 # Existing purple Segugio / Coily, not a new actor.
 const STASIS_KIND: int = 4
 const CHASER_ROUND_FACTORS: Array[float] = [1.0, 0.94, 0.88, 0.82]
 const LIMITS: Array[int] = [8, 1, 2, 1]
@@ -127,10 +128,12 @@ func advance(player_before: Dictionary, player_after: Dictionary, protected: boo
 		if shared_before or shared_after or crossed or arrives_at_departure:
 			contacts.append(actor)
 	var lethal: bool = false
+	var killer: Dictionary = {}
 	if not protected and stasis_remaining == 0:
 		for actor: Dictionary in contacts:
 			if int(actor["kind"]) != 3:
 				lethal = true
+				killer = {"id": actor["id"], "kind": actor["kind"]}
 				break
 	var collected: Array[int] = []
 	if not lethal:
@@ -154,7 +157,7 @@ func advance(player_before: Dictionary, player_after: Dictionary, protected: boo
 	if stasis_collected:
 		stasis_available = false
 		stasis_remaining = STASIS_DURATION
-	return {"lethal": lethal, "collected": collected, "landed": landed,
+	return {"lethal": lethal, "killer": killer, "collected": collected, "landed": landed,
 		"escaped": escaped, "stasis_collected": stasis_collected, "stasis_fallen": stasis_fallen}
 
 

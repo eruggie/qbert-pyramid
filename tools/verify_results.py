@@ -119,8 +119,9 @@ def build_info(root_path, package_path, config_path, engine_path, templates_path
             "source_manifest": "SOURCE_FILES.sha256",
             "source_scope": "distributable working tree files selected by tools/release_sources.py; excludes local references, images and private state",
         },
-        "source_archive": "QBertPyramid-source.zip",
-        "windows_validation": "pending: export success is not a Windows execution test",
+        "source_archive": "../QBertPyramid-source.zip",
+        "distribution": "release 1.1.0; unsigned; author metadata is not Authenticode signing",
+        "windows_validation": "owner-reported manual Windows acceptance passed on 2026-11-09",
     }
     (package / "BUILD_INFO.json").write_text(json.dumps(info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(commit[:12] + ("-dirty" if dirty else ""))
@@ -151,7 +152,7 @@ def package_checksums(package_path):
 
 
 def check_zip(zip_path):
-    required = {"QBertPyramid.exe", "QBertPyramid.pck", "README.md", "SPEC.md", "PLAN.md", "TEST.md", "LICENSE", "docs/ACCEPTANCE_PHASE6.md", "BUILD_INFO.json", "SOURCE_FILES.sha256", "SHA256SUMS.txt", "docs/ASSET_LICENSES.md", "docs/ASSET_CATALOG.md", "docs/TESTING.md", "docs/PLAYER_GUIDE.md", "docs/REFERENCE.md", "docs/THIRD_PARTY_NOTICES.txt", "docs/REBUILD.md", "QBertPyramid-source.zip"}
+    required = {"QBertPyramid.exe", "QBertPyramid.pck", "LICENSE", "BUILD_INFO.json", "SOURCE_FILES.sha256", "SHA256SUMS.txt", "docs/INSTALL_WINDOWS.md", "docs/LICENSING.md", "THIRD_PARTY_NOTICES.txt", "docs/ASSET_LICENSES.md", "docs/PLAYER_GUIDE.md", "docs/THIRD_PARTY_NOTICES.txt" , "SOURCE_NOTICE.txt"}
     with zipfile.ZipFile(zip_path) as archive:
         names = archive.namelist()
         if not required.issubset(names):
@@ -162,7 +163,7 @@ def check_zip(zip_path):
             if name.startswith("/") or ".." in pathlib.PurePosixPath(name).parts or "\\" in name:
                 fail("Percorso non valido nello ZIP: " + name)
         info = json.loads(archive.read("BUILD_INFO.json"))
-        release_sources.verify(archive.read("QBertPyramid-source.zip"),
+        release_sources.verify((pathlib.Path(zip_path).parent / "QBertPyramid-source.zip").read_bytes(),
                                archive.read("SOURCE_FILES.sha256").decode("utf-8"),
                                info["git"]["commit"])
         if hashlib.sha256(archive.read("SOURCE_FILES.sha256")).hexdigest() != info["git"]["source_identity_sha256"]:

@@ -12,40 +12,31 @@ My role was to guide the overall design, choose the direction, review the result
 
 A little trip back to the arcade, using today's tools—and a hands-on experiment in what AI coding agents can do.
 
-## Status and downloads
+## Release 1.1 — QBERT Rev. 1.1
 
-**QBERT Rev. 1.0 — version 1.0.0** is the first public release for Windows 11 x86_64.
+**Q*Bert Pyramid 1.1.0** is released for Windows 11 x86_64. Coil collision
+captures now use the live Q*BERT sprite's 40×48 atlas frame dimensions and feet
+anchor, and play the capture voice cue. The release adds a per-user NSIS
+installer alongside the portable edition.
 
-[Download the Windows release](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.0.0)
-— [source repository](https://github.com/eruggie/qbert-pyramid)
+[Download release 1.1.0](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0)
+— [public source repository](https://github.com/eruggie/qbert-pyramid)
 — [arcade games catalog](https://github.com/eruggie/80-arcade-games).
 
-The Windows package includes the game, licenses, installation instructions,
-corresponding sources and SHA-256 checksums. See the
-[installation guide](docs/INSTALL_WINDOWS.md) to choose and verify the correct download.
+Release assets include `QBertPyramid-1.1.0-Setup.exe`,
+`QBertPyramid-1.1.0-Windows-x86_64.zip`, corresponding source archive and
+`QBertPyramid-1.1.0-SHA256SUMS.txt`. Verify the hash before running an asset.
+The installer runs for the current Windows user and preserves saves when removed.
+See [installation and updates](docs/INSTALL_WINDOWS.md) and the
+[release notes](docs/releases/v1.1.0.md).
+
+The owner reports manual Windows testing passed on 2026-11-09. Automated checks
+and their scope are recorded in the release notes and [test guide](docs/TESTING.md).
 
 ![Actual game running in a reproducible local test](docs/screenshots/gameplay.png)
 
 Screenshot of this project's rendered game, captured under WSLg; not an image
 from the reference arcade. [Image provenance](docs/screenshots/README.md).
-
-## Play on Windows
-
-The supported release target is **Windows 11 x86_64** with the Compatibility
-renderer and an OpenGL 3.3-capable driver. Windows testing reported so far
-used a Core Ultra 9 275HX / RTX 5070 Laptop system; no minimum hardware or
-frame-time guarantee has been established. Windows 10, ARM, Linux game
-releases, web and Android are not claimed as supported targets.
-
-To play:
-
-1. Download its **Windows binary ZIP**, not GitHub's automatic source archive.
-2. Verify its SHA-256 against the published checksum.
-3. Extract the entire ZIP and launch `QBertPyramid.exe`.
-4. Keep `QBertPyramid.pck`, licenses and supporting files beside the EXE.
-
-Players do not need Godot, Git, WSL, VS Code, Python or Codex.
-[Complete installation, update, removal and troubleshooting](docs/INSTALL_WINDOWS.md).
 
 ## Controls and gameplay
 
@@ -81,7 +72,7 @@ matching export templates. With prerequisites already installed:
 bash tools/doctor.sh
 bash tools/test.sh
 bash tools/smoke_linux.sh
-bash tools/build_windows.sh
+bash tools/build_windows.sh # requires NSIS 3.08 (makensis)
 ```
 
 The build command already runs doctor and the full tests. WSLg graphics
@@ -156,11 +147,11 @@ does not add a new restriction or change the GPL license.
   author = {Ruggieri, Eugenio},
   title = {{Q*Bert Pyramid}},
   year = {2026},
-  version = {1.0.0},
+  version = {1.1.0},
   url = {https://github.com/eruggie/qbert-pyramid},
   note = {Independent Godot implementation}
 }
 ```
 
 [CITATION.cff](CITATION.cff) provides machine-readable citation metadata.
-Release sources are identified by tag `v1.0.0` in the public repository.
+Release sources are identified by tag `v1.1.0` in the public repository.

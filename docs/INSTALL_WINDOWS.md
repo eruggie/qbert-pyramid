@@ -1,70 +1,56 @@
 # Install and play on Windows
 
-## Availability
+## Release 1.1.0
 
-[Release 1.0.0](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.0.0)
-provides the Windows binary and matching SHA-256 files. Choose the Windows ZIP
-under Assets, not GitHub's automatic source archive.
+The current release is [QBERT Rev. 1.1](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0)
+for Windows 11 x86_64. The release includes the installer, portable runtime,
+corresponding sources, build metadata and checksums as separate GitHub release
+assets. Windows 1.0.0 remains available at its original tag.
 
-## Requirements
+| Download | Use |
+|---|---|
+| `QBertPyramid-1.1.0-Setup.exe` | Guided current-user setup and Windows uninstall entry |
+| `QBertPyramid-1.1.0-Windows-x86_64.zip` | Portable game; extract the full ZIP |
+| `QBertPyramid-1.1.0-source.zip` | Corresponding source snapshot and public source history |
+| `QBertPyramid-1.1.0-SHA256SUMS.txt` | SHA-256 checks for release downloads |
+| GitHub Source code ZIP/tar.gz | Exact sources for tag `v1.1.0` |
 
-Windows 11 x86_64, Compatibility renderer with an OpenGL 3.3-capable graphics
-driver. Godot's [engine requirements](https://docs.godotengine.org/en/stable/about/system_requirements.html)
-are informative, not proof of this game's minimum hardware. The observed Windows
-reference PC is Core Ultra 9 275HX / RTX 5070 Laptop, driver 32.0.15.9608;
-no performance floor has been measured. No Windows 10 or ARM support is claimed.
-Players do not install development tools or a separate Godot runtime.
+## Verify and install
 
-## Download, verify and extract
-
-Choose the Windows x86_64
-binary ZIP attached under release **Assets**, plus its matching .zip.sha256.
-GitHub's “Source code” ZIP/tar.gz and QBertPyramid-source.zip are source packages,
-not the playable Windows download. Use the exact pair of files from the same release.
-
-In PowerShell, replace both file paths with the exact downloaded names:
+In PowerShell calculate the hash for each downloaded file and compare it to the
+matching release checksum:
 
 ```powershell
-$archive = Get-Item -LiteralPath '.\QBertPyramid-1.0.0-Windows-x86_64.zip'
-$checksumFile = Get-Item -LiteralPath '.\QBertPyramid-1.0.0-Windows-x86_64.zip.sha256'
-$expected = ((Get-Content -LiteralPath $checksumFile.FullName -Raw).Trim() -split '\s+')[0]
-if ($expected -notmatch '^[0-9a-fA-F]{64}$') { throw 'Invalid SHA-256 file' }
-$actual = (Get-FileHash -LiteralPath $archive.FullName -Algorithm SHA256).Hash
-if ($actual -ine $expected) { throw 'SHA-256 mismatch: do not run this file' }
-$destination = Join-Path $env:LOCALAPPDATA 'QBertPyramid Game'
-if (Test-Path -LiteralPath $destination) { throw 'Choose a new empty destination for this version' }
-Expand-Archive -LiteralPath $archive.FullName -DestinationPath $destination
-Start-Process -FilePath (Join-Path $destination 'QBertPyramid.exe') -WorkingDirectory $destination
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\QBertPyramid-1.1.0-Setup.exe'
 ```
 
-The names above identify the 1.0.0 release assets.
-Keep the EXE, PCK, licenses, notices and other extracted files together. Do not
-run from inside an archive. Distribution works by copying the entire folder to
-local disk, USB or a network share where Windows permits execution; no installer
-is provided. Network/USB policies and disconnections can prevent execution.
-Those paths have not received a distinct reported transport test.
+Open Setup, review the GPL license, and follow the installer. It installs for
+the current Windows user under `%LOCALAPPDATA%\Programs\QBertPyramid`, adds
+Start menu shortcuts and a Windows installed-app entry, and does not require
+administrator rights or extra runtime downloads. To update, close the game and
+run the newer installer into the existing application directory. To remove it,
+use Windows Settings > Apps or `Uninstall.exe`.
 
-## First run and saves
+For the portable edition verify the ZIP, extract it in full and launch
+`QBertPyramid.exe`. Keep its PCK and notices together. Delete the portable folder
+to remove the application.
 
-Use Nuova partita (New game), Informazioni sul gioco (About/instructions) and
-Impostazioni (Settings). See [PLAYER_GUIDE](PLAYER_GUIDE.md). Test sound, focus,
-controls and results. The top ten and settings are stored in
-`%APPDATA%\QBertPyramid\profile.json`, with a .bak backup. They are local to
-the current Windows user, including when running from USB or a share.
-Do not modify personal profiles for corruption or write-denial testing.
+## Saves and platform requirements
 
-For an update, close the game, retain a protected copy of that profile folder,
-and extract the new version to a separate program directory. Existing supported
-profiles are migrated; older builds may not understand a new schema. Removing
-the program folder uninstalls the game. Saves remain until the user separately
-chooses to remove them; do not delete them as part of an ordinary update.
+Settings and scores stay in `%APPDATA%\QBertPyramid\profile.json` (and backup).
+Updates and uninstall preserve these saves and files added by the user. Back up
+your profile before changing releases. Windows 11 x86_64 and an OpenGL 3.3-capable
+driver are required. Windows 10 and ARM are not supported targets.
 
-## Warnings and known limits
+Players do not need Godot, Python, Git, WSL, VS Code or Codex.
+See [PLAYER_GUIDE.md](PLAYER_GUIDE.md) for controls and settings.
 
-The EXE is not digitally signed. Windows reputation checks may display a warning.
-Inspect the source, checksum and provenance; stop if uncertain. Do not disable
-antivirus, SmartScreen or other protection. A missing PCK usually means incomplete
-extraction; a graphics startup error may indicate an unsupported driver. Do not
-promise a fix by changing global driver or security settings.
-Phase 6, including performance targets, is accepted on the owner’s declaration.
-No frame-time values were provided to this session; the assistant has not measured them. See [VALIDATION](VALIDATION.md) for owner-reported acceptance and its scope.
+## Publisher and security
+
+The EXE and installer include author metadata and `(c) Eugenio Ruggieri 2026`.
+Neither binary is digitally signed with Authenticode. File metadata does not
+verify the publisher, and SmartScreen can still warn about a new download. Keep
+Windows security protections enabled.
+
+The owner reports manual Windows acceptance passed on 2026-11-09. See
+[release-specific validation](releases/v1.1.0.md).

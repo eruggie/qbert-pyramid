@@ -2,7 +2,7 @@
 
 The game interface is currently Italian. Nuova partita starts a game;
 Informazioni sul gioco shows About/instructions, author Eugenio Ruggieri,
-QBERT Rev. 1.0 and GNU GPL v3.0. Impostazioni opens settings, Classifica
+QBERT Rev. 1.1 and GNU GPL v3.0. Impostazioni opens settings, Classifica
 shows scores, Presentazione replays the intro, and Esci quits.
 
 Hop through all 28 cells to match the target sample. Permanent, two-step and
@@ -30,4 +30,4 @@ Continue confirms valid qualifying input before returning to the menu.
 Records/settings persist under the local Windows profile, not on USB/network
 media. Failed writes are reported without blocking play; retry does not duplicate
 a score. No in-progress game is saved. See INSTALL_WINDOWS.md for safe updates
-and data locations.
+and data locations. The previous guide is archived in history/PLAYER_GUIDE_PRE_PHASE7.it.txt.

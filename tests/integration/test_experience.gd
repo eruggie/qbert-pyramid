@@ -7,10 +7,11 @@ func run(tree: SceneTree) -> void:
 	var app: Node = runner.root.get_node("App")
 	var original: Dictionary = app.data.duplicate(true)
 	_begin("arcade_event_audio_volumes_mute_no_music")
-	_check(app.FX.size() == 14 and AudioServer.get_bus_index("Music") == -1, "Quattordici effetti di eventi e nessun bus musicale.")
+	_check(app.FX.size() == 15 and AudioServer.get_bus_index("Music") == -1, "Quindici effetti di eventi e nessun bus musicale.")
 	for location: String in app.FX.values():
-		var stream: AudioStreamWAV = load(location) as AudioStreamWAV
-		_check(stream != null and stream.get_length() > 0.025 and stream.get_length() < 2.8 and not stream.data.is_empty() and stream.loop_mode == AudioStreamWAV.LOOP_DISABLED, "Effetto finito, non ciclico ed esportabile: " + location)
+		var stream: AudioStream = load(location) as AudioStream
+		var non_looping: bool = (stream is AudioStreamWAV and stream.loop_mode == AudioStreamWAV.LOOP_DISABLED) or (stream is AudioStreamMP3 and not stream.loop)
+		_check(stream != null and stream.get_length() > 0.025 and stream.get_length() < 2.8 and not stream.data.is_empty() and non_looping, "Effetto finito, non ciclico ed esportabile: " + location)
 	_check(not app.update_setting("music", 0.5), "L'opzione musica non esiste più.")
 	app.update_setting("master", 0.5)
 	app.update_setting("effects", 0.7)

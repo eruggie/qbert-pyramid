@@ -22,10 +22,20 @@ class ArcadeAssets(unittest.TestCase):
                 module.ROOT = pathlib.Path(folder)
                 module.main()
                 generated = sorted(p.name for p in module.ROOT.iterdir())
-                current = sorted(p.name for p in (ROOT/'assets'/directory).iterdir() if p.suffix in suffixes)
+                # Imported/user-local art is independent of the procedural generator.
+                imported_art = {'qbert_trivia.png', 'qbert_catturato.png'} if directory == 'arcade' else set()
+                current = sorted(p.name for p in (ROOT/'assets'/directory).iterdir() if p.suffix in suffixes and p.name not in imported_art)
                 self.assertEqual(generated, current)
                 for filename in generated:
                     self.assertEqual((module.ROOT/filename).read_bytes(), (ROOT/'assets'/directory/filename).read_bytes(), filename)
+
+    def test_supplied_coil_assets_are_unchanged(self):
+        import hashlib
+        for name, digest in {
+            'arcade/qbert_trivia.png': '380f413aee3c7aeb9f71dbfe021e4a5ced82d294c303068ae6d6125faed6f6ec',
+            'audio/qbert_hello.mp3': '258eee9203a40b86c7dfd0a045974459badeff1ea863adc9e763debe632c42cb',
+        }.items():
+            self.assertEqual(hashlib.sha256((ROOT/'assets'/name).read_bytes()).hexdigest(), digest)
 
     def test_event_pcm_is_short_nonempty_and_unclipped(self):
         paths = list((ROOT/'assets/audio').glob('*.wav'))

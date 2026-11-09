@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "phase": 6,
+  "phase": 7,
   "host": {
     "distribution": "Ubuntu 22.04",
     "environment": "WSL2",
@@ -24,7 +24,7 @@
     "architecture": "x86_64",
     "renderer": "gl_compatibility",
     "export_preset": "Windows Desktop",
-    "packaging": "ZIP with separate EXE and PCK"
+    "packaging": "NSIS per-user installer and runtime-only portable ZIP; separate standalone corresponding-source ZIP"
   },
   "prerequisites": {
     "bash": ">= 5.1",
@@ -54,17 +54,35 @@
     "state_directory": ".local-state/",
     "uses_godot_builtin_test_option": false
   },
-  "project_version": "1.0.0",
+  "project_version": "1.1.0",
   "audio_assets": {
     "generator": "tools/generate_audio.py",
     "sample_rate": 22050,
-    "source_format": "mono PCM 16-bit WAV",
-    "effects": 14,
-    "music_loops": 0
+    "source_format": "14 generated mono PCM 16-bit WAV + 1 user-supplied mono MP3",
+    "effects": 15,
+    "music_loops": 0,
+    "supplied_asset": {
+      "path": "res://assets/audio/qbert_hello.mp3",
+      "sample_rate": 48000,
+      "bitrate_kbps": 320,
+      "playback_seconds": 1.45416665,
+      "redistribution_rights": "owner confirmed redistribution permission on 2026-11-09; included under GPL-3.0-only"
+    }
   },
   "art_assets": {
     "generator": "tools/generate_arcade_art.py",
     "method": "original procedural pixel atlas and bitmap alphabet",
     "reference_images_included": false
+  },
+  "installer": {
+    "name": "NSIS",
+    "version": "3.08",
+    "compiler": "makensis (override MAKENSIS_BIN; portable extraction supported via NSISDIR)",
+    "scope": "current user; no administrator; no network dependencies",
+    "signing": "unsigned release; trusted Authenticode identity required for verified publisher",
+    "portable_package_sha256": {
+      "nsis_3.08-2_amd64.deb": "c36e6be757d7d4686c14cec3d7443746889fd48eced2a0a75f2bfecac3401176",
+      "nsis-common_3.08-2_all.deb": "a6c50d3fb74656da8ea0c64e4a8ef9a688f9475a19665d56c61c8a87c8521429"
+    }
   }
 }

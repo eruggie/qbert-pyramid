@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Portable source snapshot and Git base; no caches or private reference material."""
+"""Standalone source snapshot without Git history; no caches or private reference material."""
 import hashlib
 import io
 import json
@@ -54,22 +54,15 @@ def snapshot(root):
 def create(root, package):
     manifest, identity = snapshot(root)
     commit = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD']).decode().strip()
-    bundle = package / 'BASE.bundle'
-    subprocess.run(['git', '-C', str(root), 'bundle', 'create', str(bundle), 'HEAD'], check=True)
-    try:
-        with zipfile.ZipFile(package / 'QBertPyramid-source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-            archive.write(bundle, 'BASE.bundle')
-            archive.writestr('SOURCE_FILES.sha256', manifest)
-            archive.writestr('PROVENANCE.json', json.dumps({'commit': commit,
-                'source_identity_sha256': identity,
-                'base_bundle_sha256': hashlib.sha256(bundle.read_bytes()).hexdigest(),
-                'deleted_tracked_files': [n for n in entries(root)
-                if not (root / n).exists()]}, indent=2) + '\n')
-            for record in manifest.splitlines():
-                name = record.split('  ', 1)[1]
-                archive.write(root / name, 'source/' + name)
-    finally:
-        bundle.unlink(missing_ok=True)
+    with zipfile.ZipFile(package / 'QBertPyramid-source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr('SOURCE_FILES.sha256', manifest)
+        archive.writestr('PROVENANCE.json', json.dumps({'commit': commit,
+            'source_identity_sha256': identity,
+            'format': 'standalone-snapshot-v1'}, indent=2) + '\n')
+        for record in manifest.splitlines():
+            name = record.split('  ', 1)[1]
+            archive.write(root / name, 'source/' + name)
+
     verify((package / 'QBertPyramid-source.zip').read_bytes(), manifest, commit)
 
 
@@ -78,7 +71,7 @@ def verify(content, expected_manifest=None, expected_commit=None):
         names = archive.namelist()
         if len(names) != len(set(names)):
             raise ValueError('Voci duplicate nei sorgenti.')
-        if not {'BASE.bundle', 'PROVENANCE.json', 'SOURCE_FILES.sha256'}.issubset(names):
+        if not {'PROVENANCE.json', 'SOURCE_FILES.sha256'}.issubset(names):
             raise ValueError('Archivio sorgenti incompleto.')
         if archive.testzip():
             raise ValueError('CRC sorgenti errato.')
@@ -92,7 +85,7 @@ def verify(content, expected_manifest=None, expected_commit=None):
             raise ValueError('Identità sorgenti errata.')
         if expected_manifest is not None and manifest != expected_manifest:
             raise ValueError('Manifest sorgenti diverso dalla build.')
-        remaining = set(names) - {'BASE.bundle', 'PROVENANCE.json', 'SOURCE_FILES.sha256'}
+        remaining = set(names) - {'PROVENANCE.json', 'SOURCE_FILES.sha256'}
         seen = set()
         for record in manifest.splitlines():
             match = re.fullmatch(r'([0-9a-f]{64})  (.+)', record)
@@ -106,10 +99,5 @@ def verify(content, expected_manifest=None, expected_commit=None):
             remaining.remove(path)
         if remaining or not {'project.godot', 'tools/build_windows.sh', 'tools/toolchain.json'}.issubset(seen):
             raise ValueError('Contenuto sorgenti inatteso o incompleto.')
-        if hashlib.sha256(archive.read('BASE.bundle')).hexdigest() != info['base_bundle_sha256']:
-            raise ValueError('Bundle Git alterato.')
-        if not archive.read('BASE.bundle').startswith(b'# v2 git bundle\n') and not archive.read('BASE.bundle').startswith(b'# v3 git bundle\n'):
-            raise ValueError('Bundle Git non valido.')
-        deleted = info['deleted_tracked_files']
-        if not isinstance(deleted, list) or any(not isinstance(n, str) or not selected(n) or n in seen for n in deleted):
-            raise ValueError('Elenco cancellazioni non valido.')
+        if info.get('format') != 'standalone-snapshot-v1':
+            raise ValueError('Formato sorgenti non valido.')

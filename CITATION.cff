@@ -6,8 +6,8 @@ authors:
   - family-names: Ruggieri
     given-names: Eugenio
 license: GPL-3.0-only
-abstract: "Independent isometric arcade game implemented in Godot and GDScript. First public release."
-version: 1.0.0
-date-released: "2026-11-08"
+abstract: "Independent isometric arcade game implemented in Godot and GDScript."
+version: 1.1.0
+date-released: "2026-11-09"
 repository-code: "https://github.com/eruggie/qbert-pyramid"
-url: "https://github.com/eruggie/qbert-pyramid/releases/tag/v1.0.0"
+url: "https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0"

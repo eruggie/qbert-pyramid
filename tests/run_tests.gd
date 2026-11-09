@@ -106,13 +106,13 @@ func _run() -> void:
 	else:
 		_check(false, "Impossibile verificare il flusso stato.")
 
-	_begin_test("release_1_0_public_menu_and_about")
+	_begin_test("release_1_1_public_menu_and_about")
 	var lab_button: Button = menu.get_node("%LabButton") as Button
 	var game_button: Button = menu.get_node("%GameButton") as Button
 	_check(not lab_button.visible and lab_button.disabled and lab_button.focus_mode == Control.FOCUS_NONE, "Il laboratorio predefinito è nascosto, disabilitato e fuori dal focus.")
 	_check(instructions_button.text == "Informazioni sul gioco" and instructions_dialog.title == "Informazioni sul gioco", "Voce e finestra hanno il titolo About richiesto.")
 	var about: String = (instructions_dialog as AcceptDialog).dialog_text
-	for fragment: String in ["QBERT Rev. 1.0", "Autore: Eugenio Ruggieri", "GNU GPL v3.0", "COME SI GIOCA", "Colora 28 celle", "Q/Sinistra", "Tre vite", "Master", "Extra a 8.000"]:
+	for fragment: String in ["QBERT Rev. 1.1", "Autore: Eugenio Ruggieri", "GNU GPL v3.0", "COME SI GIOCA", "Colora 28 celle", "Q/Sinistra", "Tre vite", "Master", "Extra a 8.000"]:
 		# Current audio instructions use Volume rather than a separate Master label.
 		if fragment == "Master": fragment = "Volume, mute e tasti"
 		_check(about.contains(fragment), "Informazioni preserva contenuti e attribuzioni: " + fragment)
@@ -131,7 +131,7 @@ func _run() -> void:
 	_check(instructions_button.has_focus(), "Giù salta il laboratorio nascosto e seleziona Informazioni sul gioco.")
 	_check(instructions_button.get_node(instructions_button.focus_neighbor_top) == game_button, "Il collegamento Su ritorna a Nuova partita.")
 
-	_begin_test("release_1_0_developer_menu_configuration")
+	_begin_test("release_1_1_developer_menu_configuration")
 	ProjectSettings.set_setting("developer/rules_lab_enabled", true)
 	var developer_menu: MainMenu = (resource as PackedScene).instantiate() as MainMenu
 	root.add_child(developer_menu)
@@ -182,6 +182,7 @@ func _run() -> void:
 	await _run_external_suite("res://tests/integration/test_arcade_review.gd")
 	await _run_external_suite("res://tests/integration/test_corrective_review.gd")
 	await _run_external_suite("res://tests/integration/test_revision_054.gd")
+	await _run_external_suite("res://tests/integration/test_coil_death.gd")
 	_finish()
 
 

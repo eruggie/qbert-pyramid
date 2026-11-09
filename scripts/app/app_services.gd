@@ -7,6 +7,7 @@ const ACTIONS: Array[StringName] = [&"move_nw", &"move_ne", &"move_sw", &"move_s
 const FX: Dictionary = {
 	"jump": "res://assets/audio/jump.wav", "land": "res://assets/audio/land.wav",
 	"color": "res://assets/audio/color.wav", "fall": "res://assets/audio/fall.wav",
+	"qbert_hello": "res://assets/audio/qbert_hello.mp3",
 	"contact": "res://assets/audio/contact.wav", "rescue": "res://assets/audio/rescue.wav",
 	"collect": "res://assets/audio/collect.wav", "round": "res://assets/audio/round.wav",
 	"extra": "res://assets/audio/extra.wav", "lure": "res://assets/audio/lure.wav",
@@ -154,7 +155,7 @@ func play_effect(effect: String) -> void:
 	# A long presentation cue must not delay the next actual action.
 	if effect == "jump" or (effect in ["rescue", "collect", "round", "lure"] and current_effect in ["rescue", "lure", "round", "collect"] and effect_players[0].playing):
 		stop_effects(false)
-	if effect in ["fall", "contact", "game_over", "round", "level"]:
+	if effect in ["fall", "contact", "qbert_hello", "game_over", "round", "level"]:
 		stop_effects()
 	if queued_effects.has(effect):
 		return

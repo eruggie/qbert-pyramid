@@ -7,7 +7,7 @@ static func before_step(game: PyramidGame) -> Dictionary:
 static func resolve(before: Dictionary, game: PyramidGame, events: Array[Dictionary]) -> Array[String]:
 	var cues: Array[String] = []
 	if before["state"] != game.state and game.state == PyramidGame.State.DYING:
-		return ["fall" if game.simulation.fallen else "contact"]
+		return ["qbert_hello"] if game.is_coil_death() else ["fall" if game.simulation.fallen else "contact"]
 	if before["state"] != game.state and game.state == PyramidGame.State.GAME_OVER:
 		return ["game_over"]
 	var stasis: bool = false

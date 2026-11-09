@@ -9,9 +9,12 @@ func _initialize() -> void:
 	for name: String in ["menu", "menu_music", "game_music"]:
 		if ResourceLoader.exists("res://assets/audio/%s.wav" % name):
 			failed = true
-	for path: String in ["res://assets/arcade/actors.png", "res://assets/arcade/arcade_font.fnt", "res://scripts/presentation/arcade_palette.gd", "res://scripts/presentation/game_audio_cues.gd", "res://scripts/core/high_scores.gd", "res://scripts/ui/records_panel.gd", "res://scripts/core/game_identity.gd", "res://scripts/ui/attract_panel.gd"]:
+	for path: String in ["res://assets/arcade/qbert_trivia.png", "res://assets/arcade/actors.png", "res://assets/arcade/arcade_font.fnt", "res://scripts/presentation/arcade_palette.gd", "res://scripts/presentation/game_audio_cues.gd", "res://scripts/core/high_scores.gd", "res://scripts/ui/records_panel.gd", "res://scripts/core/game_identity.gd", "res://scripts/ui/attract_panel.gd"]:
 		if load(path) == null:
 			failed = true
+	var coil_sound: AudioStreamMP3 = load("res://assets/audio/qbert_hello.mp3") as AudioStreamMP3
+	if coil_sound == null or coil_sound.loop or coil_sound.get_length() <= 0:
+		failed = true
 	var app_icon: Texture2D = load("res://assets/ui/qbert.png") as Texture2D
 	if app_icon == null or app_icon.get_width() != 256 or app_icon.get_height() != 256:
 		failed = true
