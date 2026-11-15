@@ -5,3 +5,10 @@ are in docs/THIRD_PARTY_NOTICES.txt. Keep that file with this entry point
 and with the executable/source distribution. This pointer avoids duplicating
 or shortening the full legal notices. Current license scope and asset
 exceptions are described in docs/LICENSING.md. Project code: GPL-3.0-only.
+
+
+Web symbol fallback: DejaVu Sans 2.37 (unmodified).
+Bitstream copyright 2003; DejaVu changes public domain. Own Bitstream Vera
+license, not project GPL. Complete notice: assets/fonts/DejaVuSans-LICENSE.txt
+in sources, DejaVuSans-LICENSE.txt beside the Web runtime.
+https://dejavu-fonts.github.io/
