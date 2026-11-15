@@ -120,6 +120,11 @@ try {
  Key 'F11' 'F11' 122
  Js 'if(document.fullscreenElement)document.exitFullscreen();true'|Out-Null
  Cdp 'Emulation.setDeviceMetricsOverride' @{width=1024;height=900;deviceScaleFactor=1;mobile=$false}|Out-Null;Shot '18-resize-1024'
+ Cdp 'Emulation.setDeviceMetricsOverride' @{width=1024;height=768;deviceScaleFactor=1;mobile=$false}|Out-Null
+ Shot '18-resize-1024x768'
+ $layout=Js '(()=>{const r=document.getElementById("stage").getBoundingClientRect();return {width:r.width,height:r.height,bottom:r.bottom,viewport:innerHeight}})()'
+ $layout|ConvertTo-Json|Set-Content (Join-Path $Output 'layout-1024x768.json')
+ if($layout.bottom -gt $layout.viewport+1){throw 'Game surface extends below desktop viewport'}
  Cdp 'Emulation.clearDeviceMetricsOverride'|Out-Null
  # Reload on the same origin and temporary profile, then revisit the leaderboard.
  Cdp 'Page.reload' @{ignoreCache=$true}|Out-Null;Start-Sleep -Seconds 1

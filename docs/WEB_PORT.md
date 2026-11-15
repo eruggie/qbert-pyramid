@@ -43,7 +43,9 @@ Renderer esistente Compatibility mantenuto; WebGL 2 e WASM richiesti.
 - Web-only DejaVu Sans fallback per le frecce mancanti: font primario e atlas
   bitmap invariati; provenienza e licenza propria in ASSET_LICENSES.md.
 - Shell HTML con avvio esplicito, progresso/errori, canvas 1280×720 a proporzioni
-  16:9, riduzione CSS desktop e fullscreen con letterbox. Nessuna UI touch/mobile.
+  16:9, riduzione CSS alla larghezza e altezza desktop disponibili e fullscreen con
+  letterbox. Schermo desktop consigliato almeno 1024×768; viewport più piccoli
+  possono ridurre la leggibilità. Nessuna UI touch/mobile.
 - Focus del canvas e della finestra/documento inoltrato alle notifiche esistenti.
   La perdita di focus sospende e svuota i comandi secondo la release; il ritorno
   non riprende automaticamente. Nessuna trasformazione di keydown/keyup/repeat.

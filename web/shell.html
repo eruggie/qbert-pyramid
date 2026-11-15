@@ -28,6 +28,16 @@ const canvas = document.getElementById('canvas');
 const gate = document.getElementById('gate');
 const notice = document.getElementById('notice');
 let started = false;
+function fitGame() {
+ const stage = document.getElementById('stage');
+ const bodyStyle = getComputedStyle(document.body);
+ const availableWidth = document.body.getBoundingClientRect().width - parseFloat(bodyStyle.paddingLeft) - parseFloat(bodyStyle.paddingRight);
+ const top = stage.getBoundingClientRect().top + scrollY;
+ const availableHeight = Math.max(360, innerHeight - top - 4);
+ stage.style.width = Math.min(1280, availableWidth, availableHeight * 16 / 9) + 'px';
+}
+window.addEventListener('resize', fitGame);
+fitGame();
 function focusState(){if(window.qbertFocus) window.qbertFocus(document.activeElement === canvas && document.hasFocus() && !document.hidden, Boolean(document.fullscreenElement));}
 canvas.addEventListener('focus', focusState);
 canvas.addEventListener('blur', focusState);
