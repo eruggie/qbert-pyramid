@@ -70,6 +70,9 @@ func _ready() -> void:
 	for dimensions: Vector2i in [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1920, 1080)]:
 		resolution.add_item("Finestra %d × %d" % [dimensions.x, dimensions.y])
 	resolution.select(0 if int(app.data["width"]) < 1280 else (1 if int(app.data["width"]) < 1920 else 2))
+	resolution.disabled = OS.has_feature("web")
+	if OS.has_feature("web"):
+		resolution.tooltip_text = "Nel browser le dimensioni seguono la superficie di gioco."
 	content.add_child(resolution)
 	resolution.item_selected.connect(func(index: int) -> void:
 		var sizes: Array[Vector2i] = [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1920, 1080)]

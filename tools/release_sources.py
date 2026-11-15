@@ -12,7 +12,7 @@ ROOT_FILES = {'AGENTS.md', 'SPEC.md', 'PLAN.md', 'README.md', 'TEST.md', 'TESTS.
               'THIRD_PARTY_NOTICES.txt', 'CHANGELOG.md', 'CONTRIBUTING.md',
               'CODE_OF_CONDUCT.md', 'SECURITY.md', 'CITATION.cff',
               'project.godot', 'export_presets.cfg', '.gitignore', '.gitattributes'}
-ROOT_DIRS = {'scripts', 'scenes', 'assets', 'data', 'tests', 'tools', '.vscode', '.codex', '.github'}
+ROOT_DIRS = {'web', 'scripts', 'scenes', 'assets', 'data', 'tests', 'tools', '.vscode', '.codex', '.github'}
 
 
 def selected(name):

@@ -54,6 +54,8 @@ func _ready() -> void:
 	instructions_button.pressed.connect(show_instructions)
 	status_button.pressed.connect(show_status)
 	exit_button.pressed.connect(_request_exit)
+	if OS.has_feature("web"):
+		exit_button.text = "Torna al sito"
 	instructions_dialog.close_requested.connect(close_dialogs)
 	status_dialog.close_requested.connect(close_dialogs)
 	instructions_dialog.visibility_changed.connect(_on_dialog_visibility_changed)
@@ -206,7 +208,10 @@ func _apply_menu_focus() -> void:
 
 func _request_exit() -> void:
 	app.flush()
-	get_tree().quit()
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval("window.location.assign(\"../../\")")
+	else:
+		get_tree().quit()
 
 
 func show_settings() -> void:

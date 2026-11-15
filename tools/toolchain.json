@@ -84,5 +84,18 @@
       "nsis_3.08-2_amd64.deb": "c36e6be757d7d4686c14cec3d7443746889fd48eced2a0a75f2bfecac3401176",
       "nsis-common_3.08-2_all.deb": "a6c50d3fb74656da8ea0c64e4a8ef9a688f9475a19665d56c61c8a87c8521429"
     }
+  },
+  "web": {
+    "version": "1.2.0-rc.1",
+    "baseline": "v1.1.0",
+    "renderer": "gl_compatibility",
+    "threads": false,
+    "extensions": false,
+    "pwa": false,
+    "export_preset": "Web",
+    "templates": {
+      "web_nothreads_release.zip": "d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0",
+      "web_nothreads_debug.zip": "08962aefef811b603541d7951ac67ef00413aad2d978855183c28adee98f626a"
+    }
   }
 }

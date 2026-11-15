@@ -65,3 +65,8 @@ allowlist, current-user registry/shortcuts and explicit uninstall deletions, and
 preserves player data. It bundles no sources or build tools. Publish matching
 source and binary downloads together only after owner approval, signing decisions,
 asset-rights review and Windows acceptance. No automatic publication is implemented.
+
+
+## Web desktop candidate
+
+See [WEB_PORT.md](WEB_PORT.md) for the exact inherited toolchain, Web template hashes, `bash tools/build_web.sh`, local HTTP server and static deployment. Windows build instructions above remain for release 1.1.0.

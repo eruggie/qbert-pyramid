@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q*Bert Pyramid · Web 1.2 candidata</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui;background:#09101b;color:#eee}body{max-width:1440px;margin:auto;padding:16px}a{color:#7ee3ff}nav{display:flex;gap:24px;flex-wrap:wrap}h1{font-size:1.5rem;margin:12px 0}button{font:inherit;padding:8px 18px;cursor:pointer}#stage{position:relative;max-width:1280px;margin:16px auto;background:#000;aspect-ratio:16/9}canvas{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}canvas:focus{outline:2px solid #7ee3ff;outline-offset:2px}canvas:fullscreen{background:#000;width:100vw;height:100vh;object-fit:contain}#gate{position:absolute;inset:0;display:grid;place-content:center;text-align:center;background:#09101bf5}#notice{max-width:60ch}small{color:#bed0e0}details{margin:16px 0}kbd{font:inherit;color:#fff}button:disabled{cursor:wait}footer{margin-top:24px}
+</style>
+$GODOT_HEAD_INCLUDE
+</head>
+<body>
+<nav aria-label="Navigazione"><a href="../../">← Torna al sito</a><a href="https://github.com/eruggie/qbert-pyramid">Codice sorgente</a><a href="https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0">Windows 1.1.0</a></nav>
+<h1>Q*Bert Pyramid <small>Web 1.2 · candidata</small></h1>
+<p>Edizione classica per tastiera e browser desktop. Avvia, poi fai clic nel gioco. Dopo una perdita di focus riprendi con P e premi nuovamente i tasti.</p>
+<p id="browser-notice" role="status" aria-live="polite"></p>
+<button id="fullscreen" type="button">Schermo intero</button> <button id="leave" type="button">Lascia i comandi al sito</button>
+<div id="stage"><canvas id="canvas" width="1280" height="720" tabindex="0" aria-label="Q*Bert Pyramid, superficie di gioco">È richiesto un browser con WebGL 2.</canvas><div id="gate"><button id="start" type="button">Avvia il gioco e abilita audio</button><p id="notice" role="status" aria-live="polite">Il caricamento inizia dopo Avvia.</p><progress id="progress" hidden></progress></div></div>
+<details><summary>Comandi, salvataggi e compatibilità</summary><p>↖ Q / Sinistra / tastierino 7; ↗ E / Su / 9; ↙ Z / Giù / 1; ↘ C / Destra / 3. P: pausa e ripresa. Esc: menu secondo il flusso risultati. F11: schermo intero se consentito dal browser; usa anche il pulsante sopra. Menu: frecce, Tab / Shift+Tab, Enter o Spazio e mouse. Record: tre iniziali A–Z, Backspace per correggere, Tab/Enter per confermare. Le impostazioni permettono tasti aggiuntivi.</p><p>I dati rimangono in questo browser e origine tramite IndexedDB. Navigazione privata, blocco dei dati del sito, pulizia o rimozione automatica possono perderli. Non viene salvata una partita in corso e non c'è sincronizzazione con Windows. La chiusura improvvisa può precedere il completamento del salvataggio. Esc può prima uscire dallo schermo intero; F11 può essere gestito dal browser. Android, smartphone e touch non sono supportati.</p></details>
+<footer><small>© Eugenio Ruggieri 2026 · Progetto indipendente, non ufficiale. Grazie a Warren Davis e Jeff Lee (Gottlieb), creatori dell'originale Q*bert. Marchi e opere di terzi appartengono ai rispettivi titolari. <a href="LICENSE.txt">GPL-3.0-only</a> · <a href="THIRD_PARTY_NOTICES.txt">Licenze e crediti delle dipendenze</a> · <a href="QBertPyramid-source.zip">Sorgenti corrispondenti</a> · <a href="DEPENDENCY_LICENSES.txt">Licenze complete</a></small></footer>
+<noscript>Abilita JavaScript per giocare.</noscript>
+<script src="$GODOT_URL"></script>
+<script>
+'use strict';
+const config = $GODOT_CONFIG;
+const engine = new Engine(config);
+const canvas = document.getElementById('canvas');
+const gate = document.getElementById('gate');
+const notice = document.getElementById('notice');
+let started = false;
+function focusState(){if(window.qbertFocus) window.qbertFocus(document.activeElement === canvas && document.hasFocus() && !document.hidden, Boolean(document.fullscreenElement));}
+canvas.addEventListener('focus', focusState);
+canvas.addEventListener('blur', focusState);
+window.addEventListener('blur', focusState);
+window.addEventListener('focus', focusState);
+document.addEventListener('visibilitychange', focusState);
+document.addEventListener('fullscreenchange', focusState);
+canvas.addEventListener('pointerdown',()=>canvas.focus({preventScroll:true}));
+// Keep native Godot key events, including repeat and keyup. Only suppress page defaults.
+canvas.addEventListener('keydown',e=>{if(!e.ctrlKey&&!e.metaKey&&!e.altKey && ['ArrowLeft','ArrowUp','ArrowDown','ArrowRight','Tab','Space','Backspace','F11'].includes(e.code)) e.preventDefault();});
+window.qbertFullscreen = enabled => {
+ const request = enabled ? (document.fullscreenElement ? Promise.resolve() : canvas.requestFullscreen()) : (document.fullscreenElement ? document.exitFullscreen() : Promise.resolve());
+ request.catch(err=>{document.getElementById('browser-notice').textContent='Schermo intero non consentito: '+err.message; console.warn(err.message);focusState();});
+};
+document.getElementById('fullscreen').addEventListener('click',()=>{if(started){canvas.focus({preventScroll:true});window.qbertFullscreen(!document.fullscreenElement);}});
+document.getElementById('leave').addEventListener('click',()=>{canvas.blur();document.querySelector('nav a').focus();});
+document.getElementById('start').addEventListener('click',async e=>{
+ e.target.disabled=true;
+ try {
+  const missing=Engine.getMissingFeatures({threads:$GODOT_THREADS_ENABLED});
+  if(missing.length) throw new Error('Funzionalità mancanti: '+missing.join(', '));
+  const progress=document.getElementById('progress');progress.hidden=false;
+  notice.textContent='Caricamento del gioco…';
+  await engine.startGame({onProgress:(current,total)=>{if(total){progress.max=total;progress.value=current;}}});
+  started=true;gate.hidden=true;gate.style.display='none';canvas.focus({preventScroll:true});focusState();
+ }catch(err){notice.textContent='Avvio non riuscito: '+err.message;console.error(err);e.target.disabled=false;}
+});
+</script>
+</body></html>

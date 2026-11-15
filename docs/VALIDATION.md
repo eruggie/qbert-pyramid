@@ -19,3 +19,10 @@ Performance targets are 60 FPS at 1080p, median <=16.7 ms and P99 <=33.3 ms.
 The owner acceptance is recorded without a universal performance guarantee.
 Reference machine: Windows 11 Home x64, Core Ultra 9 275HX, RTX 5070 Laptop.
 The executable is unsigned. See INSTALL_WINDOWS for scope and limitations.
+
+
+## Web candidate — separate validation
+
+The historical Windows results above do not certify Web 1.2. The port uses v1.1.0. See [WEB_PORT.md](WEB_PORT.md) for exact source provenance and verification procedure. Browser evidence and final candidate identity are delivered separately; no new native Windows manual acceptance is claimed.
+
+Web outcomes and remaining acceptance gates: [WEB_VALIDATION.md](WEB_VALIDATION.md).

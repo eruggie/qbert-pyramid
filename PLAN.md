@@ -674,3 +674,8 @@ release 1.1.0; le note correnti descrivono il contenuto e le verifiche pubblicat
 Released as tag `v1.1.0`. The clean public source, Windows installer, portable
 runtime and corresponding source archive are available through the GitHub release.
 See `docs/releases/v1.1.0.md` for changes and validation details.
+
+
+## Web 1.2 — stato locale
+
+Ramo isolato dalla release pubblica v1.1.0. Preparazione build statica, verifica browser desktop e pagina minima; nessuna pubblicazione prima di collaudo e consenso. Requisiti e riproduzione in docs/WEB_PORT.md; valutazione hosting in docs/WEB_HOSTING.md.

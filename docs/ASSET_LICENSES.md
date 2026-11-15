@@ -179,3 +179,14 @@ extraction from reference media or new license attribution. SHA-256:
 - MP3: `258eee9203a40b86c7dfd0a045974459badeff1ea863adc9e763debe632c42cb`
 
 On 2026-11-09 the owner explicitly confirmed authority to redistribute both supplied files in release 1.1 under the project's documented GPL-3.0-only terms. The owner's authorization is recorded here; author/source attribution beyond that confirmation was not supplied. GPL-3.0-only applies to these files for this distribution.
+
+
+## Web symbol fallback
+
+`assets/fonts/DejaVuSans.ttf`: unmodified DejaVu Sans 2.37 from Ubuntu
+`fonts-dejavu-core` 2.37-2build1, SHA-256 `690243adfefe0ce154b547db6205794bd30ac4277275179517a90994f4980648`.
+Upstream: https://dejavu-fonts.github.io/. Bitstream copyright 2003; DejaVu
+changes public domain. The font retains its own Bitstream Vera license,
+reproduced in `assets/fonts/DejaVuSans-LICENSE.txt`; it is an exception to the
+original-assets GPL scope. Used only as a Web fallback for missing symbols;
+primary fonts and bitmap graphics are unchanged. No Debian packaging code is included.

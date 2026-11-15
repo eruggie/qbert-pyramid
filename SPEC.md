@@ -683,3 +683,8 @@ pendenti. Lo stato di preparazione qui riportato è storico; la release corrente
 Released as tag `v1.1.0`. The clean public source, Windows installer, portable
 runtime and corresponding source archive are available through the GitHub release.
 See `docs/releases/v1.1.0.md` for changes and validation details.
+
+
+## Port Web classico
+
+Il port Web desktop mantiene le regole e i contenuti del tag pubblico v1.1.0. Vedere docs/WEB_PORT.md per adattamenti di piattaforma. Escher, Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive.

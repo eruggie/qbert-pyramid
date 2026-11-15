@@ -18,3 +18,8 @@ must return nonzero. Export/WSLg checks are not manual Windows tests. Document
 actual test environment, source identity, outcomes and limits. Do not change
 approved gameplay merely to satisfy a test. Public releases require an exact
 source tag, corresponding sources, provenance and SHA-256 files.
+
+
+## Web scope
+
+Web classic 1.2 is isolated from public v1.1.0. Run bash tools/build_web.sh. Preserve Windows release tags/assets, input mappings, hold/release and gameplay. Android, smartphones, mobile layout and touch are excluded from current and future releases. Escher is outside this port. Public upload/release/deployment requires explicit user acceptance of the tested candidate. See docs/WEB_PORT.md.

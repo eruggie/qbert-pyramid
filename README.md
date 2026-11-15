@@ -155,3 +155,8 @@ does not add a new restriction or change the GPL license.
 
 [CITATION.cff](CITATION.cff) provides machine-readable citation metadata.
 Release sources are identified by tag `v1.1.0` in the public repository.
+
+
+## Web desktop — candidata 1.2
+
+Il port classico Web 1.2.0-rc.1 è in preparazione locale, basato sul tag Windows v1.1.0. Build: `bash tools/build_web.sh`. [Build, controlli e deployment](docs/WEB_PORT.md), [hosting gratuito](docs/WEB_HOSTING.md), [verifiche e limiti](docs/WEB_VALIDATION.md). Windows 1.1.0 rimane la release distribuita. Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive; Escher è fuori ambito.

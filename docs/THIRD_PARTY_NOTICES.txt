@@ -2646,3 +2646,10 @@ License: Zlib
  .
    3. This notice may not be removed or altered from any source
       distribution.
+
+
+Web symbol fallback: DejaVu Sans 2.37 (unmodified).
+Bitstream copyright 2003; DejaVu changes public domain. Own Bitstream Vera
+license, not project GPL. Complete notice: assets/fonts/DejaVuSans-LICENSE.txt
+in sources, DejaVuSans-LICENSE.txt beside the Web runtime.
+https://dejavu-fonts.github.io/

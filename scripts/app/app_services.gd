@@ -27,10 +27,29 @@ var _custom_events: Dictionary = {}
 var _save_timer: Timer
 var _audio_paused: bool = false
 var _focus_lost: bool = false
+var _web_focus_callback: JavaScriptObject
+var _web_window: JavaScriptObject
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	if OS.has_feature("web"):
+		# Browsers have no native system-font fallback for the instruction arrows.
+		var symbols: Font = load("res://assets/fonts/DejaVuSans.ttf") as Font
+		ThemeDB.fallback_font.fallbacks = [symbols]
+		ThemeDB.get_default_theme().default_font.fallbacks = [symbols]
+		_web_window = JavaScriptBridge.get_interface("window")
+		_web_focus_callback = JavaScriptBridge.create_callback(_web_focus_changed)
+		_web_window.qbertFocus = _web_focus_callback
+		# Web exposes numpad digits as logical ASCII / navigation keys.
+		# Match the same physical keypad keys without changing their directions.
+		var keypad: Array[int] = [KEY_KP_7, KEY_KP_9, KEY_KP_1, KEY_KP_3]
+		for direction: int in range(ACTIONS.size()):
+			var event: InputEventKey = InputEventKey.new()
+			event.physical_keycode = keypad[direction]
+			InputMap.action_add_event(ACTIONS[direction], event)
 	data = store.load_profile()
+	if OS.has_feature("web"):
+		data["fullscreen"] = false
 	save_message = store.notice
 	_save_timer = Timer.new()
 	_save_timer.one_shot = true
@@ -48,7 +67,7 @@ func _ready() -> void:
 		add_child(player)
 		effect_players.append(player)
 	apply_preferences()
-	if DisplayServer.get_name() != "headless":
+	if DisplayServer.get_name() != "headless" and not OS.has_feature("web"):
 		get_window().size = Vector2i(data["width"], data["height"])
 		get_window().mode = Window.MODE_FULLSCREEN if data["fullscreen"] else Window.MODE_WINDOWED
 		get_window().size_changed.connect(_window_resized)
@@ -81,7 +100,9 @@ func update_setting(key: String, value: Variant) -> bool:
 		return false
 	data = candidate
 	apply_preferences()
-	if DisplayServer.get_name() != "headless" and key in ["fullscreen", "width", "height"]:
+	if OS.has_feature("web") and key == "fullscreen":
+		JavaScriptBridge.eval("window.qbertFullscreen(%s)" % ("true" if data["fullscreen"] else "false"))
+	elif DisplayServer.get_name() != "headless" and key in ["fullscreen", "width", "height"]:
 		get_window().mode = Window.MODE_FULLSCREEN if data["fullscreen"] else Window.MODE_WINDOWED
 		if not data["fullscreen"]:
 			get_window().size = Vector2i(data["width"], data["height"])
@@ -103,7 +124,7 @@ func reset_settings() -> void:
 		clean[key] = data[key]
 	data = clean
 	apply_preferences()
-	if DisplayServer.get_name() != "headless":
+	if DisplayServer.get_name() != "headless" and not OS.has_feature("web"):
 		get_window().mode = Window.MODE_WINDOWED
 		get_window().size = Vector2i(1280, 720)
 	_save_timer.start()
@@ -133,6 +154,8 @@ func flush() -> bool:
 	return success
 
 func toggle_fullscreen() -> void:
+	if OS.has_feature("web"):
+		data["fullscreen"] = bool(JavaScriptBridge.eval("Boolean(document.fullscreenElement)"))
 	update_setting("fullscreen", not bool(data["fullscreen"]))
 
 func _window_resized() -> void:
@@ -209,4 +232,18 @@ func _exit_tree() -> void:
 			player.stream = null
 	# Playback stops are queued to the audio thread. Let one device buffer drain
 	# before the engine releases audio resources (also for --quit-after exports).
-	OS.delay_msec(60)
+	if not OS.has_feature("web"):
+		OS.delay_msec(60)
+
+
+func _web_focus_changed(arguments: Array) -> void:
+	if arguments.is_empty():
+		return
+	var focused: bool = bool(arguments[0])
+	if arguments.size() > 1 and data["fullscreen"] != bool(arguments[1]):
+		data["fullscreen"] = bool(arguments[1])
+		profile_changed.emit()
+	if not focused:
+		flush()
+	# Canvas focus also matters when the browser window itself stays active.
+	get_tree().root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN if focused else NOTIFICATION_APPLICATION_FOCUS_OUT)

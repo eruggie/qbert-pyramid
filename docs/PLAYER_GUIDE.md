@@ -31,3 +31,8 @@ Records/settings persist under the local Windows profile, not on USB/network
 media. Failed writes are reported without blocking play; retry does not duplicate
 a score. No in-progress game is saved. See INSTALL_WINDOWS.md for safe updates
 and data locations. The previous guide is archived in history/PLAYER_GUIDE_PRE_PHASE7.it.txt.
+
+
+## Web desktop candidate
+
+See [WEB_PORT.md](WEB_PORT.md). Start with the page button, click the canvas, use unchanged keyboard controls. Focus loss pauses: explicitly resume with P and release/repress movement keys. F11/Esc can be intercepted by the browser; the page provides fullscreen and a return link. IndexedDB persistence is browser/origin-specific and may be removed. No mobile or touch support.

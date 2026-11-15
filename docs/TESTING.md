@@ -1547,3 +1547,10 @@ has been performed. Those historical blobs must not be published unchanged.
 - Installer logic and payload are covered by its Windows test harness; a pre-existing per-user install prevented the harness from repeating its install/update/uninstall cycle on this workstation.
 - Windows EXE and installer contain requested author metadata but are not Authenticode-signed.
 See [release notes](releases/v1.1.0.md) and [release assets](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0).
+
+
+## Web candidate validation
+
+See [WEB_PORT.md](WEB_PORT.md) for browser automation and its limits. GDScript regressions, Linux/WSLg graphics, browser automation and native Windows acceptance are separate. Web acceptance is not inferred from successful export or previous Windows owner acceptance.
+
+Web outcomes and remaining acceptance gates: [WEB_VALIDATION.md](WEB_VALIDATION.md).
