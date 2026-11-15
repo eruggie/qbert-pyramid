@@ -44,7 +44,8 @@ def main():
     shutil.copyfile(ROOT / 'assets/fonts/DejaVuSans-LICENSE.txt', game / 'DejaVuSans-LICENSE.txt')
     shutil.copyfile(ROOT / 'web/site-index.html', site / 'index.html')
     (site / '.nojekyll').touch()
-    shutil.copyfile(ROOT / 'web/arcade.css', game / 'arcade.css')
+    for name in ['arcade.css', 'game-screen.png']:
+        shutil.copyfile(ROOT / 'web' / name, game / name)
     release_sources.create(ROOT, game)
     (game / 'SOURCE_NOTICE.txt').write_text(
         'Q*Bert Pyramid Web 1.2.0-rc.3; classic baseline Windows 1.1.0.\n'

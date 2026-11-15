@@ -20,7 +20,7 @@ def prepare(site, output, game_url):
     document = (site / 'index.html').read_text()
     if 'href="80_arcade_games/qbert/"' not in document:
         raise ValueError('Link di avvio non trovato nella home.')
-    assets = ['arcade.css', 'index.icon.png', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt',
+    assets = ['arcade.css', 'game-screen.png', 'index.icon.png', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt',
               'DEPENDENCY_LICENSES.txt', 'DejaVuSans-LICENSE.txt', 'SOURCE_NOTICE.txt']
     for name in assets:
         if not (site / '80_arcade_games/qbert' / name).is_file():

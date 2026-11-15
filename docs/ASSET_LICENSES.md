@@ -194,8 +194,11 @@ primary fonts and bitmap graphics are unchanged. No Debian packaging code is inc
 
 ## Web arcade presentation (rc.3)
 
-`web/site-index.html` and `web/arcade.css` contain an original CSS cabinet/pyramid
-illustration and interface styling, covered by the project GPL-3.0-only. The
-player decoration reuses the project icon exported by Godot. No external image,
-font download, tracking script or reference-game asset was added. Existing
-font exceptions and third-party notices remain unchanged.
+`web/site-index.html` and `web/arcade.css` contain original CSS cabinet
+and interface styling, covered by the project GPL-3.0-only.
+`web/game-screen.png` is a direct browser capture of the running classic game
+from local build 1.2.0-rc.3 (commit d457f1078b8a75f5b9ef61861951f32644238d79),
+captured on 16 November 2026. It replaces the decorative CSS pyramid;
+no game art was redrawn or generated. Existing game/font licenses apply.
+No external image, font download, tracking script or reference-game asset
+was added. Existing font exceptions and third-party notices remain unchanged.

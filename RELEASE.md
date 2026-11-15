@@ -13,7 +13,7 @@ Audio Web tramite mixer Stream; punteggi/classifica condivisi su server SQLite,
 con conferma, aggiornamento automatico e retry senza duplicati.
 
 Nuova home e cornice Web in stile arcade anni ’80: insegna e pulsanti neon,
-cabinato decorativo originale, HOME con icona accessibile. Rimossi i rilanci
+cabinato orizzontale con schermata reale del gioco, HOME con icona accessibile. Rimossi i rilanci
 ai sorgenti dall'interfaccia. Sorgenti, crediti e licenze restano distribuiti
 nei pacchetti e nella documentazione, senza modificare la licenza del progetto.
 
@@ -44,3 +44,11 @@ La nuova veste grafica e gli adattamenti distributivi successivi sono preparati
 per una revisione separata. Tag stabile, upload e deploy restano da autorizzare.
 Windows v1.1.0, tag e asset pubblicati rimangono distinti e invariati.
 Android, smartphone, touch ed Escher sono esclusi.
+
+## Revisione della home richiesta il 16 novembre 2026
+
+Cabinato raddrizzato; piramide decorativa sostituita da una schermata reale
+del gioco, mantenendo la cornice arcade. Rimossi il sottotitolo personale e
+“nessuna moneta richiesta”. Footer: “Progetto Open Source Indipendente -
+Note e Licenze”. Nuova build locale rc.3 identificata dal manifest sorgenti;
+nessuna pubblicazione e approvazione della presentazione ancora pendente.
