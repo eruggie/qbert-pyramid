@@ -15,10 +15,11 @@ manuale non viene estesa al Web. Nessun push, tag o release remota eseguiti.
 | Grafica nativa Linux | Smoke X11/WSLg, Compatibility llvmpipe: 177 catture, 0 fallimenti. Comprende i casi Coil e le risoluzioni della suite; non è una prova browser né Windows |
 | Export Web | Riuscito con GDScript, WebGL 2, WASM, senza thread/estensioni/PWA. Avvio con crossOriginIsolated=false |
 | HTTP e sottocartella | `/80_arcade_games/qbert/` provato da server locale raggiunto da Windows; controllo automatico anche sotto `/site/80_arcade_games/qbert/`. Link relativi, risorse, licenze, ZIP sorgenti e MIME WASM/JS/PCK verificati |
-| Chrome desktop | 157.0.8103.79 Windows, automazione CDP con profilo temporaneo; ciclo conclusivo headless, 34 screenshot. Eseguito anche ciclo con finestra visibile, distinto dalla prova manuale |
-| Edge desktop | 157.0.4341.60 Windows, CDP headless, profilo temporaneo, 34 screenshot |
+| Chrome desktop | 157.0.8103.79 Windows, automazione CDP con profilo temporaneo; ciclo conclusivo headless, 35 screenshot. Eseguito anche ciclo con finestra visibile, distinto dalla prova manuale |
+| Edge desktop | 157.0.4341.60 Windows, CDP headless, profilo temporaneo, 35 screenshot |
 | Input browser | Osservati Q/E/Z/C, quattro frecce e KP7/9/1/3 con alias fisici; hold, P, Esc, Tab/Enter e mouse. Rilascio fuori canvas, focus perso/ritrovato, ripresa esplicita e nuova pressione. Scorrimento pagina invariato con frecce/Tab nel gioco |
-| UI browser | Intro, menu, partita, pausa, impostazioni, Game Over, risultati, classifica e ritorno al sito osservati; ridimensionamento a viewport desktop 1024×900. Fallback frecce verificato nelle schermate |
+| UI browser | Intro, menu, partita, pausa, impostazioni, Game Over, risultati, classifica e ritorno al sito osservati; ridimensionamento a viewport desktop 1024×900 e 1024×768; canvas interamente nel viewport
+  anche dopo il messaggio di rifiuto fullscreen. Fallback frecce verificato nelle schermate |
 | Iniziali e dati | Inseriti ABX, corretto X con Backspace e C: ABC, 50 punti. Master 0,48, effetti 0,67, mute=true, tasto V aggiuntivo per basso-destra. Asserzioni su IndexedDB prima/dopo reload e classifica visibile, in entrambi i browser |
 | Audio browser | Contesto WebAudio passa da suspended a running, risorse caricate. Nessuna registrazione o ascolto umano certificato; la modifica dei volumi è confermata nei dati |
 | Console browser | Nei cicli conclusivi: 0 eccezioni JS, 0 richieste fallite e nessun HTTP >=400. Warning fullscreen «not granted» registrati e distinti dagli errori di caricamento |

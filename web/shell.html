@@ -50,7 +50,7 @@ canvas.addEventListener('pointerdown',()=>canvas.focus({preventScroll:true}));
 canvas.addEventListener('keydown',e=>{if(!e.ctrlKey&&!e.metaKey&&!e.altKey && ['ArrowLeft','ArrowUp','ArrowDown','ArrowRight','Tab','Space','Backspace','F11'].includes(e.code)) e.preventDefault();});
 window.qbertFullscreen = enabled => {
  const request = enabled ? (document.fullscreenElement ? Promise.resolve() : canvas.requestFullscreen()) : (document.fullscreenElement ? document.exitFullscreen() : Promise.resolve());
- request.catch(err=>{document.getElementById('browser-notice').textContent='Schermo intero non consentito: '+err.message; console.warn(err.message);focusState();});
+ request.catch(err=>{document.getElementById('browser-notice').textContent='Schermo intero non consentito: '+err.message; console.warn(err.message);fitGame();focusState();});
 };
 document.getElementById('fullscreen').addEventListener('click',()=>{if(started){canvas.focus({preventScroll:true});window.qbertFullscreen(!document.fullscreenElement);}});
 document.getElementById('leave').addEventListener('click',()=>{canvas.blur();document.querySelector('nav a').focus();});
