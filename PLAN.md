@@ -679,3 +679,12 @@ See `docs/releases/v1.1.0.md` for changes and validation details.
 ## Web 1.2 — stato locale
 
 Ramo isolato dalla release pubblica v1.1.0. Preparazione build statica, verifica browser desktop e pagina minima; nessuna pubblicazione prima di collaudo e consenso. Requisiti e riproduzione in docs/WEB_PORT.md; valutazione hosting in docs/WEB_HOSTING.md.
+
+
+## Piano Web 1.2
+
+Test funzionali rc.2 approvati dall’utente. Autorizzate preparazione locale della
+nuova home arcade, pacchetti runtime/completo e documentazione rc.3.
+Nuova approvazione necessaria per completare la release stabile, creare tag
+finali, effettuare push, pubblicare release/repository/sito o scegliere/attivare
+l’hosting del backend. Nessuna modifica al gameplay. Vedere RELEASE.md.

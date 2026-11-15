@@ -190,3 +190,12 @@ changes public domain. The font retains its own Bitstream Vera license,
 reproduced in `assets/fonts/DejaVuSans-LICENSE.txt`; it is an exception to the
 original-assets GPL scope. Used only as a Web fallback for missing symbols;
 primary fonts and bitmap graphics are unchanged. No Debian packaging code is included.
+
+
+## Web arcade presentation (rc.3)
+
+`web/site-index.html` and `web/arcade.css` contain an original CSS cabinet/pyramid
+illustration and interface styling, covered by the project GPL-3.0-only. The
+player decoration reuses the project icon exported by Godot. No external image,
+font download, tracking script or reference-game asset was added. Existing
+font exceptions and third-party notices remain unchanged.

@@ -688,3 +688,12 @@ See `docs/releases/v1.1.0.md` for changes and validation details.
 ## Port Web classico
 
 Il port Web desktop mantiene le regole e i contenuti del tag pubblico v1.1.0. Vedere docs/WEB_PORT.md per adattamenti di piattaforma. Escher, Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive.
+
+
+## Distribuzione Web 1.2
+
+Test funzionali rc.2 approvati dall’utente. Autorizzate preparazione locale della
+nuova home arcade, pacchetti runtime/completo e documentazione rc.3.
+Nuova approvazione necessaria per completare la release stabile, creare tag
+finali, effettuare push, pubblicare release/repository/sito o scegliere/attivare
+l’hosting del backend. Nessuna modifica al gameplay. Vedere RELEASE.md.

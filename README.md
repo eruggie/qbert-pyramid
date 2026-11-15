@@ -1,5 +1,55 @@
 # Q*Bert Pyramid
 
+> **WEB 1.2 — preparazione locale 1.2.0-rc.3.** L'utente ha approvato i test
+> funzionali della rc.2. Nuova home arcade, pacchetti e pubblicazione attendono
+> ancora approvazione. Nessuna release Web o sito è stato pubblicato.
+
+## Scaricare e giocare Web
+
+Dopo la pubblicazione autorizzata, aprire **Releases → Q*Bert Pyramid WEB 1.2.0**
+nel repository ufficiale e scegliere **Runtime** (gioco pronto) oppure
+**Complete** (gioco pronto più intero progetto). I download stabili sono ancora
+proposti: non usare gli asset Windows 1.1.0 o gli ZIP automatici dei sorgenti
+come se fossero il gioco Web già esportato.
+
+Estrarre il pacchetto, entrare nella cartella con `site/` e `server/`, poi:
+
+```bash
+python3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3
+```
+
+Su Windows: `py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3`.
+Aprire **http://localhost:8765/**. Sono richiesti browser desktop e Python >=3.10
+con SQLite; **non serve Godot per giocare**. Non aprire index.html tramite file://.
+Conservare il database esterno al sito e usare lo stesso percorso negli aggiornamenti.
+
+- [Pacchetti, download, localhost e proprio web server](docs/DEPLOY_WEB.md)
+- [Come pubblicare la release e il sito github.io](docs/GITHUB_PUBLICATION.md)
+- [Note della release e stato dell'approvazione](RELEASE.md)
+- [Test e accettazione](TEST.md)
+
+GitHub Pages può ospitare la home; la classifica condivisa richiede il backend.
+La proposta è collegare dalla home Pages il gioco completo su un host HTTPS
+compatibile. Il servizio locale non va esposto direttamente come server pubblico.
+
+## Sorgenti e ambiente
+
+`scripts/` contiene GDScript (gameplay, input, presentazione e UI Godot).
+`scenes/`, `assets/`, `data/` contengono scene e risorse. `web/` contiene home,
+shell HTML e CSS; JavaScript nella shell integra avvio, focus e fullscreen.
+`tools/` contiene Python/SQLite per API, packaging e deployment locale, Bash
+per le build e PowerShell/JavaScript per le verifiche browser.
+
+Sviluppo/verifica: VSCode, Ubuntu 22.04/WSL2, Godot **4.7.2 standard** con template
+corrispondenti, Compatibility/WebGL 2, browser Chrome/Edge Windows. Nessuna
+installazione o configurazione cloud è necessaria alla prova locale.
+Build riproducibile: `bash tools/build_web.sh`. Output in `builds/`, ignorato da Git.
+La versione Windows 1.1.0 e il suo tag restano distinti. Android, smartphone,
+layout mobile del gioco, touch ed Escher sono esclusi.
+
+## Progetto e release Windows già pubblicata
+
+
 This project brings back Q*bert, an arcade classic from the 1980s that I used to play during my carefree—and now rather distant—university years.
 
 Inspired in part by projects such as CRAFT, I wanted to try a small experiment: how far could an AI coding agent take a game project, from the initial idea to a working Windows application?
@@ -155,16 +205,3 @@ does not add a new restriction or change the GPL license.
 
 [CITATION.cff](CITATION.cff) provides machine-readable citation metadata.
 Release sources are identified by tag `v1.1.0` in the public repository.
-
-
-## Web desktop — candidata 1.2
-
-Il port classico Web 1.2.0-rc.2 è in preparazione locale, basato sul tag Windows v1.1.0. Build: `bash tools/build_web.sh`. [Build, controlli e deployment](docs/WEB_PORT.md), [hosting gratuito](docs/WEB_HOSTING.md), [verifiche e limiti](docs/WEB_VALIDATION.md). Windows 1.1.0 rimane la release distribuita. Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive; Escher è fuori ambito.
-
-La candidata Web richiede ancora accettazione manuale: Fullscreen API è stata
-rifiutata dal browser di prova anche su una pagina minima senza Godot.
-Ascolto audio e sessione estesa non sono dichiarati collaudati.
-
-Correzioni rc.2 autorizzate: audio Web tramite mixer Stream e punteggi/classifica
-condivisi sul server locale SQLite. Le sole impostazioni restano nel browser.
-[Istruzioni di prova rc.2](docs/WEB_RC2_FIXES.md). Nessun deploy autorizzato.

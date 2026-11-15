@@ -1,3 +1,20 @@
+# Web 1.2 — accettazione e preparazione finale
+
+L'utente dichiara superati i test necessari e sufficienti e approva il
+funzionamento Web della rc.2. Non vengono attribuiti all'utente numeri,
+hardware, misure o singole prove non comunicati.
+
+La nuova veste arcade e i pacchetti rc.3, preparati il 16 novembre 2026,
+richiedono ulteriore approvazione. Nessun tag finale, push o deploy autorizzato.
+Regressioni precedenti rc.2: 131 test GDScript / 126.776 verifiche, 24 test Python;
+audio misurato, classifica server, retry e persistenza documentati nel rapporto rc.2.
+I nuovi controlli su distribuzione/WSGI e la revisione browser sono riportati
+nel rapporto della build rc.3: non sono equiparati a un test manuale dell'utente.
+
+[Release](../RELEASE.md) · [Deployment](DEPLOY_WEB.md) · [Pubblicazione](GITHUB_PUBLICATION.md).
+
+## Registro storico conservato
+
 # Validation record — version 1.0.0
 
 The owner reports successful Windows functional tests, including the checklist

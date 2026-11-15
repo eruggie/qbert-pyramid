@@ -8,7 +8,7 @@ import re
 import subprocess
 import zipfile
 
-ROOT_FILES = {'AGENTS.md', 'SPEC.md', 'PLAN.md', 'README.md', 'TEST.md', 'TESTS.md', 'LICENSE',
+ROOT_FILES = {'RELEASE.md', 'AGENTS.md', 'SPEC.md', 'PLAN.md', 'README.md', 'TEST.md', 'TESTS.md', 'LICENSE',
               'THIRD_PARTY_NOTICES.txt', 'CHANGELOG.md', 'CONTRIBUTING.md',
               'CODE_OF_CONDUCT.md', 'SECURITY.md', 'CITATION.cff',
               'project.godot', 'export_presets.cfg', '.gitignore', '.gitattributes'}

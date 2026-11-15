@@ -1,3 +1,7 @@
+> Web corrente: preparazione rc.3, test funzionali rc.2 approvati dall’utente.
+> [Release](../RELEASE.md), [download/deployment](DEPLOY_WEB.md),
+> [GitHub/Pages](GITHUB_PUBLICATION.md). Le registrazioni delle versioni precedenti sotto restano storiche.
+
 # Player guide — Q*Bert Pyramid
 
 The game interface is currently Italian. Nuova partita starts a game;

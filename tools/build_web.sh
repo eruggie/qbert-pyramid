@@ -5,6 +5,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
 ap_require_commands python3 git unzip sha256sum timeout
 ap_select_engine
 python3 -B "$AP_ROOT/tests/tooling/test_web_server.py"
+python3 -B "$AP_ROOT/tests/tooling/test_web_distribution.py"
 python3 "$AP_ROOT/tools/web_package.py" templates "$AP_TEMPLATES"
 bash "$AP_ROOT/tools/doctor.sh"
 bash "$AP_ROOT/tools/test.sh"
@@ -25,3 +26,5 @@ python3 "$AP_ROOT/tools/web_package.py" package "$AP_STATE"
 IFS= read -r delivery < "$AP_STATE/delivery-path.txt"
 python3 "$AP_ROOT/tools/verify_web.py" "$delivery/site" > "$AP_STATE/web-verification.json"
 printf 'HTTP, MIME, link relativi e sorgenti verificati: %s\n' "$AP_STATE/web-verification.json"
+python3 "$AP_ROOT/tools/verify_web_runtime.py" "$delivery/QBertPyramid-$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["web"]["version"])' "$AP_TOOLCHAIN")-Runtime.zip" > "$AP_STATE/runtime-verification.json"
+printf 'Runtime estratto e API verificati: %s\n' "$AP_STATE/runtime-verification.json"

@@ -3,21 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Q*Bert Pyramid · Web 1.2 candidata</title>
-<style>
-:root{color-scheme:dark;font:16px/1.5 system-ui;background:#09101b;color:#eee}body{max-width:1440px;margin:auto;padding:16px}a{color:#7ee3ff}nav{display:flex;gap:24px;flex-wrap:wrap}h1{font-size:1.5rem;margin:12px 0}button{font:inherit;padding:8px 18px;cursor:pointer}#stage{position:relative;max-width:1280px;margin:16px auto;background:#000;aspect-ratio:16/9}canvas{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}canvas:focus{outline:2px solid #7ee3ff;outline-offset:2px}canvas:fullscreen{background:#000;width:100vw;height:100vh;object-fit:contain}#gate{position:absolute;inset:0;display:grid;place-content:center;text-align:center;background:#09101bf5}#notice{max-width:60ch}small{color:#bed0e0}details{margin:16px 0}kbd{font:inherit;color:#fff}button:disabled{cursor:wait}footer{margin-top:24px}
-</style>
+<title>Q*Bert Pyramid · Web 1.2</title>
+<link rel="stylesheet" href="arcade.css">
 $GODOT_HEAD_INCLUDE
 </head>
-<body>
-<nav aria-label="Navigazione"><a href="../../">← Torna al sito</a><a href="https://github.com/eruggie/qbert-pyramid">Codice sorgente</a><a href="https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0">Windows 1.1.0</a></nav>
-<h1>Q*Bert Pyramid <small>Web 1.2 · rc.2</small></h1>
-<p>Edizione classica per tastiera e browser desktop. Avvia, poi fai clic nel gioco. Dopo una perdita di focus riprendi con P e premi nuovamente i tasti.</p>
+<body class="game-page"><div class="site-wrap">
+<header class="topbar"><div class="game-header"><a class="home-link" href="../../" aria-label="HOME — torna alla sala giochi" title="HOME"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5M5.5 9v12h5v-7h3v7h5V9"/></svg></a><div><h1>Q*BERT PYRAMID</h1><small>80 ARCADE GAMES · WEB EDITION 1.2</small></div></div><span class="edition"><i class="status-dot"></i>1 PLAYER</span></header>
+<div class="game-toolbar"><p>Fai clic nel gioco per usare la tastiera. Dopo una perdita di focus, riprendi con P e premi nuovamente i tasti.</p><div class="button-row"><button id="fullscreen" class="arcade-button" type="button">⛶ SCHERMO INTERO</button><button id="leave" class="arcade-button" type="button">⌨ COMANDI ALLA PAGINA</button></div></div>
 <p id="browser-notice" role="status" aria-live="polite"></p>
-<button id="fullscreen" type="button">Schermo intero</button> <button id="leave" type="button">Lascia i comandi al sito</button>
-<div id="stage"><canvas id="canvas" width="1280" height="720" tabindex="0" aria-label="Q*Bert Pyramid, superficie di gioco">È richiesto un browser con WebGL 2.</canvas><div id="gate"><button id="start" type="button">Avvia il gioco e abilita audio</button><p id="notice" role="status" aria-live="polite">Il caricamento inizia dopo Avvia.</p><progress id="progress" hidden></progress></div></div>
-<details><summary>Comandi, salvataggi e compatibilità</summary><p>↖ Q / Sinistra / tastierino 7; ↗ E / Su / 9; ↙ Z / Giù / 1; ↘ C / Destra / 3. P: pausa e ripresa. Esc: menu secondo il flusso risultati. F11: schermo intero se consentito dal browser; usa anche il pulsante sopra. Menu: frecce, Tab / Shift+Tab, Enter o Spazio e mouse. Record: tre iniziali A–Z, Backspace per correggere, Tab/Enter per confermare. Le impostazioni permettono tasti aggiuntivi.</p><p>Punteggi confermati e classifica sono salvati sul server e condivisi fra i browser; si aggiornano automaticamente. Per registrare un risultato servono tre iniziali e la conferma del server: in caso di errore usa Riprova. Soltanto le impostazioni rimangono nel browser tramite IndexedDB e possono perdersi se i dati del sito vengono rimossi. Non viene salvata una partita in corso e non c’è sincronizzazione con Windows. Esc può prima uscire dallo schermo intero; F11 può essere gestito dal browser. Android, smartphone e touch non sono supportati.</p></details>
-<footer><small>© Eugenio Ruggieri 2026 · Progetto indipendente, non ufficiale. Grazie a Warren Davis e Jeff Lee (Gottlieb), creatori dell'originale Q*bert. Marchi e opere di terzi appartengono ai rispettivi titolari. <a href="LICENSE.txt">GPL-3.0-only</a> · <a href="THIRD_PARTY_NOTICES.txt">Licenze e crediti delle dipendenze</a> · <a href="QBertPyramid-source.zip">Sorgenti corrispondenti</a> · <a href="DEPENDENCY_LICENSES.txt">Licenze complete</a></small></footer>
+<div id="stage"><canvas id="canvas" width="1280" height="720" tabindex="0" aria-label="Q*Bert Pyramid, superficie di gioco">È richiesto un browser con WebGL 2.</canvas><div id="gate"><span class="eyebrow">LA PIRAMIDE TI ASPETTA</span><button id="start" class="arcade-button primary" type="button">▶ AVVIA IL GIOCO</button><p id="notice" role="status" aria-live="polite">Il caricamento inizia dopo Avvia.</p><progress id="progress" hidden></progress></div></div>
+<details><summary>COMANDI, AUDIO E CLASSIFICA <span aria-hidden="true">＋</span></summary><p>↖ Q / Sinistra / tastierino 7; ↗ E / Su / 9; ↙ Z / Giù / 1; ↘ C / Destra / 3. P: pausa e ripresa. Esc: menu secondo il flusso risultati. F11: schermo intero se consentito dal browser; usa anche il pulsante sopra. Menu: frecce, Tab / Shift+Tab, Enter o Spazio e mouse. Record: tre iniziali A–Z, Backspace per correggere, Tab/Enter per confermare. Le impostazioni permettono tasti aggiuntivi.</p><p>Punteggi confermati e classifica sono salvati sul server e condivisi fra i browser; si aggiornano automaticamente. Per registrare un risultato servono tre iniziali e la conferma del server: in caso di errore usa Riprova. Soltanto le impostazioni rimangono nel browser tramite IndexedDB e possono perdersi se i dati del sito vengono rimossi. Non viene salvata una partita in corso e non c’è sincronizzazione con Windows. Esc può prima uscire dallo schermo intero; F11 può essere gestito dal browser. Android, smartphone e touch non sono supportati.</p></details>
+<footer><span>© 2026 Eugenio Ruggieri · Grazie a Warren Davis e Jeff Lee (Gottlieb).</span><span>Progetto indipendente, non ufficiale · <a href="THIRD_PARTY_NOTICES.txt">Note e licenze</a></span></footer></div>
 <noscript>Abilita JavaScript per giocare.</noscript>
 <script src="$GODOT_URL"></script>
 <script>
@@ -30,8 +26,9 @@ const notice = document.getElementById('notice');
 let started = false;
 function fitGame() {
  const stage = document.getElementById('stage');
- const bodyStyle = getComputedStyle(document.body);
- const availableWidth = document.body.getBoundingClientRect().width - parseFloat(bodyStyle.paddingLeft) - parseFloat(bodyStyle.paddingRight);
+ const wrapper = document.querySelector('.site-wrap');
+ const wrapperStyle = getComputedStyle(wrapper);
+ const availableWidth = wrapper.getBoundingClientRect().width - parseFloat(wrapperStyle.paddingLeft) - parseFloat(wrapperStyle.paddingRight);
  const top = stage.getBoundingClientRect().top + scrollY;
  const availableHeight = Math.max(360, innerHeight - top - 4);
  stage.style.width = Math.min(1280, availableWidth, availableHeight * 16 / 9) + 'px';
@@ -53,7 +50,7 @@ window.qbertFullscreen = enabled => {
  request.catch(err=>{document.getElementById('browser-notice').textContent='Schermo intero non consentito: '+err.message; console.warn(err.message);fitGame();focusState();});
 };
 document.getElementById('fullscreen').addEventListener('click',()=>{if(started){canvas.focus({preventScroll:true});window.qbertFullscreen(!document.fullscreenElement);}});
-document.getElementById('leave').addEventListener('click',()=>{canvas.blur();document.querySelector('nav a').focus();});
+document.getElementById('leave').addEventListener('click',()=>{canvas.blur();document.querySelector('.home-link').focus();});
 document.getElementById('start').addEventListener('click',async e=>{
  e.target.disabled=true;
  try {

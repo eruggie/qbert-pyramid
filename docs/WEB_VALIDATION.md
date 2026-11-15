@@ -1,3 +1,7 @@
+> Registro storico: l’utente ha successivamente approvato i test funzionali Web 1.2.
+> La nuova presentazione/distribuzione rc.3 richiede approvazione separata.
+> Stato attuale: [RELEASE.md](../RELEASE.md).
+
 # Verifica Web 1.2.0-rc.1 — 15 novembre 2026
 
 Questo è il rapporto storico rc.1. La segnalazione dell’utente di audio

@@ -1,3 +1,7 @@
+> Registro storico: l’utente ha successivamente approvato i test funzionali Web 1.2.
+> La nuova presentazione/distribuzione rc.3 richiede approvazione separata.
+> Stato attuale: [RELEASE.md](../RELEASE.md).
+
 # Web 1.2.0-rc.2 — audio e classifica server (test localhost)
 
 Ambito autorizzato: correggere esclusivamente audio Web e persistenza condivisa

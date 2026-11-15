@@ -1,3 +1,7 @@
+> Aggiornamento del 16 novembre 2026: procedura proposta Pages come home
+> e gioco/API su host HTTPS separato in [GITHUB_PUBLICATION.md](GITHUB_PUBLICATION.md).
+> Nessuna scelta di host, billing o pubblicazione eseguita.
+
 # Hosting Web — verifica 15 novembre 2026 (Europe/Rome)
 
 **Aggiornamento rc.2:** il nuovo requisito dell’utente richiede classifica e

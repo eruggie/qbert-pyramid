@@ -1,3 +1,8 @@
+> Corrente: **rc.3 per approvazione della nuova veste e distribuzione**.
+> Vedere [RELEASE.md](../RELEASE.md), [DEPLOY_WEB.md](DEPLOY_WEB.md)
+> e [GITHUB_PUBLICATION.md](GITHUB_PUBLICATION.md). Test funzionali rc.2 approvati.
+> Le sezioni seguenti documentano la preparazione precedente e non definiscono il nuovo packaging.
+
 # Port classico Web 1.2 — candidata locale
 
 **Corrente: rc.2, correzioni audio e classifica server.** Vedere
