@@ -56,6 +56,7 @@ func _ready() -> void:
 	exit_button.pressed.connect(_request_exit)
 	if OS.has_feature("web"):
 		exit_button.text = "Torna al sito"
+		instructions_dialog.dialog_text += "\nWeb: punteggi e classifica condivisi sono salvati sul server dopo conferma.\nLe sole impostazioni restano nel browser."
 	instructions_dialog.close_requested.connect(close_dialogs)
 	status_dialog.close_requested.connect(close_dialogs)
 	instructions_dialog.visibility_changed.connect(_on_dialog_visibility_changed)

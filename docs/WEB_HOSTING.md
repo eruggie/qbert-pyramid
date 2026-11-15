@@ -1,5 +1,11 @@
 # Hosting Web — verifica 15 novembre 2026 (Europe/Rome)
 
+**Aggiornamento rc.2:** il nuovo requisito dell’utente richiede classifica e
+punteggi sul server. L’hosting puramente statico qui valutato per rc.1 non è
+sufficiente da solo. Per il test locale è stato aggiunto un backend SQLite:
+[WEB_RC2_FIXES.md](WEB_RC2_FIXES.md). Nessun servizio di produzione o deploy
+viene selezionato/attivato in questa correzione.
+
 La scelta riguarda il sito personale statico con una sezione
 `/80_arcade_games/qbert/`. Nel workspace esistono il catalogo Markdown
 `80-arcade-games-public` e il repository profilo `eruggie/eruggie`, senza un

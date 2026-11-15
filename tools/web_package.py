@@ -46,31 +46,42 @@ def main():
     (site / '.nojekyll').touch()
     release_sources.create(ROOT, game)
     (game / 'SOURCE_NOTICE.txt').write_text(
-        'Q*Bert Pyramid Web 1.2.0-rc.1; classic baseline Windows 1.1.0.\n'
+        'Q*Bert Pyramid Web 1.2.0-rc.2; classic baseline Windows 1.1.0.\n'
         'Copyright (c) Eugenio Ruggieri 2026. Original code/assets: GPL-3.0-only.\n'
         'Exact corresponding sources: QBertPyramid-source.zip (same directory).\n'
         'Verify SOURCE_FILES.sha256 and PROVENANCE.json in that archive.\n'
         'Source repository: https://github.com/eruggie/qbert-pyramid\n'
         'Complete dependency licenses: DEPENDENCY_LICENSES.txt\n')
-    info = {'candidate': '1.2.0-rc.1', 'release_status': 'local candidate; acceptance pending',
+    info = {'candidate': '1.2.0-rc.2', 'release_status': 'local candidate; acceptance pending',
             'classic_tag': 'v1.1.0', 'classic_commit': 'e833fd622596c109997a817afa73c9ea80644622',
             'commit': subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
             'dirty': bool(subprocess.check_output(['git','-C',str(ROOT),'status','--porcelain'])),
             'source_identity_sha256': identity,
             'engine': subprocess.check_output([os.environ.get('AP_WEB_ENGINE','godot'),'--version'],text=True).strip(),
             'templates': TEMPLATES, 'threads': False, 'extensions': False,
+            'leaderboard': 'same-origin HTTP API with server SQLite; static-only hosting is insufficient',
+            'web_audio_playback': 'Stream',
             'files': {p.name: p.stat().st_size for p in game.iterdir() if p.is_file()}}
     (game / 'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n')
-    destination = ROOT / 'builds' / ('web-1.2.0-rc.1-' + identity[:12])
+    destination = ROOT / 'builds' / ('web-1.2.0-rc.2-' + identity[:12])
     if destination.exists():
         raise SystemExit('Build già esistente: '+str(destination))
     destination.mkdir(parents=True)
     shutil.move(str(site), destination / 'site')
     shutil.copyfile(destination / 'site/80_arcade_games/qbert/QBertPyramid-source.zip', destination / 'QBertPyramid-source.zip')
-    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-rc.1-Web.zip','w',zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-rc.2-Web.zip','w',zipfile.ZIP_DEFLATED) as archive:
         for path in sorted((destination / 'site').rglob('*')):
             if path.is_file():
                 archive.write(path,path.relative_to(destination / 'site'))
+    server = destination / 'server'
+    server.mkdir()
+    for name in ['serve_web.py', 'leaderboard_server.py']:
+        shutil.copyfile(ROOT / 'tools' / name, server / name)
+    shutil.copyfile(ROOT / 'docs/WEB_RC2_FIXES.md', destination / 'LOCAL_TEST.md')
+    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-rc.2-LocalServer.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(server.iterdir()):
+            archive.write(path, path.relative_to(destination))
+        archive.write(destination / 'LOCAL_TEST.md', 'LOCAL_TEST.md')
     with (destination / 'SHA256SUMS.txt').open('w') as output:
         for path in sorted(destination.rglob('*')):
             if path.is_file() and path.name != 'SHA256SUMS.txt':

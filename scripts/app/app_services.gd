@@ -29,6 +29,7 @@ var _audio_paused: bool = false
 var _focus_lost: bool = false
 var _web_focus_callback: JavaScriptObject
 var _web_window: JavaScriptObject
+var web_scores: Node
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -49,6 +50,14 @@ func _ready() -> void:
 			InputMap.action_add_event(ACTIONS[direction], event)
 	data = store.load_profile()
 	if OS.has_feature("web"):
+		# Keep the old browser profile untouched for rollback; migrate preferences only.
+		var previous: Dictionary = data
+		store = Profile.new("user://web_preferences.json")
+		data = store.load_profile() if FileAccess.file_exists(store.path) else previous
+		data["leaderboard"] = []
+		data["record"] = 0
+		data["record_level"] = 1
+		data["record_round"] = 1
 		data["fullscreen"] = false
 	save_message = store.notice
 	_save_timer = Timer.new()
@@ -64,9 +73,16 @@ func _ready() -> void:
 	for index: int in range(4):
 		var player: AudioStreamPlayer = AudioStreamPlayer.new()
 		player.bus = "Effects"
+		if OS.has_feature("web"):
+			player.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 		add_child(player)
 		effect_players.append(player)
 	apply_preferences()
+	if OS.has_feature("web"):
+		web_scores = load("res://scripts/app/web_scores.gd").new()
+		web_scores.endpoint = str(JavaScriptBridge.eval('new URL("api/leaderboard", window.location.href).href'))
+		web_scores.changed.connect(_web_scores_changed)
+		add_child(web_scores)
 	if DisplayServer.get_name() != "headless" and not OS.has_feature("web"):
 		get_window().size = Vector2i(data["width"], data["height"])
 		get_window().mode = Window.MODE_FULLSCREEN if data["fullscreen"] else Window.MODE_WINDOWED
@@ -130,6 +146,8 @@ func reset_settings() -> void:
 	_save_timer.start()
 
 func observe_score(points: int, level: int, round_number: int) -> void:
+	if OS.has_feature("web"):
+		return # The Web record is confirmed by the server after submission.
 	if points <= int(data["record"]) or points > 2147483647 or level < 1 or round_number < 1 or round_number > 4:
 		return
 	data["record"] = points
@@ -148,7 +166,13 @@ func submit_score(points: int, level: int, round_number: int, player_name: Strin
 
 func flush() -> bool:
 	_save_timer.stop()
-	var success: bool = store.save_profile(data)
+	var stored: Dictionary = data.duplicate(true)
+	if OS.has_feature("web"):
+		stored["leaderboard"] = []
+		stored["record"] = 0
+		stored["record_level"] = 1
+		stored["record_round"] = 1
+	var success: bool = store.save_profile(stored)
 	save_message = store.notice
 	profile_changed.emit()
 	return success
@@ -245,5 +269,15 @@ func _web_focus_changed(arguments: Array) -> void:
 		profile_changed.emit()
 	if not focused:
 		flush()
+	elif web_scores != null:
+		web_scores.refresh()
 	# Canvas focus also matters when the browser window itself stays active.
 	get_tree().root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN if focused else NOTIFICATION_APPLICATION_FOCUS_OUT)
+
+
+func _web_scores_changed() -> void:
+	data["leaderboard"] = web_scores.entries.duplicate(true)
+	data["record"] = web_scores.record
+	data["record_level"] = web_scores.record_level
+	data["record_round"] = web_scores.record_round
+	profile_changed.emit()

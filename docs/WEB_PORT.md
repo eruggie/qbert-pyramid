@@ -1,5 +1,10 @@
 # Port classico Web 1.2 — candidata locale
 
+**Corrente: rc.2, correzioni audio e classifica server.** Vedere
+[WEB_RC2_FIXES.md](WEB_RC2_FIXES.md) per avvio, API e persistenza attuali.
+Le sezioni sotto registrano la rc.1: le sue indicazioni su classifica IndexedDB
+e pubblicazione puramente statica sono superate dal nuovo requisito server.
+
 Rapporto dei risultati e checklist: [WEB_VALIDATION.md](WEB_VALIDATION.md).
 
 ## Identità e isolamento

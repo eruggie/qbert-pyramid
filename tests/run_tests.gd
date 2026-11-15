@@ -183,6 +183,7 @@ func _run() -> void:
 	await _run_external_suite("res://tests/integration/test_corrective_review.gd")
 	await _run_external_suite("res://tests/integration/test_revision_054.gd")
 	await _run_external_suite("res://tests/integration/test_coil_death.gd")
+	await _run_external_suite("res://tests/integration/test_web_scores.gd")
 	_finish()
 
 

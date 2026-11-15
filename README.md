@@ -159,8 +159,12 @@ Release sources are identified by tag `v1.1.0` in the public repository.
 
 ## Web desktop — candidata 1.2
 
-Il port classico Web 1.2.0-rc.1 è in preparazione locale, basato sul tag Windows v1.1.0. Build: `bash tools/build_web.sh`. [Build, controlli e deployment](docs/WEB_PORT.md), [hosting gratuito](docs/WEB_HOSTING.md), [verifiche e limiti](docs/WEB_VALIDATION.md). Windows 1.1.0 rimane la release distribuita. Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive; Escher è fuori ambito.
+Il port classico Web 1.2.0-rc.2 è in preparazione locale, basato sul tag Windows v1.1.0. Build: `bash tools/build_web.sh`. [Build, controlli e deployment](docs/WEB_PORT.md), [hosting gratuito](docs/WEB_HOSTING.md), [verifiche e limiti](docs/WEB_VALIDATION.md). Windows 1.1.0 rimane la release distribuita. Android, smartphone, layout mobile e touch sono esclusi anche dalle release successive; Escher è fuori ambito.
 
 La candidata Web richiede ancora accettazione manuale: Fullscreen API è stata
 rifiutata dal browser di prova anche su una pagina minima senza Godot.
 Ascolto audio e sessione estesa non sono dichiarati collaudati.
+
+Correzioni rc.2 autorizzate: audio Web tramite mixer Stream e punteggi/classifica
+condivisi sul server locale SQLite. Le sole impostazioni restano nel browser.
+[Istruzioni di prova rc.2](docs/WEB_RC2_FIXES.md). Nessun deploy autorizzato.

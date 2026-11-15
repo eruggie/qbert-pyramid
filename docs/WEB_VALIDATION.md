@@ -1,5 +1,10 @@
 # Verifica Web 1.2.0-rc.1 — 15 novembre 2026
 
+Questo è il rapporto storico rc.1. La segnalazione dell’utente di audio
+assente ne supera l’indicazione di solo contesto running: quel controllo non
+provava l’uscita sonora. Per audio misurato e classifica server della rc.2,
+vedere [WEB_RC2_FIXES.md](WEB_RC2_FIXES.md) e il rapporto della nuova build.
+
 **Stato: candidata locale, non accettata per pubblicazione stabile.**
 Windows 1.1.0 resta una release distinta. La sua precedente accettazione
 manuale non viene estesa al Web. Nessun push, tag o release remota eseguiti.

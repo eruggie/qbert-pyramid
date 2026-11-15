@@ -1,4 +1,4 @@
-param([ValidateSet('Chrome','Edge')][string]$Browser='Chrome',[string]$Url='http://localhost:8765/80_arcade_games/qbert/',[string]$Output,[switch]$Headed)
+param([ValidateSet('Chrome','Edge')][string]$Browser='Chrome',[string]$Url='http://localhost:8765/80_arcade_games/qbert/',[string]$Output,[switch]$Headed,[switch]$RetryServerSave)
 $ErrorActionPreference='Stop'
 if (!$Output) { throw 'Pass an absolute Windows output directory in -Output' }
 New-Item -ItemType Directory -Force -Path $Output | Out-Null
@@ -50,6 +50,7 @@ try {
  if(!$target){throw 'No browser page target available'}
  $script:socket=[Net.WebSockets.ClientWebSocket]::new();$script:socket.ConnectAsync([Uri]$target.webSocketDebuggerUrl,[Threading.CancellationToken]::None).GetAwaiter().GetResult()
  Cdp 'Page.enable'|Out-Null;Cdp 'Runtime.enable'|Out-Null;Cdp 'Log.enable'|Out-Null;Cdp 'Network.enable'|Out-Null;Cdp 'WebAudio.enable'|Out-Null
+ Cdp 'Page.addScriptToEvaluateOnNewDocument' @{source=[IO.File]::ReadAllText((Join-Path $PSScriptRoot 'web_audio_probe.js'))}|Out-Null
  Cdp 'Page.navigate' @{url=$Url}|Out-Null;Start-Sleep -Seconds 1
  Shot '01-page'
  $start=Js '(()=>{const r=document.getElementById("start").getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()'
@@ -86,27 +87,43 @@ try {
  Key 'Enter' 'Enter' 13
  ClickCanvas 470 462
  Shot '11-settings'
- # Change mute with a real click; inspect persistent JSON through IndexedDB below.
+ $audio=Js '({peak:audioProbe.peak,samples:audioProbe.samples,contexts:audioProbe.contexts.map(c=>c.state)})'
+ $audio|ConvertTo-Json -Depth 5|Set-Content (Join-Path $Output 'audio-before-mute.json')
+ if($audio.peak -le 0.00001){throw 'No outgoing audio waveform before mute'}
+ # Settings remain local; ranking must come from the HTTP server.
  ClickCanvas 1210 210
  ClickCanvas 700 120
  ClickCanvas 900 158
  ClickCanvas 800 565;Key 'KeyV' 'v' 86
  Shot '12-mute'
  Key 'Escape' 'Escape' 27
+ Js 'audioProbe.peak=0;true'|Out-Null
  # Start a fresh run and deliberately lose lives after earning positive points.
  ClickCanvas 640 364
  Start-Sleep -Milliseconds 250
  Key 'KeyV' 'v' 86;Start-Sleep -Milliseconds 500;Key 'KeyQ' 'q' 81;Start-Sleep -Milliseconds 500
  for($i=0;$i -lt 3;$i++){Key 'KeyQ' 'q' 81;Start-Sleep -Seconds 8}
+ $mutedAudio=Js '({peak:audioProbe.peak,samples:audioProbe.samples})'
+ $mutedAudio|ConvertTo-Json|Set-Content (Join-Path $Output 'audio-muted.json')
+ if($mutedAudio.peak -gt 0.000001){throw 'Audio output was not silent while muted'}
  Shot '13-game-over'
  Key 'Enter' 'Enter' 13;Start-Sleep -Milliseconds 400;Shot '14-result-input'
  Key 'KeyA' 'a' 65;Key 'KeyB' 'b' 66;Key 'KeyX' 'x' 88;Key 'Backspace' 'Backspace' 8;Key 'KeyC' 'c' 67;Shot '15-initials'
  Key 'Enter' 'Enter' 13;Shot '16-saved'
+ if($RetryServerSave){
+  Start-Sleep -Seconds 1;Shot '16a-server-not-confirmed'
+  Key 'Tab' 'Tab' 9;Key 'Enter' 'Enter' 13
+  Start-Sleep -Seconds 1;Shot '16b-server-retried'
+ }
  Key 'Enter' 'Enter' 13;Key 'Escape' 'Escape' 27
  Start-Sleep -Seconds 2
  $profileReadCode='(async()=>{const dbs=await indexedDB.databases();const found=[];for(const info of dbs){const db=await new Promise((ok,bad)=>{const r=indexedDB.open(info.name);r.onsuccess=()=>ok(r.result);r.onerror=()=>bad(r.error)});for(const name of db.objectStoreNames){const values=await new Promise((ok,bad)=>{const r=db.transaction(name).objectStore(name).getAll();r.onsuccess=()=>ok(r.result);r.onerror=()=>bad(r.error)});for(const v of values){if(v.contents){try{const p=JSON.parse(new TextDecoder().decode(v.contents));if(p.schema)found.push(p)}catch{}}}}db.close()}return found})()'
  $profileBefore=Js $profileReadCode
- if(!($profileBefore|Where-Object {$_.leaderboard.name -contains 'ABC'})){throw 'Initials ABC were not saved; review screenshots before claiming a gameplay failure'}
+ $serverReadCode='(async()=>{const r=await fetch(new URL("api/leaderboard",location.href),{cache:"no-store"});if(!r.ok)throw new Error("API unavailable");return await r.json()})()'
+ $serverBefore=Js $serverReadCode
+ $serverBefore|ConvertTo-Json -Depth 15|Set-Content (Join-Path $Output 'server-before-reload.json')
+ if(!($serverBefore.leaderboard|Where-Object {$_.name -eq 'ABC' -and $_.points -gt 0})){throw 'Initials ABC were not saved on the server'}
+ if($profileBefore|Where-Object {$_.leaderboard.Count -gt 0 -or $_.record -ne 0}){throw 'Server ranking leaked into local preferences'}
  if(!($profileBefore|Where-Object {$_.muted -and $_.bindings[3] -eq 86 -and $_.master -lt 0.8 -and $_.effects -lt 0.8})){throw 'Changed settings were not persisted'}
  $profileBefore|ConvertTo-Json -Depth 15|Set-Content (Join-Path $Output 'profiles-before-reload.json')
  Key 'F11' 'F11' 122;Shot '17-f11'
@@ -114,7 +131,7 @@ try {
  Js 'document.getElementById("fullscreen").addEventListener("click",e=>window.qbertGesture={trusted:e.isTrusted,active:navigator.userActivation.isActive},true);true'|Out-Null
  Cdp 'Input.dispatchMouseEvent' @{type='mousePressed';x=$button.x;y=$button.y;button='left';clickCount=1}|Out-Null
  Cdp 'Input.dispatchMouseEvent' @{type='mouseReleased';x=$button.x;y=$button.y;button='left';clickCount=1}|Out-Null
- Shot '17-fullscreen-button' 
+ Shot '17-fullscreen-button'
  $full=Js '({element:Boolean(document.fullscreenElement),enabled:document.fullscreenEnabled,activation:navigator.userActivation.isActive,notice:document.getElementById("browser-notice").textContent,gesture:window.qbertGesture})'
  $full|ConvertTo-Json|Set-Content (Join-Path $Output 'fullscreen.json')
  Key 'F11' 'F11' 122
@@ -136,12 +153,15 @@ try {
  ClickCanvas 640 462;Shot '20-persistent-leaderboard'
  $profileAfter=Js $profileReadCode
  $profileAfter|ConvertTo-Json -Depth 15|Set-Content (Join-Path $Output 'profiles-after-reload.json')
- if(!($profileAfter|Where-Object {$_.leaderboard.name -contains 'ABC' -and $_.muted -and $_.bindings[3] -eq 86})){throw 'Profile did not survive page reload'}
+ if(!($profileAfter|Where-Object {$_.muted -and $_.bindings[3] -eq 86})){throw 'Preferences did not survive page reload'}
+ $serverAfter=Js $serverReadCode
+ $serverAfter|ConvertTo-Json -Depth 15|Set-Content (Join-Path $Output 'server-after-reload.json')
+ if(!($serverAfter.leaderboard|Where-Object {$_.name -eq 'ABC' -and $_.points -gt 0})){throw 'Server ranking did not survive page reload'}
  # The return link and game exit resolve relative to a nested site root.
  Key 'Enter' 'Enter' 13
  ClickCanvas 640 512;Start-Sleep -Milliseconds 400;Shot '21-back-to-site'
  if((Js 'location.pathname') -ne '/'){throw 'Return to site did not resolve to site root'}
- $state=Js '({url:location.href,started:typeof started==="undefined"?null:started,canvas:typeof canvas==="undefined"?null:[canvas.width,canvas.height],focused:document.activeElement.id,isolated:crossOriginIsolated,userAgent:navigator.userAgent})' 
+ $state=Js '({url:location.href,started:typeof started==="undefined"?null:started,canvas:typeof canvas==="undefined"?null:[canvas.width,canvas.height],focused:document.activeElement.id,isolated:crossOriginIsolated,userAgent:navigator.userAgent})'
  $state|ConvertTo-Json -Depth 10|Set-Content (Join-Path $Output 'state.json')
  $script:events|ConvertTo-Json -Depth 30|Set-Content (Join-Path $Output 'events.json')
  Write-Output ($state|ConvertTo-Json -Compress)
