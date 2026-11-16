@@ -19,8 +19,9 @@ Su Windows con Python installato si può usare:
 py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3
 ```
 
-Aprire http://localhost:8765/ . Il pulsante GIOCA ORA apre la sezione
-`/80_arcade_games/qbert/`. Premere AVVIA IL GIOCO e fare clic nel canvas.
+Aprire http://localhost:8765/80_arcade_games/qbert/ . La pagina presenta
+il gioco e il cabinato arcade: premere GIOCA ORA per avviarlo e fare clic
+nel canvas. HOME torna alla sala giochi alla radice del sito.
 Per fermare il server: Ctrl+C. Se un vecchio server usa la stessa porta,
 arrestarlo prima. Dopo un aggiornamento ricaricare Chrome con Ctrl+F5.
 
