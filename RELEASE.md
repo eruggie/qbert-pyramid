@@ -52,3 +52,15 @@ del gioco, mantenendo la cornice arcade. Rimossi il sottotitolo personale e
 “nessuna moneta richiesta”. Footer: “Progetto Open Source Indipendente -
 Note e Licenze”. Nuova build locale rc.3 identificata dal manifest sorgenti;
 nessuna pubblicazione e approvazione della presentazione ancora pendente.
+
+## Pagina unica di presentazione e avvio
+
+La pagina /80_arcade_games/qbert/ presenta direttamente il layout arcade
+e avvia il gioco con GIOCA ORA. Conservati intestazione HOME/1 PLAYER,
+seconda riga dei comandi browser e footer originali della pagina di gioco.
+La presentazione centrale e le istruzioni cedono il posto al canvas dopo
+il caricamento, senza un secondo pulsante di avvio. Riferimento esplicito
+alla Sala Giochi sul WEB “80 ARCADE GAMES”. INFORMAZIONI riporta release
+Web corrente, base classica, licenza, salvataggi e limiti browser; il menu
+Web offre “Torna in Sala Giochi 80 ARCADE GAMES”. Windows invariato.
+Nuova verifica dell'utente richiesta prima di qualsiasi pubblicazione.

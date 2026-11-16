@@ -55,8 +55,13 @@ func _ready() -> void:
 	status_button.pressed.connect(show_status)
 	exit_button.pressed.connect(_request_exit)
 	if OS.has_feature("web"):
-		exit_button.text = "Torna al sito"
-		instructions_dialog.dialog_text += "\nWeb: punteggi e classifica condivisi sono salvati sul server dopo conferma.\nLe sole impostazioni restano nel browser."
+		exit_button.text = "Torna in Sala Giochi 80 ARCADE GAMES"
+		instructions_dialog.title = "Informazioni — Q*BERT Pyramid WEB 1.2"
+		var web_version: String = str(ProjectSettings.get_setting("application/config/version.web", "1.2.0"))
+		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("QBERT Rev. 1.1 · Aggiornamento del gioco", "Q*BERT Pyramid WEB 1.2 · Candidata " + web_version)
+		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("Testo integrale: LICENSE nella cartella del gioco.", "Licenza integrale: LICENSE.txt nella pagina Web. Base classica Windows 1.1.0.")
+		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("Record e tasti persistenti.", "Classifica sul server; impostazioni nel browser.")
+		instructions_dialog.dialog_text += "\nWeb: punteggi e classifica condivisi sono salvati sul server dopo conferma.\nLe sole impostazioni restano nel browser. Solo browser desktop e tastiera.\nAudio dopo avvio; dopo perdita di focus riprendi con P. F11 dipende dal browser."
 	instructions_dialog.close_requested.connect(close_dialogs)
 	status_dialog.close_requested.connect(close_dialogs)
 	instructions_dialog.visibility_changed.connect(_on_dialog_visibility_changed)
