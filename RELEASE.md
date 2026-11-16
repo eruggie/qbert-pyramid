@@ -73,3 +73,12 @@ al README pubblico eruggie/eruggie e con due sole voci: EMCRAG Project
 Presentazione professionale e stile chiaro; nessuna duplicazione del cabinato
 o delle istruzioni del gioco. La pagina arcade, il menu e HOME sono invariati.
 Sito Pages e pacchetti locali includono personal.css. Nessuna pubblicazione.
+
+## Revisione dei testi della home personale
+
+Sigla “ruge.”; riferimenti uniformati a “Progetti Open Source”. Eliminati
+il titolo sopra il menu e il sottotitolo promozionale. Presentazione più sobria
+del percorso professionale, senza riferimenti al numero di anni o all'età.
+I due riquadri sono link sull'intera superficie, con feedback al passaggio
+del mouse e focus da tastiera. Gioco e pagina arcade invariati.
+Preparazione solo locale per il test dell'utente; nessun push o deployment.
