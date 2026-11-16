@@ -43,7 +43,7 @@ Nome del sito personale proposto: `eruggie/eruggie.github.io`, URL
 [Tipi di siti e URL ufficiali](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
 **Proposta coerente con il gioco già accettato:** Pages ospita la nuova home
-arcade; GIOCA ORA apre il gioco completo su un host HTTPS con API e database,
+personale; 80 Arcade Games apre il gioco completo su un host HTTPS con API e database,
 sotto `/80_arcade_games/qbert/`. Gioco e API rimangono sulla stessa origine.
 
 Il sito personale resta il contenitore/ingresso del progetto. Senza un backend
@@ -65,7 +65,7 @@ python3 tools/prepare_pages.py /percorso/al/pacchetto/site /nuova/cartella/pages
 ```
 
 Sostituire HOST-APPROVATO con l'URL reale. Lo strumento scrive in una cartella
-nuova, copia CSS/icona/licenze e imposta il link al gioco; non fa push/deploy.
+nuova, copia personal.css e le risorse/licenze necessarie e imposta il link al gioco; non fa push/deploy.
 Non include nel sito Pages database, server Python o un gioco con API inesistente.
 Se esiste già un sito personale, integrare solo i file e il collegamento
 necessari senza sovrascriverne la home.

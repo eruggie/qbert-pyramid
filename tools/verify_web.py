@@ -31,7 +31,7 @@ release_sources.verify(source)
 with zipfile.ZipFile(source_path) as z:
     provenance=json.loads(z.read('PROVENANCE.json'))
     assert provenance['source_identity_sha256']==info['source_identity_sha256']
-    for required in ['web/shell.html','web/site-index.html','tools/build_web.sh','tools/web_package.py','web/arcade.css','web/game-screen.png','tools/web_wsgi.py','RELEASE.md','docs/DEPLOY_WEB.md','docs/GITHUB_PUBLICATION.md']:
+    for required in ['web/shell.html','web/site-index.html','tools/build_web.sh','tools/web_package.py','web/arcade.css','web/personal.css','web/game-screen.png','tools/web_wsgi.py','RELEASE.md','docs/DEPLOY_WEB.md','docs/GITHUB_PUBLICATION.md']:
         assert 'source/'+required in z.namelist(),required
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self,*a,**kw): super().__init__(*a,directory=str(site.parent),**kw)

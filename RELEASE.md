@@ -64,3 +64,12 @@ alla Sala Giochi sul WEB “80 ARCADE GAMES”. INFORMAZIONI riporta release
 Web corrente, base classica, licenza, salvataggi e limiti browser; il menu
 Web offre “Torna in Sala Giochi 80 ARCADE GAMES”. Windows invariato.
 Nuova verifica dell'utente richiesta prima di qualsiasi pubblicazione.
+
+## Home personale distinta dalla pagina arcade
+
+La radice del sito è una nuova home personale di Eugenio Ruggieri, ispirata
+al README pubblico eruggie/eruggie e con due sole voci: EMCRAG Project
+(README pubblico su GitHub) e 80 Arcade Games (Q*BERT Pyramid WEB).
+Presentazione professionale e stile chiaro; nessuna duplicazione del cabinato
+o delle istruzioni del gioco. La pagina arcade, il menu e HOME sono invariati.
+Sito Pages e pacchetti locali includono personal.css. Nessuna pubblicazione.

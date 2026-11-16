@@ -20,6 +20,8 @@ def prepare(site, output, game_url):
     document = (site / 'index.html').read_text()
     if 'href="80_arcade_games/qbert/"' not in document:
         raise ValueError('Link di avvio non trovato nella home.')
+    if not (site / 'personal.css').is_file():
+        raise ValueError('Risorsa richiesta mancante: personal.css')
     assets = ['arcade.css', 'game-screen.png', 'index.icon.png', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt',
               'DEPENDENCY_LICENSES.txt', 'DejaVuSans-LICENSE.txt', 'SOURCE_NOTICE.txt']
     for name in assets:
@@ -29,6 +31,7 @@ def prepare(site, output, game_url):
     target.mkdir(parents=True)
     (output / 'index.html').write_text(document.replace('href="80_arcade_games/qbert/"', 'href="'+html.escape(game_url, quote=True)+'"'))
     (output / '.nojekyll').touch()
+    shutil.copyfile(site / 'personal.css', output / 'personal.css')
     for name in assets:
         shutil.copyfile(site / '80_arcade_games/qbert' / name, target / name)
     return output

@@ -202,3 +202,12 @@ captured on 16 November 2026. It replaces the decorative CSS pyramid;
 no game art was redrawn or generated. Existing game/font licenses apply.
 No external image, font download, tracking script or reference-game asset
 was added. Existing font exceptions and third-party notices remain unchanged.
+
+## Personal site home
+
+`web/personal.css` and the original inline SVG icons in `web/site-index.html`
+are covered by GPL-3.0-only. No external font/image or avatar is loaded.
+Professional introduction adapted from the owner-requested public profile
+README at https://github.com/eruggie/eruggie/blob/master/README.md, checked
+16 November 2026; EMCRAG destination verified against its public README.
+The home is a personal project directory, distinct from the arcade game page.

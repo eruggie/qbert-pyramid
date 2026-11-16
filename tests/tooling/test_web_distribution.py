@@ -41,6 +41,7 @@ class DistributionTests(unittest.TestCase):
 
     def test_pages_gateway_has_real_target_and_no_engine_or_database(self):
         site = self.root/'site'; assets=site/'80_arcade_games/qbert'; assets.mkdir(parents=True)
+        (site/'personal.css').write_text('personal fixture')
         (site/'index.html').write_text('<a href="80_arcade_games/qbert/">PLAY</a>')
         for name in ['arcade.css','game-screen.png','index.icon.png','LICENSE.txt','THIRD_PARTY_NOTICES.txt','DEPENDENCY_LICENSES.txt','DejaVuSans-LICENSE.txt','SOURCE_NOTICE.txt']:
             (assets/name).write_text('fixture')
@@ -48,6 +49,7 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('https://games.example.invalid/80_arcade_games/qbert/',(output/'index.html').read_text())
         self.assertFalse((output/'80_arcade_games/qbert/index.html').exists())
         self.assertTrue((output/'.nojekyll').exists())
+        self.assertEqual((output/'personal.css').read_text(), 'personal fixture')
         self.assertEqual((output/'80_arcade_games/qbert/game-screen.png').read_text(), 'fixture')
         with self.assertRaises(ValueError): prepare(site, output, 'https://games.example.invalid/80_arcade_games/qbert/')
 

@@ -43,6 +43,7 @@ def main():
     shutil.copyfile(ROOT / 'docs/THIRD_PARTY_NOTICES.txt', game / 'DEPENDENCY_LICENSES.txt')
     shutil.copyfile(ROOT / 'assets/fonts/DejaVuSans-LICENSE.txt', game / 'DejaVuSans-LICENSE.txt')
     shutil.copyfile(ROOT / 'web/site-index.html', site / 'index.html')
+    shutil.copyfile(ROOT / 'web/personal.css', site / 'personal.css')
     (site / '.nojekyll').touch()
     for name in ['arcade.css', 'game-screen.png']:
         shutil.copyfile(ROOT / 'web' / name, game / name)
