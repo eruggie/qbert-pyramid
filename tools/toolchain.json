@@ -86,7 +86,7 @@
     }
   },
   "web": {
-    "version": "1.2.0-rc.3",
+    "version": "1.2.0",
     "baseline": "v1.1.0",
     "renderer": "gl_compatibility",
     "threads": false,

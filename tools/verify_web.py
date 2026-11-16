@@ -31,7 +31,7 @@ release_sources.verify(source)
 with zipfile.ZipFile(source_path) as z:
     provenance=json.loads(z.read('PROVENANCE.json'))
     assert provenance['source_identity_sha256']==info['source_identity_sha256']
-    for required in ['web/shell.html','web/site-index.html','tools/build_web.sh','tools/web_package.py','web/arcade.css','web/personal.css','web/game-screen.png','tools/web_wsgi.py','RELEASE.md','docs/DEPLOY_WEB.md','docs/GITHUB_PUBLICATION.md']:
+    for required in ['web/shell.html','web/site-index.html','tools/build_web.sh','tools/web_package.py','web/arcade.css','web/personal.css','web/game-screen.png','tools/web_wsgi.py','tools/hosted_wsgi.py','docs/PYTHONANYWHERE_DEPLOY.md','RELEASE.md','docs/DEPLOY_WEB.md','docs/GITHUB_PUBLICATION.md']:
         assert 'source/'+required in z.namelist(),required
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self,*a,**kw): super().__init__(*a,directory=str(site.parent),**kw)
@@ -71,10 +71,10 @@ result={'result':'pass','nested_prefix':'/'+site.name+'/', 'checked':checked,'so
 version=info['candidate']
 with zipfile.ZipFile(site.parent/f'QBertPyramid-{version}-Runtime.zip') as runtime:
     names=runtime.namelist()
-    assert 'site/index.html' in names and 'server/web_wsgi.py' in names
+    assert 'site/index.html' in names and 'server/web_wsgi.py' in names and 'server/hosted_wsgi.py' in names
     assert 'source/project.godot' not in names
     assert not any(name.endswith(('.sqlite3','.sqlite','.db')) for name in names)
-    for name in ['DEPLOY_WEB.md','GITHUB_PUBLICATION.md','RELEASE.md','TEST.md','README.md']:
+    for name in ['DEPLOY_WEB.md','GITHUB_PUBLICATION.md','PYTHONANYWHERE_DEPLOY.md','RELEASE.md','TEST.md','README.md']:
         assert name in names
     assert runtime.testzip() is None
 with zipfile.ZipFile(site.parent/f'QBertPyramid-{version}-Complete.zip') as complete, zipfile.ZipFile(source_path) as sources:

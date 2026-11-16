@@ -1,3 +1,10 @@
+> **Stato finale Web 1.2.0 — 16 novembre 2026:** ultima candidata testata e
+> accettata dall'utente; completamento, commit e pubblicazione autorizzati.
+> Documentazione congelata per v1.2.0. I precedenti limiti di autorizzazione
+> sono storici e sostituiti dalla richiesta corrente. Backend pubblico soggetto
+> a disponibilità di host/accesso, senza attivare fatturazione.
+> Stato e contratto definitivi: [RELEASE.md](RELEASE.md).
+
 # Q*Bert Pyramid — piano di progetto e release
 
 ## Current release — QBERT Rev. 1.1 / version 1.1.0

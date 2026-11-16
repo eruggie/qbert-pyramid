@@ -1,6 +1,7 @@
-> Web corrente: preparazione rc.3, test funzionali rc.2 approvati dall’utente.
-> [Release](../RELEASE.md), [download/deployment](DEPLOY_WEB.md),
-> [GitHub/Pages](GITHUB_PUBLICATION.md). Le registrazioni delle versioni precedenti sotto restano storiche.
+> Web 1.2.0 stabile, approvata dall'utente il 16 novembre 2026.
+> Documentazione congelata per v1.2.0. [Release](../RELEASE.md) ·
+> [Download e deployment](DEPLOY_WEB.md) · [Test correnti](../TEST.md).
+> Le sezioni relative alle vecchie fasi restano registri storici.
 
 # Player guide — Q*Bert Pyramid
 
@@ -37,6 +38,6 @@ a score. No in-progress game is saved. See INSTALL_WINDOWS.md for safe updates
 and data locations. The previous guide is archived in history/PLAYER_GUIDE_PRE_PHASE7.it.txt.
 
 
-## Web desktop candidate
+## Web desktop 1.2.0
 
 See [WEB_PORT.md](WEB_PORT.md). Start with the page button, click the canvas, use unchanged keyboard controls. Focus loss pauses: explicitly resume with P and release/repress movement keys. F11/Esc can be intercepted by the browser; the page provides fullscreen and a return link. For rc.2, scores and the shared leaderboard persist on the HTTP server; only preferences remain browser/origin-specific in IndexedDB. See [WEB_RC2_FIXES.md](WEB_RC2_FIXES.md). No mobile or touch support.

@@ -25,10 +25,15 @@ source tag, corresponding sources, provenance and SHA-256 files.
 Web classic 1.2 is isolated from public v1.1.0. Run bash tools/build_web.sh. Preserve Windows release tags/assets, input mappings, hold/release and gameplay. Android, smartphones, mobile layout and touch are excluded from current and future releases. Escher is outside this port. Public upload/release/deployment requires explicit user acceptance of the tested candidate. See docs/WEB_PORT.md.
 
 
-## Release review gate
+## Web 1.2.0 release authorization
 
-Test funzionali rc.2 approvati dall’utente. Autorizzate preparazione locale della
-nuova home arcade, pacchetti runtime/completo e documentazione rc.3.
-Nuova approvazione necessaria per completare la release stabile, creare tag
-finali, effettuare push, pubblicare release/repository/sito o scegliere/attivare
-l’hosting del backend. Nessuna modifica al gameplay. Vedere RELEASE.md.
+Owner tested and accepted the latest candidate, personal home and packages on
+2026-11-16, and explicitly authorized final version, documentation freeze,
+release commit/tag, GitHub release and GitHub Pages publication. That approval
+supersedes the previous RC review gate; do not ask for it again.
+Keep public Windows v1.1.0 tags/assets unchanged. Publish exact corresponding
+sources and checksums. Backend deployment requires an actual authenticated
+host with persistent storage; do not invent a URL, expose credentials, activate
+billing or silently replace server scores with local browser scores.
+The tagged Markdown documents are frozen; operational deployment status may
+be recorded separately in the site repository. See RELEASE.md.

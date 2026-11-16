@@ -1,15 +1,13 @@
-# Download e deployment del gioco Web 1.2
+# Download e deployment del gioco Web 1.2.0
 
-Preparazione locale `1.2.0-rc.3`, destinata alla revisione dell'utente.
-I comandi server qui descritti sono istruzioni per il destinatario: nessun
-server pubblico o servizio è stato attivato in questa sessione.
+Documentazione congelata: 16 novembre 2026. Software e pubblicazione approvati
+dall’utente; la verifica di un host pubblico è separata dal collaudo del runtime.
 
-## 1. Download da GitHub, dopo la pubblicazione autorizzata
+## 1. Download da GitHub
 
 Aprire il repository ufficiale `https://github.com/eruggie/qbert-pyramid`,
 sezione Releases, scegliere **Q*Bert Pyramid WEB 1.2.0**, poi Assets.
-Questa release e il suo tag `v1.2.0` sono ancora **proposti**, non pubblicati.
-I nomi stabili previsti sono:
+Release e tag stabili: `v1.2.0`. Asset:
 
 | Asset | Uso |
 |---|---|
@@ -19,8 +17,7 @@ I nomi stabili previsti sono:
 | `QBertPyramid-1.2.0-WebStatic.zip` | Frontend statico per integrazione; richiede API separata |
 | `SHA256SUMS.txt` | Hash SHA-256 dei download |
 
-Le build locali attuali portano il suffisso `1.2.0-rc.3`, per distinguerle da
-una futura versione finale. Gli ZIP automatici “Source code” di GitHub non sono
+Gli ZIP automatici “Source code” di GitHub non sono
 il gioco già esportato. Non servono i pacchetti Windows 1.1.0 per giocare Web.
 
 Per verificare un archivio scaricato:
@@ -47,7 +44,7 @@ Windows PowerShell con il launcher Python:
 py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3
 ```
 
-Visitare http://localhost:8765/ e scegliere GIOCA ORA. Il servizio ascolta
+Visitare http://localhost:8765/, scegliere 80 Arcade Games e poi GIOCA ORA. Il servizio ascolta
 solo su localhost. Usare Python >=3.10 con il modulo SQLite standard.
 Il percorso `--db` deve essere fuori da `site/`; per aggiornare usare la nuova
 cartella gioco ma lo stesso database. Backup del file a server fermo.
@@ -75,7 +72,7 @@ pubblico: [documentazione Python](https://docs.python.org/3/library/http.server.
 
 ## 4. Esempio su un proprio server Python/WSGI
 
-Esempio da adattare dall'amministratore **dopo approvazione del deployment**.
+Esempio da adattare dall'amministratore all'host scelto.
 Gunicorn e Nginx sono esempi, non dipendenze installate dal nostro build.
 Nessun container, VM o abbonamento viene creato da questi file.
 
@@ -139,7 +136,15 @@ Thread/GDExtension/PWA sono disabilitati: non sono richiesti SharedArrayBuffer
 né header COOP/COEP. Il gioco e l'API restano sulla stessa origine e percorso;
 non serve modificare CORS o inserire URL del backend nel client.
 
-## 5. Aggiornamenti e limiti
+## 5. Hosting gratuito predisposto
+
+PythonAnywhere Beginner: adattatore `server/hosted_wsgi.py` incluso, stesso
+backend Python/SQLite e streaming dei file del gioco, senza dipendenze esterne.
+[Account, configurazione, limiti e rinnovo](PYTHONANYWHERE_DEPLOY.md).
+L’attivazione richiede un account reale dell’utente: non viene dichiarato
+un URL attivo prima del deployment e della verifica.
+
+## 6. Aggiornamenti e limiti
 
 Conservare il database fuori dal pacchetto, fermare il servizio per il backup,
 sostituire i file del gioco/backend e riavviare con lo stesso `--db` o

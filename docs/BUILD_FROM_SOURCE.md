@@ -1,6 +1,7 @@
-> Web corrente: preparazione rc.3, test funzionali rc.2 approvati dall’utente.
-> [Release](../RELEASE.md), [download/deployment](DEPLOY_WEB.md),
-> [GitHub/Pages](GITHUB_PUBLICATION.md). Le registrazioni delle versioni precedenti sotto restano storiche.
+> Web 1.2.0 stabile, approvata dall'utente il 16 novembre 2026.
+> Documentazione congelata per v1.2.0. [Release](../RELEASE.md) ·
+> [Download e deployment](DEPLOY_WEB.md) · [Test correnti](../TEST.md).
+> Le sezioni relative alle vecchie fasi restano registri storici.
 
 # Build from source
 
@@ -71,6 +72,6 @@ source and binary downloads together only after owner approval, signing decision
 asset-rights review and Windows acceptance. No automatic publication is implemented.
 
 
-## Web desktop candidate
+## Web desktop 1.2.0
 
 See [WEB_PORT.md](WEB_PORT.md) for the exact inherited toolchain, Web template hashes, `bash tools/build_web.sh`, local HTTP server and static deployment. Windows build instructions above remain for release 1.1.0.

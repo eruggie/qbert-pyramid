@@ -1,8 +1,7 @@
-# Q*Bert Pyramid WEB 1.2 — pacchetto per revisione finale
+# Q*Bert Pyramid WEB 1.2.0 — runtime stabile
 
-Questa preparazione locale è `1.2.0-rc.3`. L'utente ha approvato i test
-funzionali della rc.2; nuova veste arcade e nuovi pacchetti attendono ancora
-approvazione. Non è stata pubblicata una release stabile o un sito.
+Versione approvata dall’utente il 16 novembre 2026. Documentazione congelata
+con il tag v1.2.0; pacchetti ricostruiti dai sorgenti stabili.
 
 ## Avvio immediato senza Godot
 
@@ -21,7 +20,8 @@ py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite
 
 Aprire http://localhost:8765/80_arcade_games/qbert/ . La pagina presenta
 il gioco e il cabinato arcade: premere GIOCA ORA per avviarlo e fare clic
-nel canvas. HOME torna alla sala giochi alla radice del sito.
+nel canvas. HOME torna alla home personale alla radice del sito; la voce 80 Arcade Games
+riapre il gioco.
 Per fermare il server: Ctrl+C. Se un vecchio server usa la stessa porta,
 arrestarlo prima. Dopo un aggiornamento ricaricare Chrome con Ctrl+F5.
 
@@ -57,7 +57,9 @@ Solo browser desktop e tastiera; niente smartphone, Android o touch.
 Per web server propri: **DEPLOY_WEB.md**. Per GitHub Release e GitHub Pages:
 **GITHUB_PUBLICATION.md**. Il server locale Python è per localhost; il modulo
 WSGI incluso serve a integrare la stessa API in un ambiente server adeguato.
-Non sono stati attivati servizi, billing, dominio, hosting o deploy.
+Per il piano gratuito predisposto: **PYTHONANYWHERE_DEPLOY.md**.
+La configurazione del servizio pubblico è separata dal runtime: non vengono
+attivati servizi o fatturazione avviando il gioco in localhost.
 
 Copyright © Eugenio Ruggieri 2026. Codice/asset originali GPL-3.0-only;
 dipendenze e font conservano le rispettive licenze. Progetto indipendente,

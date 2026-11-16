@@ -1,15 +1,22 @@
-# Web 1.2 — accettazione e preparazione finale
+# Web 1.2.0 — accettazione e verifica della release stabile
 
-L'utente dichiara superati i test necessari e sufficienti e approva il
-funzionamento Web della rc.2. Non vengono attribuiti all'utente numeri,
-hardware, misure o singole prove non comunicati.
+**16 novembre 2026:** l'utente dichiara superati i propri test dell'ultima
+candidata e approva completamento Web 1.2.0, home personale, pacchetti,
+commit e pubblicazione GitHub/Pages. Documentazione congelata per v1.2.0.
+Non si attribuiscono all'utente misure, hardware o singole prove non comunicate.
 
-La nuova veste arcade e i pacchetti rc.3, preparati il 16 novembre 2026,
-richiedono ulteriore approvazione. Nessun tag finale, push o deploy autorizzato.
-Regressioni precedenti rc.2: 131 test GDScript / 126.776 verifiche, 24 test Python;
-audio misurato, classifica server, retry e persistenza documentati nel rapporto rc.2.
-I nuovi controlli su distribuzione/WSGI e la revisione browser sono riportati
-nel rapporto della build rc.3: non sono equiparati a un test manuale dell'utente.
+Suite della linea Web: 131 test GDScript / 126776 verifiche e 32 test Python;
+la build stabile esegue nuovamente suite, export, controlli HTTP/MIME/sottocartella,
+ZIP, identità sorgenti e avvio del Runtime estratto con API e retry.
+I risultati finali e l'identità del commit sono nel rapporto QA allegato.
+
+Evidenze precedenti: Chrome 157.0.8103.79 / Edge 157.0.4341.60 desktop,
+audio misurato e mute, classifica server, retry, persistenza, focus e comandi.
+Ultima home: testi “ruge.”/Progetti Open Source, due riquadri cliccabili,
+Tab, percorsi e HOME, nessun errore JS/HTTP rilevato nella sessione finale.
+Le prove automatizzate browser non sono test manuali dell'utente né prove
+native Windows. Non è implicito un collaudo pubblico di un host non attivato.
+Lo stato operativo del deployment è separato dalla verifica del software.
 
 [Release](RELEASE.md) · [Deployment](docs/DEPLOY_WEB.md) · [Pubblicazione](docs/GITHUB_PUBLICATION.md).
 

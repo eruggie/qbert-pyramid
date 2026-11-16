@@ -1,7 +1,8 @@
-> Corrente: **rc.3 per approvazione della nuova veste e distribuzione**.
-> Vedere [RELEASE.md](../RELEASE.md), [DEPLOY_WEB.md](DEPLOY_WEB.md)
-> e [GITHUB_PUBLICATION.md](GITHUB_PUBLICATION.md). Test funzionali rc.2 approvati.
-> Le sezioni seguenti documentano la preparazione precedente e non definiscono il nuovo packaging.
+> **Registro storico del porting:** candidato e stato di autorizzazione qui
+> descritti appartengono alla fase originale. Web 1.2.0, home e pubblicazione
+> sono state successivamente approvate dall'utente il 16 novembre 2026.
+> Documentazione definitiva congelata: [RELEASE](../RELEASE.md),
+> [TEST](../TEST.md), [deployment](DEPLOY_WEB.md), [GitHub/Pages](GITHUB_PUBLICATION.md).
 
 # Port classico Web 1.2 — candidata locale
 

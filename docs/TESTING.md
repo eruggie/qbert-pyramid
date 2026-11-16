@@ -1,8 +1,9 @@
-> Web corrente: preparazione rc.3, test funzionali rc.2 approvati dall’utente.
-> [Release](../RELEASE.md), [download/deployment](DEPLOY_WEB.md),
-> [GitHub/Pages](GITHUB_PUBLICATION.md). Le registrazioni delle versioni precedenti sotto restano storiche.
+> Web 1.2.0 stabile, approvata dall'utente il 16 novembre 2026.
+> Documentazione congelata per v1.2.0. [Release](../RELEASE.md) ·
+> [Download e deployment](DEPLOY_WEB.md) · [Test correnti](../TEST.md).
+> Le sezioni relative alle vecchie fasi restano registri storici.
 
-## Release 1.1.0 — verifiche correnti
+# Release 1.1.0 — verifiche correnti
 
 La suite `bash tools/test.sh` include la regressione COIL, i controlli di
 packaging/sorgenti e la rigenerazione degli asset. Il riepilogo e i limiti
@@ -1553,7 +1554,7 @@ has been performed. Those historical blobs must not be published unchanged.
 See [release notes](releases/v1.1.0.md) and [release assets](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.1.0).
 
 
-## Web candidate validation
+## Web desktop validation
 
 See [WEB_PORT.md](WEB_PORT.md) for browser automation and its limits. GDScript regressions, Linux/WSLg graphics, browser automation and native Windows acceptance are separate. Web acceptance is not inferred from successful export or previous Windows owner acceptance.
 

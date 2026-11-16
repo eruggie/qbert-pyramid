@@ -1,6 +1,8 @@
-> Registro storico: l’utente ha successivamente approvato i test funzionali Web 1.2.
-> La nuova presentazione/distribuzione rc.3 richiede approvazione separata.
-> Stato attuale: [RELEASE.md](../RELEASE.md).
+> **Registro storico del porting:** candidato e stato di autorizzazione qui
+> descritti appartengono alla fase originale. Web 1.2.0, home e pubblicazione
+> sono state successivamente approvate dall'utente il 16 novembre 2026.
+> Documentazione definitiva congelata: [RELEASE](../RELEASE.md),
+> [TEST](../TEST.md), [deployment](DEPLOY_WEB.md), [GitHub/Pages](GITHUB_PUBLICATION.md).
 
 # Verifica Web 1.2.0-rc.1 — 15 novembre 2026
 

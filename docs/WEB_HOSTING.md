@@ -1,6 +1,8 @@
-> Aggiornamento del 16 novembre 2026: procedura proposta Pages come home
-> e gioco/API su host HTTPS separato in [GITHUB_PUBLICATION.md](GITHUB_PUBLICATION.md).
-> Nessuna scelta di host, billing o pubblicazione eseguita.
+> **Registro storico del porting:** candidato e stato di autorizzazione qui
+> descritti appartengono alla fase originale. Web 1.2.0, home e pubblicazione
+> sono state successivamente approvate dall'utente il 16 novembre 2026.
+> Documentazione definitiva congelata: [RELEASE](../RELEASE.md),
+> [TEST](../TEST.md), [deployment](DEPLOY_WEB.md), [GitHub/Pages](GITHUB_PUBLICATION.md).
 
 # Hosting Web — verifica 15 novembre 2026 (Europe/Rome)
 

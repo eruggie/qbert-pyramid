@@ -1,51 +1,57 @@
 # Q*Bert Pyramid
 
-> **WEB 1.2 — preparazione locale 1.2.0-rc.3.** L'utente ha approvato i test
-> funzionali della rc.2. Nuova home arcade, pacchetti e pubblicazione attendono
-> ancora approvazione. Nessuna release Web o sito è stato pubblicato.
+**WEB 1.2.0 — release stabile**, approvata dall'utente il 16 novembre 2026.
+Documentazione congelata per il tag `v1.2.0`. Windows `v1.1.0` resta disponibile
+con i suoi asset originali.
 
 ## Scaricare e giocare Web
 
-Dopo la pubblicazione autorizzata, aprire **Releases → Q*Bert Pyramid WEB 1.2.0**
-nel repository ufficiale e scegliere **Runtime** (gioco pronto) oppure
-**Complete** (gioco pronto più intero progetto). I download stabili sono ancora
-proposti: non usare gli asset Windows 1.1.0 o gli ZIP automatici dei sorgenti
-come se fossero il gioco Web già esportato.
+Aprire [Q*Bert Pyramid WEB 1.2.0 — Releases](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.2.0)
+e scegliere **Runtime** (gioco pronto) oppure **Complete** (gioco pronto e sorgenti).
+Sono disponibili anche Source, WebStatic e SHA256SUMS.txt. Gli archivi automatici
+“Source code” di GitHub non contengono il gioco già esportato.
 
-Estrarre il pacchetto, entrare nella cartella con `site/` e `server/`, poi:
+Estrarre il pacchetto e aprire un terminale nella cartella con `site/` e `server/`:
 
 ```bash
 python3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3
 ```
 
-Su Windows: `py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3`.
-Aprire **http://localhost:8765/**. Sono richiesti browser desktop e Python >=3.10
-con SQLite; **non serve Godot per giocare**. Non aprire index.html tramite file://.
-Conservare il database esterno al sito e usare lo stesso percorso negli aggiornamenti.
+Windows PowerShell: `py -3 server/serve_web.py site --port 8765 --db ../qbert-data/leaderboard.sqlite3`.
+Aprire **http://localhost:8765/**: home personale, quindi **80 Arcade Games**
+e **GIOCA ORA**. Accesso diretto: http://localhost:8765/80_arcade_games/qbert/ .
+Sono richiesti browser desktop e Python >=3.10 con SQLite; **Godot non serve
+per giocare**. Non aprire index.html con file://. Conservare il database esterno
+al sito durante gli aggiornamenti.
 
-- [Pacchetti, download, localhost e proprio web server](docs/DEPLOY_WEB.md)
-- [Come pubblicare la release e il sito github.io](docs/GITHUB_PUBLICATION.md)
-- [Note della release e stato dell'approvazione](RELEASE.md)
+- [Pacchetti, checksum, localhost e proprio web server](docs/DEPLOY_WEB.md)
+- [Backend gratuito PythonAnywhere: account e configurazione](docs/PYTHONANYWHERE_DEPLOY.md)
+- [GitHub Release, home personale e GitHub Pages](docs/GITHUB_PUBLICATION.md)
+- [Note definitive della release](RELEASE.md)
 - [Test e accettazione](TEST.md)
 
-GitHub Pages può ospitare la home; la classifica condivisa richiede il backend.
-La proposta è collegare dalla home Pages il gioco completo su un host HTTPS
-compatibile. Il servizio locale non va esposto direttamente come server pubblico.
+GitHub Pages ospita la home approvata “ruge.”; il gioco completo e la classifica
+richiedono un host HTTPS con backend Python/WSGI e SQLite persistente.
+L'attivazione del servizio pubblico è distinta dalla disponibilità dei download.
+Il server locale non deve essere esposto direttamente su Internet.
 
 ## Sorgenti e ambiente
 
-`scripts/` contiene GDScript (gameplay, input, presentazione e UI Godot).
-`scenes/`, `assets/`, `data/` contengono scene e risorse. `web/` contiene home,
-shell HTML e CSS; JavaScript nella shell integra avvio, focus e fullscreen.
-`tools/` contiene Python/SQLite per API, packaging e deployment locale, Bash
-per le build e PowerShell/JavaScript per le verifiche browser.
+`scripts/`: GDScript; `scenes/`, `assets/`, `data/`: scene e risorse.
+`web/`: home personale, HTML/CSS della pagina arcade e JavaScript per avvio,
+focus e fullscreen. `tools/`: Python/SQLite per API e distribuzione, Bash per
+le build, PowerShell/JavaScript per le verifiche browser.
 
-Sviluppo/verifica: VSCode, Ubuntu 22.04/WSL2, Godot **4.7.2 standard** con template
-corrispondenti, Compatibility/WebGL 2, browser Chrome/Edge Windows. Nessuna
-installazione o configurazione cloud è necessaria alla prova locale.
-Build riproducibile: `bash tools/build_web.sh`. Output in `builds/`, ignorato da Git.
-La versione Windows 1.1.0 e il suo tag restano distinti. Android, smartphone,
-layout mobile del gioco, touch ed Escher sono esclusi.
+VSCode, Ubuntu 22.04/WSL2, Godot **4.7.2 standard** con template corrispondenti,
+Compatibility/WebGL 2; prove browser Chrome/Edge Windows. Nessun cloud o
+assistente AI è necessario per giocare, compilare o contribuire.
+
+```bash
+bash tools/build_web.sh
+```
+
+Output in `builds/`, escluso da Git. Android, smartphone, layout mobile del
+gioco, touch ed Escher sono esclusi.
 
 ## Progetto e release Windows già pubblicata
 
@@ -197,11 +203,11 @@ does not add a new restriction or change the GPL license.
   author = {Ruggieri, Eugenio},
   title = {{Q*Bert Pyramid}},
   year = {2026},
-  version = {1.1.0},
+  version = {1.2.0},
   url = {https://github.com/eruggie/qbert-pyramid},
   note = {Independent Godot implementation}
 }
 ```
 
 [CITATION.cff](CITATION.cff) provides machine-readable citation metadata.
-Release sources are identified by tag `v1.1.0` in the public repository.
+Web release sources: tag `v1.2.0`. Windows 1.1.0 sources: tag `v1.1.0`.

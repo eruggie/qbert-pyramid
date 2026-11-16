@@ -1,84 +1,70 @@
-# Q*Bert Pyramid WEB 1.2 — preparazione della release
+# Q*Bert Pyramid WEB 1.2.0
 
-**Versione locale:** 1.2.0-rc.3. **Versione stabile proposta:** 1.2.0.
-**Stato:** test funzionali rc.2 approvati dall'utente; nuova presentazione,
-pacchetti e pubblicazione in attesa di approvazione finale.
-Preparazione: 16 novembre 2026. Nessuna data di pubblicazione è dichiarata.
+**Release stabile approvata dall'utente il 16 novembre 2026.**
+Documentazione della versione congelata alla stessa data. Tag: `v1.2.0`.
+Repository ufficiale: https://github.com/eruggie/qbert-pyramid.
 
-## Contenuto
+## Contenuto della release
 
-Port classico Godot 4.7.2 Compatibility per browser desktop. Comportamento,
-controlli, asset, regole e correzioni della versione Windows 1.1.0 mantenuti.
-Audio Web tramite mixer Stream; punteggi/classifica condivisi su server SQLite,
-con conferma, aggiornamento automatico e retry senza duplicati.
+Port Web desktop della versione classica Windows 1.1.0, sviluppato con Godot
+4.7.2 standard, GDScript e renderer Compatibility/WebGL 2. Restano invariati
+regole, contenuti, grafica di gioco, controlli, progressione e correzioni 1.1.0.
 
-Nuova home e cornice Web in stile arcade anni ’80: insegna e pulsanti neon,
-cabinato orizzontale con schermata reale del gioco, HOME con icona accessibile. Rimossi i rilanci
-ai sorgenti dall'interfaccia. Sorgenti, crediti e licenze restano distribuiti
-nei pacchetti e nella documentazione, senza modificare la licenza del progetto.
+- Audio Web attivato dall'avvio esplicito, con mixer Stream, volume e mute.
+- Classifica condivisa sul server tramite API Python/WSGI e SQLite persistente;
+  conferma del risultato, aggiornamento automatico e retry senza duplicati.
+- Preferenze nel browser; nessun salvataggio della partita in corso.
+- Pagina arcade con schermata reale, GIOCA ORA, HOME, gestione focus e pausa.
+- Home personale “ruge.” con due soli progetti: EMCRAG Project e 80 Arcade Games.
+- INFORMAZIONI aggiornate alla Web 1.2.0 e voce “Torna in Sala Giochi 80 ARCADE GAMES”.
 
-## Download preparati
+La release Windows `v1.1.0`, il suo tag e i suoi asset sono conservati.
+Android, smartphone, layout mobile del gioco, touch ed Escher sono esclusi.
 
-| Pacchetto | Contenuto |
+## Asset scaricabili
+
+| Asset | Contenuto |
 |---|---|
-| Runtime | Gioco esportato + API/server locale/WSGI + istruzioni; non richiede Godot |
-| Complete | Runtime + intero progetto Godot modificabile, asset, strumenti e test |
-| Source | Sorgenti esatti con manifest e provenienza |
-| WebStatic | Frontend statico per integrazione; richiede backend per la classifica |
-| SHA256SUMS | Verifica degli artefatti |
+| QBertPyramid-1.2.0-Runtime.zip | Gioco HTML/JS/WASM/PCK, server/API e istruzioni; Godot non necessario |
+| QBertPyramid-1.2.0-Complete.zip | Runtime più progetto completo, asset, strumenti, test e documentazione |
+| QBertPyramid-1.2.0-Source.zip | Sorgenti esatti, manifest SHA-256 e provenienza |
+| QBertPyramid-1.2.0-WebStatic.zip | Frontend statico; richiede il backend della classifica |
+| SHA256SUMS.txt | Hash degli asset della release |
 
-Un eseguibile Web è un insieme HTML/JS/WASM/PCK, non un EXE Windows.
-Il servizio Python, anche nel runtime, è codice interpretato necessario alla
-classifica. Non è possibile ottenere questa funzione su un host solo statico.
-I pacchetti non includono database del giocatore, dati di test o credenziali.
+Licenza del materiale originale: GPL-3.0-only. Licenze di terze parti e crediti
+inclusi. I pacchetti non contengono credenziali, database o dati del giocatore.
+
+## Avvio e pubblicazione
+
+Estrarre Runtime/Complete e seguire README.md. Serve Python >=3.10 con SQLite
+per il server locale; non aprire HTML con file://. La home è alla radice,
+il gioco sotto `/80_arcade_games/qbert/`.
+
+GitHub Pages ospita la home personale. Il gioco completo richiede un host
+HTTPS con Python/WSGI e storage persistente; Pages non esegue Python/SQLite.
+Questa documentazione congela il software e la procedura, non dichiara
+collaudato un host o un URL di gioco che non siano stati effettivamente attivati.
+Destinazione e verifica del servizio pubblico sono registrate separatamente
+nel repository del sito al momento del deployment, senza spostare questo tag.
+
+Backend gratuito predisposto: PythonAnywhere Beginner, con adattatore WSGI
+incluso e rinnovo mensile. [Configurazione](docs/PYTHONANYWHERE_DEPLOY.md).
+L’attivazione richiede l’account personale; Google Drive non esegue il backend.
+
+## Accettazione e verifiche
+
+L'utente ha testato e approvato l'ultima candidata, compresi home e pacchetti,
+e autorizzato completamento, commit, release GitHub e sito il 16 novembre 2026.
+Le build stabili sono ricostruite dalla versione 1.2.0; gli ZIP rc non sono rinominati.
+Suite: 131 test GDScript / 126776 verifiche e 32 test Python. Evidenze browser
+precedenti su Chrome/Edge desktop e test manuali riferiti dall'utente sono
+separati dalle verifiche della build finale e da eventuali prove di hosting.
+Nessuna nuova prova nativa Windows è implicita nella pubblicazione Web.
+
+Limiti: F11/Esc possono essere intercettati dal browser; fullscreen dipende
+dalle autorizzazioni del browser. Il server accetta punteggi dichiarati dal
+client e non implementa anti-cheat. La persistenza dipende dallo storage
+del backend, dai backup e dalle quote dell'host.
 
 [Download e deployment](docs/DEPLOY_WEB.md) ·
-[GitHub Release e Pages](docs/GITHUB_PUBLICATION.md) · [Test](TEST.md).
-
-## Stato dell'accettazione
-
-L'utente dichiara completati con successo i test necessari e sufficienti per
-approvare la Web 1.2 basata sulla rc.2. Questa dichiarazione è registrata come
-accettazione dell'utente, senza inventare misure o dettagli non forniti.
-La nuova veste grafica e gli adattamenti distributivi successivi sono preparati
-per una revisione separata. Tag stabile, upload e deploy restano da autorizzare.
-Windows v1.1.0, tag e asset pubblicati rimangono distinti e invariati.
-Android, smartphone, touch ed Escher sono esclusi.
-
-## Revisione della home richiesta il 16 novembre 2026
-
-Cabinato raddrizzato; piramide decorativa sostituita da una schermata reale
-del gioco, mantenendo la cornice arcade. Rimossi il sottotitolo personale e
-“nessuna moneta richiesta”. Footer: “Progetto Open Source Indipendente -
-Note e Licenze”. Nuova build locale rc.3 identificata dal manifest sorgenti;
-nessuna pubblicazione e approvazione della presentazione ancora pendente.
-
-## Pagina unica di presentazione e avvio
-
-La pagina /80_arcade_games/qbert/ presenta direttamente il layout arcade
-e avvia il gioco con GIOCA ORA. Conservati intestazione HOME/1 PLAYER,
-seconda riga dei comandi browser e footer originali della pagina di gioco.
-La presentazione centrale e le istruzioni cedono il posto al canvas dopo
-il caricamento, senza un secondo pulsante di avvio. Riferimento esplicito
-alla Sala Giochi sul WEB “80 ARCADE GAMES”. INFORMAZIONI riporta release
-Web corrente, base classica, licenza, salvataggi e limiti browser; il menu
-Web offre “Torna in Sala Giochi 80 ARCADE GAMES”. Windows invariato.
-Nuova verifica dell'utente richiesta prima di qualsiasi pubblicazione.
-
-## Home personale distinta dalla pagina arcade
-
-La radice del sito è una nuova home personale di Eugenio Ruggieri, ispirata
-al README pubblico eruggie/eruggie e con due sole voci: EMCRAG Project
-(README pubblico su GitHub) e 80 Arcade Games (Q*BERT Pyramid WEB).
-Presentazione professionale e stile chiaro; nessuna duplicazione del cabinato
-o delle istruzioni del gioco. La pagina arcade, il menu e HOME sono invariati.
-Sito Pages e pacchetti locali includono personal.css. Nessuna pubblicazione.
-
-## Revisione dei testi della home personale
-
-Sigla “ruge.”; riferimenti uniformati a “Progetti Open Source”. Eliminati
-il titolo sopra il menu e il sottotitolo promozionale. Presentazione più sobria
-del percorso professionale, senza riferimenti al numero di anni o all'età.
-I due riquadri sono link sull'intera superficie, con feedback al passaggio
-del mouse e focus da tastiera. Gioco e pagina arcade invariati.
-Preparazione solo locale per il test dell'utente; nessun push o deployment.
+[GitHub e Pages](docs/GITHUB_PUBLICATION.md) · [Test](TEST.md).
