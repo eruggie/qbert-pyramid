@@ -44,7 +44,8 @@ def create_application(database_path, public_origin):
         body = json.dumps(payload, ensure_ascii=False).encode()
         start_response(f'{status} {HTTPStatus(status).phrase}', [
             ('Content-Type', 'application/json; charset=utf-8'),
-            ('Cache-Control', 'no-store'), ('Content-Length', str(len(body)))])
+            ('Cache-Control', 'no-store'), ('Content-Length', str(len(body))),
+            *([('Retry-After', '1')] if status == 503 else [])])
         return [body]
     return app
 
@@ -59,7 +60,8 @@ def application(environ, start_response):
         if not database or not origin:
             body = b'{"error":"Backend non configurato."}'
             start_response('503 Service Unavailable', [('Content-Type', 'application/json'),
-                ('Cache-Control', 'no-store'), ('Content-Length', str(len(body)))])
+                ('Cache-Control', 'no-store'), ('Content-Length', str(len(body))),
+                ('Retry-After', '1')])
             return [body]
         _configured = create_application(database, origin)
     return _configured(environ, start_response)

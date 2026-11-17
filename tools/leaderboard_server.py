@@ -9,6 +9,8 @@ import urllib.parse
 
 API_SUFFIX = '/80_arcade_games/qbert/api/leaderboard'
 MAX_BODY = 1024
+# Keep lock waits below the Web client request deadline (8 seconds).
+DB_BUSY_TIMEOUT_SECONDS = 3.0
 
 class InvalidScore(ValueError):
     pass
@@ -30,7 +32,7 @@ class Leaderboard:
 
     @contextlib.contextmanager
     def connect(self):
-        db = sqlite3.connect(self.path, timeout=10)
+        db = sqlite3.connect(self.path, timeout=DB_BUSY_TIMEOUT_SECONDS)
         try:
             with db:
                 yield db
@@ -89,6 +91,8 @@ class LeaderboardHandlerMixin:
         self.send_response(status)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
+        if status == 503:
+            self.send_header('Retry-After', '1')
         self.end_headers()
         self.wfile.write(body)
 

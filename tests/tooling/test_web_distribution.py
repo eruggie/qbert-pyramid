@@ -6,10 +6,12 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest import mock
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'tools'))
 from web_wsgi import create_application
 from prepare_pages import prepare
 from hosted_wsgi import create_application as create_hosted
+import web_wsgi
 
 class DistributionTests(unittest.TestCase):
     def setUp(self):
@@ -39,6 +41,14 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(self.call('POST', {'points': 1})[0], 400)
         self.assertEqual(self.call('DELETE')[0], 405)
         self.assertEqual(self.call()[1]['record'], 0)
+
+    def test_wsgi_unconfigured_reports_retryable_503(self):
+        responses = []
+        with mock.patch.dict('os.environ', {}, clear=True), mock.patch.object(web_wsgi, '_configured', None):
+            body = b''.join(web_wsgi.application({}, lambda status, headers: responses.append((status, dict(headers)))))
+        self.assertEqual(responses[0][0], '503 Service Unavailable')
+        self.assertEqual(responses[0][1]['Retry-After'], '1')
+        self.assertIn('error', json.loads(body))
 
     def test_pages_gateway_has_real_target_and_no_engine_or_database(self):
         site = self.root/'site'; assets=site/'80_arcade_games/qbert'; assets.mkdir(parents=True)

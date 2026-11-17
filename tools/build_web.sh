@@ -6,6 +6,7 @@ ap_require_commands python3 git unzip sha256sum timeout
 ap_select_engine
 python3 -B "$AP_ROOT/tests/tooling/test_web_server.py"
 python3 -B "$AP_ROOT/tests/tooling/test_web_distribution.py"
+python3 -B "$AP_ROOT/tests/tooling/test_web_multiuser.py"
 python3 "$AP_ROOT/tools/web_package.py" templates "$AP_TEMPLATES"
 bash "$AP_ROOT/tools/doctor.sh"
 bash "$AP_ROOT/tools/test.sh"
