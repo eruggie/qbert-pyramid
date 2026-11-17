@@ -19,6 +19,8 @@ var _operation: String = ""
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_request = HTTPRequest.new()
+	# Browser Fetch already decodes Content-Encoding; do not decompress twice.
+	_request.accept_gzip = false
 	_request.timeout = 8.0
 	add_child(_request)
 	_request.request_completed.connect(_completed)

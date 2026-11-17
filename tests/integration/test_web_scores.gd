@@ -24,6 +24,8 @@ func run(runner: SceneTree) -> void:
 	client._completed(HTTPRequest.RESULT_SUCCESS, 503, PackedStringArray(), PackedByteArray())
 	runner._check(client.saved_submission.is_empty() and not client.pending.is_empty() and client.notice.contains("non confermato"), "A server failure never confirms a score and preserves its retry identity.")
 	runner._check(not panel.submitted and panel.continue_button.disabled and panel.status_label.text.contains("non confermato"), "The results UI keeps an unconfirmed score retryable instead of returning to the menu.")
+	client._completed(HTTPRequest.RESULT_BODY_DECOMPRESS_FAILED, 200, PackedStringArray(["Content-Encoding: gzip"]), PackedByteArray())
+	runner._check(not client.pending.is_empty() and client.saved_submission.is_empty(), "HTTP 200 with a decompression failure must never falsely confirm a save.")
 	var invalid: Dictionary = good.duplicate(true)
 	invalid["submission"] = "wrong"
 	invalid["ranked"] = true
@@ -39,6 +41,11 @@ func run(runner: SceneTree) -> void:
 	invalid["leaderboard"][0]["points"] = -1
 	client._completed(HTTPRequest.RESULT_SUCCESS, 200, PackedStringArray(), JSON.stringify(invalid).to_utf8_buffer())
 	runner._check(client.entries[0]["points"] == 50 and client.record == 50, "Invalid remote data cannot replace the last confirmed ranking.")
+	var populated: Dictionary = {"schema": 1, "record": 33580, "record_level": 3, "record_round": 2, "leaderboard": []}
+	for index: int in range(6):
+		populated["leaderboard"].append({"name": "TST", "points": 33580 - index * 1000, "level": 3, "round": 2})
+	client._completed(HTTPRequest.RESULT_SUCCESS, 200, PackedStringArray(), JSON.stringify(populated).to_utf8_buffer())
+	runner._check(client.loaded and client.entries.size() == 6 and client.record == 33580, "A populated ranking with realistic scores and metadata remains valid after JSON normalization.")
 	panel.queue_free()
 	client.changed.disconnect(app._web_scores_changed)
 	app.web_scores = null
