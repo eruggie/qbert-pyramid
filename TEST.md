@@ -1,24 +1,33 @@
-# Web 1.2.0 — accettazione e verifica della release stabile
+# Web 1.2.1 — accettazione e verifica
 
-**16 novembre 2026:** l'utente dichiara superati i propri test dell'ultima
-candidata e approva completamento Web 1.2.0, home personale, pacchetti,
-commit e pubblicazione GitHub/Pages. Documentazione congelata per v1.2.0.
-Non si attribuiscono all'utente misure, hardware o singole prove non comunicate.
+**17 novembre 2026:** l'utente approva entrambe le correzioni (gzip e attesa
+SQLite), le modifiche richieste alla pagina, commit, release e deployment.
+L'accettazione manuale della 1.2.0 risale al 16 novembre; le prove della patch
+qui documentate sono automatizzate e non sono attribuite all'utente.
 
-Suite della linea Web: 131 test GDScript / 126776 verifiche e 32 test Python;
-la build stabile esegue nuovamente suite, export, controlli HTTP/MIME/sottocartella,
-ZIP, identità sorgenti e avvio del Runtime estratto con API e retry.
-I risultati finali e l'identità del commit sono nel rapporto QA allegato.
+Suite: **131 test GDScript / 126778 verifiche e 41 test Python**.
+La build esegue nuovamente regressioni, export, controlli HTTP/MIME,
+sottocartella, licenze, ZIP, sorgenti esatti e Runtime estratto con API.
+Il rapporto QA allegato registra gli esiti del commit finale.
 
-Evidenze precedenti: Chrome 157.0.8103.79 / Edge 157.0.4341.60 desktop,
-audio misurato e mute, classifica server, retry, persistenza, focus e comandi.
-Ultima home: testi “ruge.”/Progetti Open Source, due riquadri cliccabili,
-Tab, percorsi e HOME, nessun errore JS/HTTP rilevato nella sessione finale.
-Le prove automatizzate browser non sono test manuali dell'utente né prove
-native Windows. Non è implicito un collaudo pubblico di un host non attivato.
-Lo stato operativo del deployment è separato dalla verifica del software.
+## Multiutenza e regressione gzip
 
-[Release](RELEASE.md) · [Deployment](docs/DEPLOY_WEB.md) · [Pubblicazione](docs/GITHUB_PUBLICATION.md).
+Due partite contemporanee in Chrome/Edge Windows (profili isolati, headless)
+hanno mantenuto stato e preferenze indipendenti; entrambi i risultati sono
+stati salvati nella classifica condivisa e riletti dopo reload, con GET/POST
+gzip. Le prove server comprendono 32 client concorrenti, un worker HTTP,
+quattro processi, retry, conflitti, ordinamento e rollback. Nessun risultato
+perso o duplicato nei casi verificati. Il blocco SQLite forzato riceve 503
+prima del timeout client; liberato il lock, il retry salva una sola volta.
+
+Questi test sono locali, su database privati: non certificano la capacità
+massima dell'hosting gratuito. Nessuna nuova prova dell'eseguibile Windows.
+Le verifiche online successive al deployment e le evidenze browser della
+pagina finale sono riportate separatamente nel QA e nel repository del sito.
+
+- [Analisi gzip](docs/incidents/2026-11-17-web-leaderboard-gzip.md)
+- [Scenari, risultati e riproduzione multiutenza](docs/incidents/2026-11-17-web-multiuser.md)
+- [Release](RELEASE.md) · [Deployment](docs/DEPLOY_WEB.md)
 
 ## Registro storico conservato
 

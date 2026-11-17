@@ -56,8 +56,8 @@ func _ready() -> void:
 	exit_button.pressed.connect(_request_exit)
 	if OS.has_feature("web"):
 		exit_button.text = "Torna in Sala Giochi 80 ARCADE GAMES"
-		instructions_dialog.title = "Informazioni — Q*BERT Pyramid WEB 1.2"
-		var web_version: String = str(ProjectSettings.get_setting("application/config/version.web", "1.2.0"))
+		instructions_dialog.title = "Informazioni — Q*BERT Pyramid WEB 1.2.1"
+		var web_version: String = str(ProjectSettings.get_setting("application/config/version.web", "1.2.1"))
 		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("QBERT Rev. 1.1 · Aggiornamento del gioco", "Q*BERT Pyramid WEB " + web_version)
 		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("Testo integrale: LICENSE nella cartella del gioco.", "Licenza integrale: LICENSE.txt nella pagina Web. Base classica Windows 1.1.0.")
 		instructions_dialog.dialog_text = instructions_dialog.dialog_text.replace("Record e tasti persistenti.", "Classifica sul server; impostazioni nel browser.")

@@ -1,5 +1,9 @@
 # Classifica Web e risposte gzip — analisi del 17 novembre 2026
 
+> Aggiornamento: entrambe le correzioni approvate dall’utente il 17 novembre
+> 2026 per la release 1.2.1. Segue il rapporto della fase di proposta;
+> stato corrente e autorizzazione in [RELEASE.md](../../RELEASE.md).
+
 **Stato:** correzione proposta, verificata localmente; pubblicazione e deploy
 richiedono nuova approvazione dell'utente. Nessuna modifica al servizio online,
 al database pubblico, ai tag o agli asset della release v1.2.0.

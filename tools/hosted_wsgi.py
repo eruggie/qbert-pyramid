@@ -15,7 +15,7 @@ PUBLIC_FILES = frozenset({
     'index.html', 'index.js', 'index.wasm', 'index.pck', 'index.png',
     'index.icon.png', 'index.apple-touch-icon.png', 'index.audio.worklet.js',
     'index.audio.position.worklet.js', 'arcade.css', 'game-screen.png',
-    'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt', 'DEPENDENCY_LICENSES.txt',
+    'licenses.html', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt', 'DEPENDENCY_LICENSES.txt',
     'DejaVuSans-LICENSE.txt', 'SOURCE_NOTICE.txt', 'BUILD_INFO.json',
 })
 

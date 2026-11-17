@@ -1,5 +1,5 @@
-> Web 1.2.0 stabile, approvata dall'utente il 16 novembre 2026.
-> Documentazione congelata per v1.2.0. [Release](../RELEASE.md) ·
+> Web 1.2.1 stabile, approvata dall'utente il 17 novembre 2026.
+> Documentazione congelata per v1.2.1. [Release](../RELEASE.md) ·
 > [Download e deployment](DEPLOY_WEB.md) · [Test correnti](../TEST.md).
 > Le sezioni relative alle vecchie fasi restano registri storici.
 

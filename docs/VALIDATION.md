@@ -1,5 +1,5 @@
-> Web 1.2.0 stabile: accettazione completa e pubblicazione autorizzate
-> dall'utente il 16 novembre 2026. Documentazione congelata al tag v1.2.0.
+> Web 1.2.1 stabile: accettazione completa e pubblicazione autorizzate
+> dall'utente il 17 novembre 2026. Documentazione congelata al tag v1.2.1.
 > [Registro corrente](../TEST.md); quanto segue conserva le evidenze storiche.
 
 # Registro storico conservato

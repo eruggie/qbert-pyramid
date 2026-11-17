@@ -1,12 +1,20 @@
 # Q*Bert Pyramid
 
-**WEB 1.2.0 — release stabile**, approvata dall'utente il 16 novembre 2026.
-Documentazione congelata per il tag `v1.2.0`. Windows `v1.1.0` resta disponibile
+**WEB 1.2.1 — release stabile**, autorizzata dall'utente il 17 novembre 2026.
+Documentazione congelata per il tag `v1.2.1`. Windows `v1.1.0` resta disponibile
 con i suoi asset originali.
+
+La 1.2.1 corregge la lettura/conferma della classifica con risposte gzip e
+riduce le attese del database occupato. Include i testi aggiornati della pagina,
+F11 al posto dei due pulsanti e Note e Licenze con entrambi i documenti.
+La 1.2.0 resta disponibile nel suo tag, senza modifiche agli asset.
+
+- [Home personale](https://eruggie.github.io/)
+- [Gioca online](https://ruge.eu.pythonanywhere.com/80_arcade_games/qbert/)
 
 ## Scaricare e giocare Web
 
-Aprire [Q*Bert Pyramid WEB 1.2.0 — Releases](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.2.0)
+Aprire [Q*Bert Pyramid WEB 1.2.1 — Releases](https://github.com/eruggie/qbert-pyramid/releases/tag/v1.2.1)
 e scegliere **Runtime** (gioco pronto) oppure **Complete** (gioco pronto e sorgenti).
 Sono disponibili anche Source, WebStatic e SHA256SUMS.txt. Gli archivi automatici
 “Source code” di GitHub non contengono il gioco già esportato.
@@ -203,11 +211,11 @@ does not add a new restriction or change the GPL license.
   author = {Ruggieri, Eugenio},
   title = {{Q*Bert Pyramid}},
   year = {2026},
-  version = {1.2.0},
+  version = {1.2.1},
   url = {https://github.com/eruggie/qbert-pyramid},
   note = {Independent Godot implementation}
 }
 ```
 
 [CITATION.cff](CITATION.cff) provides machine-readable citation metadata.
-Web release sources: tag `v1.2.0`. Windows 1.1.0 sources: tag `v1.1.0`.
+Web release sources: tag `v1.2.1`. Windows 1.1.0 sources: tag `v1.1.0`.

@@ -98,7 +98,7 @@ try {
  Key 'KeyP' 'p' 80;Shot '04-pause';Key 'KeyP' 'p' 80
  Key 'KeyC' 'c' 67 1200;Shot '05-hold'
  Cdp 'Input.dispatchKeyEvent' @{type='keyDown';code='KeyC';key='c';text='c';windowsVirtualKeyCode=67}|Out-Null
- Js 'document.getElementById("leave").click();true'|Out-Null
+ Js 'canvas.blur();document.querySelector(".home-link").focus();true'|Out-Null
  Cdp 'Input.dispatchKeyEvent' @{type='keyUp';code='KeyC';key='c';windowsVirtualKeyCode=67}|Out-Null
  Shot '06-focus-out'
  Js 'canvas.focus();true'|Out-Null;Shot '07-focus-return'
@@ -159,12 +159,8 @@ try {
  if(!($profileBefore|Where-Object {$_.muted -and $_.bindings[3] -eq $bindingVk -and $_.master -lt 0.8 -and $_.effects -lt 0.8})){throw 'Changed settings were not persisted'}
  $profileBefore|ConvertTo-Json -Depth 15|Set-Content (Join-Path $Output 'profiles-before-reload.json')
  Key 'F11' 'F11' 122;Shot '17-f11'
- $button=Js '(()=>{const r=document.getElementById("fullscreen").getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()'
- Js 'document.getElementById("fullscreen").addEventListener("click",e=>window.qbertGesture={trusted:e.isTrusted,active:navigator.userActivation.isActive},true);true'|Out-Null
- Cdp 'Input.dispatchMouseEvent' @{type='mousePressed';x=$button.x;y=$button.y;button='left';clickCount=1}|Out-Null
- Cdp 'Input.dispatchMouseEvent' @{type='mouseReleased';x=$button.x;y=$button.y;button='left';clickCount=1}|Out-Null
- Shot '17-fullscreen-button'
- $full=Js '({element:Boolean(document.fullscreenElement),enabled:document.fullscreenEnabled,activation:navigator.userActivation.isActive,notice:document.getElementById("browser-notice").textContent,gesture:window.qbertGesture})'
+ # F11 is the only page hint; the browser may handle it outside the document.
+ $full=Js '({element:Boolean(document.fullscreenElement),enabled:document.fullscreenEnabled,notice:document.getElementById("browser-notice").textContent})'
  $full|ConvertTo-Json|Set-Content (Join-Path $Output 'fullscreen.json')
  Key 'F11' 'F11' 122
  Js 'if(document.fullscreenElement)document.exitFullscreen();true'|Out-Null

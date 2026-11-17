@@ -37,3 +37,12 @@ host with persistent storage; do not invent a URL, expose credentials, activate
 billing or silently replace server scores with local browser scores.
 The tagged Markdown documents are frozen; operational deployment status may
 be recorded separately in the site repository. See RELEASE.md.
+
+## Web 1.2.1 authorization
+
+On 2026-11-17 the owner explicitly approved both tested leaderboard fixes,
+the requested game page text/control/license changes, release commit and
+publication/deployment of Web 1.2.1. Preserve Web 1.2.0 and Windows 1.1.0
+tags/assets, the existing production database and personal homepage design.
+The incident reports describe the earlier proposal phase; this approval
+supersedes their pending approval gate for these exact changes.

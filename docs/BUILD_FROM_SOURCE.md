@@ -1,5 +1,5 @@
-> Web 1.2.0 stabile, approvata dall'utente il 16 novembre 2026.
-> Documentazione congelata per v1.2.0. [Release](../RELEASE.md) ·
+> Web 1.2.1 stabile, approvata dall'utente il 17 novembre 2026.
+> Documentazione congelata per v1.2.1. [Release](../RELEASE.md) ·
 > [Download e deployment](DEPLOY_WEB.md) · [Test correnti](../TEST.md).
 > Le sezioni relative alle vecchie fasi restano registri storici.
 
@@ -24,7 +24,8 @@ under `.local-state/nsis-toolchain/`, not installed globally.
 ## Obtain sources
 
 For the published version, clone https://github.com/eruggie/qbert-pyramid and
-checkout its exact release tag, using `git checkout --detach v1.1.0`. The release source asset contains the
+checkout its exact release tag: `git checkout --detach v1.2.1` for Web,
+or `git checkout --detach v1.1.0` for the original Windows release. The release source asset contains the
 matching complete source snapshot. Rebuild using the recorded toolchain:
 
 ```bash
@@ -72,6 +73,6 @@ source and binary downloads together only after owner approval, signing decision
 asset-rights review and Windows acceptance. No automatic publication is implemented.
 
 
-## Web desktop 1.2.0
+## Web desktop 1.2.1
 
 See [WEB_PORT.md](WEB_PORT.md) for the exact inherited toolchain, Web template hashes, `bash tools/build_web.sh`, local HTTP server and static deployment. Windows build instructions above remain for release 1.1.0.

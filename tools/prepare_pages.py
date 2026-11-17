@@ -22,7 +22,7 @@ def prepare(site, output, game_url):
         raise ValueError('Link di avvio non trovato nella home.')
     if not (site / 'personal.css').is_file():
         raise ValueError('Risorsa richiesta mancante: personal.css')
-    assets = ['arcade.css', 'game-screen.png', 'index.icon.png', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt',
+    assets = ['arcade.css', 'game-screen.png', 'index.icon.png', 'licenses.html', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt',
               'DEPENDENCY_LICENSES.txt', 'DejaVuSans-LICENSE.txt', 'SOURCE_NOTICE.txt']
     for name in assets:
         if not (site / '80_arcade_games/qbert' / name).is_file():

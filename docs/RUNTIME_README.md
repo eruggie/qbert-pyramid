@@ -1,7 +1,11 @@
-# Q*Bert Pyramid WEB 1.2.0 — runtime stabile
+# Q*Bert Pyramid WEB 1.2.1 — runtime stabile
 
-Versione approvata dall’utente il 16 novembre 2026. Documentazione congelata
-con il tag v1.2.0; pacchetti ricostruiti dai sorgenti stabili.
+Versione approvata dall’utente il 17 novembre 2026. Documentazione congelata
+con il tag v1.2.1; pacchetti ricostruiti dai sorgenti stabili.
+
+Correzioni: classifica gzip e attese SQLite; pagina aggiornata. Il link Note e
+Licenze mostra LICENSE e THIRD_PARTY_NOTICES. La nuova versione conserva il
+DB esistente: nessuna migrazione, nessun dato di prova incluso.
 
 ## Avvio immediato senza Godot
 

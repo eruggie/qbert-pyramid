@@ -54,7 +54,7 @@ class DistributionTests(unittest.TestCase):
         site = self.root/'site'; assets=site/'80_arcade_games/qbert'; assets.mkdir(parents=True)
         (site/'personal.css').write_text('personal fixture')
         (site/'index.html').write_text('<a href="80_arcade_games/qbert/">PLAY</a>')
-        for name in ['arcade.css','game-screen.png','index.icon.png','LICENSE.txt','THIRD_PARTY_NOTICES.txt','DEPENDENCY_LICENSES.txt','DejaVuSans-LICENSE.txt','SOURCE_NOTICE.txt']:
+        for name in ['arcade.css','game-screen.png','index.icon.png','licenses.html','LICENSE.txt','THIRD_PARTY_NOTICES.txt','DEPENDENCY_LICENSES.txt','DejaVuSans-LICENSE.txt','SOURCE_NOTICE.txt']:
             (assets/name).write_text('fixture')
         output = prepare(site, self.root/'pages', 'https://games.example.invalid/80_arcade_games/qbert/')
         self.assertIn('https://games.example.invalid/80_arcade_games/qbert/',(output/'index.html').read_text())
@@ -75,7 +75,7 @@ class HostedDistributionTests(unittest.TestCase):
         self.site = self.root/'site'
         self.game = self.site/'80_arcade_games/qbert'
         self.game.mkdir(parents=True)
-        for name in ['index.html','index.wasm','index.pck','index.audio.worklet.js']:
+        for name in ['index.html','index.wasm','index.pck','index.audio.worklet.js','licenses.html','LICENSE.txt','THIRD_PARTY_NOTICES.txt']:
             (self.game/name).write_bytes(b'game fixture')
         self.database = self.root/'private/scores.sqlite3'
         self.app = create_hosted(self.site, self.database, 'https://host.pythonanywhere.com')
@@ -101,6 +101,8 @@ class HostedDistributionTests(unittest.TestCase):
             self.assertEqual((status,headers['Content-Type'],body),(200,mime,b'game fixture'))
         status,headers,body=self.request('/80_arcade_games/qbert/','HEAD')
         self.assertEqual((status,int(headers['Content-Length']),body),(200,12,b''))
+        for name in ['licenses.html','LICENSE.txt','THIRD_PARTY_NOTICES.txt']:
+            self.assertEqual(self.request('/80_arcade_games/qbert/'+name)[0], 200)
 
     def test_private_files_traversal_and_symlink_are_never_public(self):
         (self.game/'scores.sqlite3').write_bytes(b'private')

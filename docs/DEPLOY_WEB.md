@@ -1,20 +1,20 @@
-# Download e deployment del gioco Web 1.2.0
+# Download e deployment del gioco Web 1.2.1
 
-Documentazione congelata: 16 novembre 2026. Software e pubblicazione approvati
+Documentazione congelata: 17 novembre 2026. Software e pubblicazione approvati
 dall’utente; la verifica di un host pubblico è separata dal collaudo del runtime.
 
 ## 1. Download da GitHub
 
 Aprire il repository ufficiale `https://github.com/eruggie/qbert-pyramid`,
-sezione Releases, scegliere **Q*Bert Pyramid WEB 1.2.0**, poi Assets.
-Release e tag stabili: `v1.2.0`. Asset:
+sezione Releases, scegliere **Q*Bert Pyramid WEB 1.2.1**, poi Assets.
+Release e tag stabili: `v1.2.1`. Asset:
 
 | Asset | Uso |
 |---|---|
-| `QBertPyramid-1.2.0-Runtime.zip` | Gioco pronto con backend e istruzioni, senza progetto Godot |
-| `QBertPyramid-1.2.0-Complete.zip` | Gioco pronto più intero progetto modificabile, test e strumenti |
-| `QBertPyramid-1.2.0-Source.zip` | Solo sorgenti corrispondenti |
-| `QBertPyramid-1.2.0-WebStatic.zip` | Frontend statico per integrazione; richiede API separata |
+| `QBertPyramid-1.2.1-Runtime.zip` | Gioco pronto con backend e istruzioni, senza progetto Godot |
+| `QBertPyramid-1.2.1-Complete.zip` | Gioco pronto più intero progetto modificabile, test e strumenti |
+| `QBertPyramid-1.2.1-Source.zip` | Solo sorgenti corrispondenti |
+| `QBertPyramid-1.2.1-WebStatic.zip` | Frontend statico per integrazione; richiede API separata |
 | `SHA256SUMS.txt` | Hash SHA-256 dei download |
 
 Gli ZIP automatici “Source code” di GitHub non sono
@@ -23,7 +23,7 @@ il gioco già esportato. Non servono i pacchetti Windows 1.1.0 per giocare Web.
 Per verificare un archivio scaricato:
 
 ```powershell
-Get-FileHash .\QBertPyramid-1.2.0-Runtime.zip -Algorithm SHA256
+Get-FileHash .\QBertPyramid-1.2.1-Runtime.zip -Algorithm SHA256
 ```
 
 Confrontare con la riga corrispondente in SHA256SUMS.txt. Su Linux usare

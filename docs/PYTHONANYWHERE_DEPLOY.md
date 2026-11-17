@@ -1,8 +1,15 @@
-# Backend gratuito PythonAnywhere — Web 1.2.0
+# Backend gratuito PythonAnywhere — Web 1.2.1
 
-Documentazione congelata: **16 novembre 2026**. Destinazione predisposta,
-attivabile dopo la creazione/accesso all'account personale dell'utente.
-Non è un'affermazione di avvenuto deployment o collaudo di un dominio online.
+Documentazione della release 1.2.1, **17 novembre 2026**. Il servizio esistente
+è https://ruge.eu.pythonanywhere.com/80_arcade_games/qbert/ ; account EU `ruge`.
+Gli esempi sotto permettono anche una nuova installazione. Per aggiornare
+mantenere `/home/ruge/qbert-data/leaderboard.sqlite3`, fuori dai file pubblici.
+Caricare i nuovi file in una directory distinta (es. `~/qbert-web-1.2.1`),
+verificarli, aggiornare il percorso WSGI e ricaricare l'app. Conservare la
+configurazione e la directory precedenti per il rollback. Un backup deve essere
+eseguito con l'API SQLite o a servizio fermo, mai copiando un DB in scrittura.
+Il reload può interrompere richieste in coda; riprovare un invio non confermato
+senza ricaricare la pagina per conservare il suo identificativo.
 
 ## Perché questa scelta
 
@@ -33,12 +40,12 @@ Creare il piano Beginner: https://www.pythonanywhere.com/registration/register/b
 Usare il proprio indirizzo email e verificare l'account. Non inviare password
 né token nella chat o nel repository. Comunicare solo username e dominio scelti.
 
-Dalla scheda Files caricare `QBertPyramid-1.2.0-Runtime.zip` nella propria home.
+Dalla scheda Files caricare `QBertPyramid-1.2.1-Runtime.zip` nella propria home.
 Nella console Bash del servizio:
 
 ```bash
 mkdir -p ~/qbert-web ~/qbert-data
-python3 -m zipfile -e ~/QBertPyramid-1.2.0-Runtime.zip ~/qbert-web
+python3 -m zipfile -e ~/QBertPyramid-1.2.1-Runtime.zip ~/qbert-web
 ```
 
 Il database verrà creato in `~/qbert-data/leaderboard.sqlite3`, fuori dal sito.

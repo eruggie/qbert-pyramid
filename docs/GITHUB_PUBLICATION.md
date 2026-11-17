@@ -1,6 +1,6 @@
-# GitHub Release e GitHub Pages — Web 1.2.0
+# GitHub Release e GitHub Pages — Web 1.2.1
 
-Documentazione congelata il **16 novembre 2026**. L'utente ha approvato
+Documentazione congelata il **17 novembre 2026**. L'utente ha approvato
 l'ultima candidata, la home personale “ruge.”, i pacchetti e la pubblicazione.
 Non serve ripetere tale approvazione per i passaggi qui descritti.
 Stato operativo e URL effettivamente verificati sono registrati separatamente
@@ -8,9 +8,9 @@ nel repository del sito e nel rapporto di pubblicazione, senza cambiare il tag.
 
 ## Release ufficiale
 
-Repository: `eruggie/qbert-pyramid`; tag stabile **v1.2.0** sul commit definitivo.
-Windows v1.1.0 mantiene tag e asset originali. La versione 1.2.0 è ricostruita
-con Godot e template 4.7.2: non si rinominano gli ZIP delle candidate.
+Repository: `eruggie/qbert-pyramid`; tag stabile **v1.2.1** sul commit definitivo.
+Windows v1.1.0 e Web v1.2.0 mantengono tag e asset originali. La versione 1.2.1 è ricostruita
+con Godot e template 4.7.2: non si rinominano gli ZIP delle versioni precedenti.
 Le release GitHub identificano un tag e possono allegare binari e note:
 [documentazione ufficiale](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases).
 
@@ -72,7 +72,7 @@ conserva il link EMCRAG; non pubblica un gioco privo di API su Pages.
 6. Verificare gioco/API HTTPS, MIME WASM/PCK, audio, focus, classifica condivisa,
    salvataggio e lettura da un altro profilo, quindi persistenza al riavvio.
 
-Fonti ufficiali verificate il 16 novembre 2026:
+Fonti ufficiali verificate il 17 novembre 2026:
 [sorgente Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site),
 [API Pages](https://docs.github.com/en/rest/pages/pages),
 [limiti Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).

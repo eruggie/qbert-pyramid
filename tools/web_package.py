@@ -45,17 +45,17 @@ def main():
     shutil.copyfile(ROOT / 'web/site-index.html', site / 'index.html')
     shutil.copyfile(ROOT / 'web/personal.css', site / 'personal.css')
     (site / '.nojekyll').touch()
-    for name in ['arcade.css', 'game-screen.png']:
+    for name in ['arcade.css', 'game-screen.png', 'licenses.html']:
         shutil.copyfile(ROOT / 'web' / name, game / name)
     release_sources.create(ROOT, game)
     (game / 'SOURCE_NOTICE.txt').write_text(
-        'Q*Bert Pyramid Web 1.2.0; classic baseline Windows 1.1.0.\n'
+        'Q*Bert Pyramid Web 1.2.1; classic baseline Windows 1.1.0.\n'
         'Copyright (c) Eugenio Ruggieri 2026. Original code/assets: GPL-3.0-only.\n'
-        'Exact corresponding sources: QBertPyramid-1.2.0-Source.zip supplied beside the runtime, or source/ in Complete.zip.\n'
+        'Exact corresponding sources: QBertPyramid-1.2.1-Source.zip supplied beside the runtime, or source/ in Complete.zip.\n'
         'Verify SOURCE_FILES.sha256 and PROVENANCE.json in that archive.\n'
         'Source repository: https://github.com/eruggie/qbert-pyramid\n'
         'Complete dependency licenses: DEPENDENCY_LICENSES.txt\n')
-    info = {'candidate': '1.2.0', 'release_status': 'Stable Web 1.2.0; functional tests, home, packages and publication accepted by owner on 2026-11-16',
+    info = {'candidate': '1.2.1', 'release_status': 'Stable Web 1.2.1; gzip and concurrency corrections, page changes and publication approved by owner on 2026-11-17',
             'classic_tag': 'v1.1.0', 'classic_commit': 'e833fd622596c109997a817afa73c9ea80644622',
             'commit': subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
             'dirty': bool(subprocess.check_output(['git','-C',str(ROOT),'status','--porcelain'])),
@@ -66,12 +66,12 @@ def main():
             'web_audio_playback': 'Stream',
             'files': {p.name: p.stat().st_size for p in game.iterdir() if p.is_file()}}
     (game / 'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n')
-    destination = ROOT / 'builds' / ('web-1.2.0-' + identity[:12])
+    destination = ROOT / 'builds' / ('web-1.2.1-' + identity[:12])
     if destination.exists():
         raise SystemExit('Build già esistente: '+str(destination))
     destination.mkdir(parents=True)
     shutil.move(str(site), destination / 'site')
-    source_archive = destination / 'QBertPyramid-1.2.0-Source.zip'
+    source_archive = destination / 'QBertPyramid-1.2.1-Source.zip'
     shutil.move(str(destination / 'site/80_arcade_games/qbert/QBertPyramid-source.zip'), source_archive)
     server = destination / 'server'
     server.mkdir()
@@ -86,16 +86,21 @@ def main():
     for name in ['RELEASE.md', 'TEST.md']:
         document = destination / name
         document.write_text(document.read_text().replace('(docs/DEPLOY_WEB.md)', '(DEPLOY_WEB.md)').replace('(docs/GITHUB_PUBLICATION.md)', '(GITHUB_PUBLICATION.md)').replace('(docs/PYTHONANYWHERE_DEPLOY.md)', '(PYTHONANYWHERE_DEPLOY.md)'))
+    incident_docs = destination / 'docs/incidents'
+    incident_docs.mkdir(parents=True)
+    for name in ['2026-11-17-web-leaderboard-gzip.md', '2026-11-17-web-multiuser.md']:
+        shutil.copyfile(ROOT / 'docs/incidents' / name, incident_docs / name)
     runtime_files = [p for folder in ['site', 'server'] for p in sorted((destination / folder).rglob('*')) if p.is_file()]
     runtime_files += [destination / name for name in ['README.md', 'DEPLOY_WEB.md', 'GITHUB_PUBLICATION.md', 'PYTHONANYWHERE_DEPLOY.md', 'RELEASE.md', 'TEST.md', 'LICENSE.txt', 'THIRD_PARTY_NOTICES.txt']]
-    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-Runtime.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+    runtime_files += sorted(incident_docs.glob('*.md'))
+    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.1-Runtime.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in runtime_files:
             archive.write(path, path.relative_to(destination))
-    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-WebStatic.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.1-WebStatic.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in sorted((destination / 'site').rglob('*')):
             if path.is_file():
                 archive.write(path, path.relative_to(destination / 'site'))
-    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.0-Complete.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(destination / 'QBertPyramid-1.2.1-Complete.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in runtime_files:
             archive.write(path, path.relative_to(destination))
         with zipfile.ZipFile(source_archive) as sources:

@@ -1,5 +1,9 @@
 # Multiutenza e classifica condivisa — verifica del 17 novembre 2026
 
+> Aggiornamento: entrambe le correzioni approvate dall’utente il 17 novembre
+> 2026 per la release 1.2.1. Segue il rapporto della fase di proposta;
+> stato corrente e autorizzazione in [RELEASE.md](../../RELEASE.md).
+
 **Stato: proposta locale in attesa di approvazione.** Nessun push, tag,
 pacchetto di release o deployment. Il database pubblico non è stato modificato.
 Questa verifica integra la [correzione gzip proposta](2026-11-17-web-leaderboard-gzip.md)
